@@ -18,7 +18,7 @@ export function login_Fail(user) {
 
 export function createUser(formData) {
   return function (dispatch) {
-    alert(JSON.stringify(formData));
+    dispatch({ type: "LOGIN_POST_LOADING", payload: true });
     axios({
       method: "post",
       url: `${API_URL}/myapi/clients/signup`,
@@ -30,7 +30,10 @@ export function createUser(formData) {
       },
     })
       .then(function (response) {
-        if (response) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: "helloworld" });
+
+        if (response.status === 200) {
+          alert(JSON.stringify(response.data));
           // dispatch({ type: "POST_REQUEST_SUCCESS" })
           // dispatch({
           //   type: "CREATE_CLIENT_SUCCESS",
@@ -47,10 +50,13 @@ export function createUser(formData) {
       })
       .catch(function (error) {
         // dispatch({ type: "CATCH_ERROR", payload: error.message });
-        // // console.log(error);
+        // console.log(error);
+        // alert(`${API_URL}/myapi/clients/signup`);
+        // alert(JSON.stringify(error.message));
       })
       .finally(() => {
-        dispatch({ type: "LOGIN_SUCCESS", payload: "helloworld" });
+        dispatch({ type: "LOGIN_POST_LOADING", payload: false });
+        // dispatch({ type: "LOGIN_SUCCESS", payload: "helloworld" });
         // alert("rffff");
       });
   };

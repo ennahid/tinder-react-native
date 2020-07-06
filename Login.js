@@ -14,8 +14,8 @@ import { connect } from "react-redux";
 import { createUser } from "./redux/actions/login";
 
 const Login = (props) => {
-  const [value, setValue] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [signup, setSignupValues] = useState("");
+  const [login, setLoginValues] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // useEffect(() => {
@@ -23,11 +23,20 @@ const Login = (props) => {
   // }, []);
 
   const onSignUp = () => {
-    props.dispatch(createUser(value));
+    props.dispatch(createUser(signup));
+    // alert(JSON.stringify(signup));
+  };
+  const onLogin = () => {
+    props.dispatch(loginUser(login));
+    // alert(JSON.stringify(login));
   };
 
-  const SetFormValue = (name, value) => {
-    setValue((values) => ({ ...values, [name]: value }));
+  const SignupSetFormValue = (name, value) => {
+    setSignupValues((values) => ({ ...values, [name]: value }));
+  };
+
+  const LoginSetFormValue = (name, value) => {
+    setLoginValues((values) => ({ ...values, [name]: value }));
   };
   return (
     <View style={Lstyles.loginPage}>
@@ -53,42 +62,45 @@ const Login = (props) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Email"
-                    value={value["email"]}
+                    value={signup["email"]}
                     size={"large"}
                     onChangeText={(nextValue) =>
-                      SetFormValue("email", nextValue)
+                      SignupSetFormValue("email", nextValue)
                     }
                   />
                 </View>
                 <View style={styles.inputContainer}>
                   <Input
+                    secureTextEntry={true}
                     placeholder="Password"
-                    value={value["password"]}
+                    value={signup["password"]}
                     size={"large"}
                     onChangeText={(nextValue) =>
-                      SetFormValue("password", nextValue)
+                      SignupSetFormValue("password", nextValue)
                     }
                   />
                 </View>
                 <View style={styles.inputContainer}>
                   <Input
+                    secureTextEntry={true}
                     placeholder="Confirm Password"
-                    value={value["confirmPassword"]}
+                    value={signup["confirmPassword"]}
                     size={"large"}
                     onChangeText={(nextValue) =>
-                      SetFormValue("confirmPassword", nextValue)
+                      SignupSetFormValue("confirmPassword", nextValue)
                     }
                   />
                 </View>
-                <View style={styles.checkboxContainer}>
+                {/* <View style={styles.checkboxContainer}>
                   <CheckBox
-                    checked={checked}
-                    onChange={(nextChecked) => setChecked(nextChecked)}
+                    checked={signup["checked"]}
+                    onChange={(nextChecked) =>
+                      SignupSetFormValue("checked", nextChecked)
+                    }
                   >
-                    {/* Keep me logged in */}
-                    {props.state.loginReducer.email}
+                  
                   </CheckBox>
-                </View>
+                </View> */}
                 <View style={{ marginTop: 25, width: "100%" }}>
                   <View style={styles.inputContainer}>
                     <Button
@@ -107,31 +119,41 @@ const Login = (props) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Email"
-                    value={value}
+                    value={login["email"]}
                     size={"large"}
-                    onChangeText={(nextValue) => setValue(nextValue)}
+                    onChangeText={(nextValue) =>
+                      LoginSetFormValue("email", nextValue)
+                    }
                   />
                 </View>
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Password"
-                    value={value}
+                    value={login["password"]}
                     size={"large"}
-                    onChangeText={(nextValue) => setValue(nextValue)}
+                    onChangeText={(nextValue) =>
+                      LoginSetFormValue("password", nextValue)
+                    }
                   />
                 </View>
 
                 <View style={styles.checkboxContainer}>
                   <CheckBox
-                    checked={checked}
-                    onChange={(nextChecked) => setChecked(nextChecked)}
+                    checked={login["checked"]}
+                    onChange={(nextChecked) =>
+                      LoginSetFormValue("checked", nextChecked)
+                    }
                   >
                     Keep me logged in
                   </CheckBox>
                 </View>
                 <View style={{ marginTop: 25, width: "100%" }}>
                   <View style={styles.inputContainer}>
-                    <Button style={Lstyles.button} appearance="filled">
+                    <Button
+                      style={Lstyles.button}
+                      appearance="filled"
+                      onPress={() => onLogin()}
+                    >
                       Login
                     </Button>
                   </View>

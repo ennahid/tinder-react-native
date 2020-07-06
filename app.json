@@ -1,5 +1,5 @@
 {
   "name": "tinderReact",
   "displayName": "tinderReact",
-  "API_URL": "http://localhost:3000/"
+  "API_URL": "http://b5abb607ee7f.ngrok.io"
 }
