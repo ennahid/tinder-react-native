@@ -1,19 +1,33 @@
 import * as types from "../actions/actionTypes";
 
 const initialState = {
-  logged: false,
+  loggedIn: false,
+  email: "",
+  step: 0,
+  token: "",
   loading: false,
-  email: "hello world this is my life",
+  loginError: "",
 };
 
 export default function loginReducer(state = initialState, action) {
   switch (action.type) {
+    case types.LOGIN_INIT:
+      return { ...state, loading: false, loginError: "" };
     case types.LOGIN_POST_LOADING:
-      return Object.assign({}, state, { loading: action.payload });
+      return {
+        ...state,
+        loading: action.payload,
+        // loginError: action.payload && "",
+      };
     case types.LOGIN_ERROR:
-      return Object.assign({}, state, { email: "cvd" });
+      return { ...state, loggedIn: false, loginError: action.payload };
     case types.LOGIN_SUCCESS:
-      return { ...state, email: action.payload };
+      return {
+        ...state,
+        step: action.step,
+        token: action.token,
+        loggedIn: true,
+      };
     default:
       return state;
   }

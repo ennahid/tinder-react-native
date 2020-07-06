@@ -5,13 +5,12 @@ import {
   Button,
   CheckBox,
   Tab,
-  TabBar,
   TabView,
   Layout,
 } from "@ui-kitten/components";
 import styles from "./assets/styles";
 import { connect } from "react-redux";
-import { createUser } from "./redux/actions/login";
+import { createUser, loginUser } from "./redux/actions/login";
 
 const Login = (props) => {
   const [signup, setSignupValues] = useState("");
@@ -107,9 +106,11 @@ const Login = (props) => {
                       style={Lstyles.button}
                       appearance="filled"
                       onPress={() => onSignUp()}
+                      disabled={props.state.loginReducer.loading}
                     >
-                      Sign Up
+                      {props.state.loginReducer.loading ? "Loading" : "Sign Up"}
                     </Button>
+                    <Text></Text>
                   </View>
                 </View>
               </Layout>
@@ -153,8 +154,9 @@ const Login = (props) => {
                       style={Lstyles.button}
                       appearance="filled"
                       onPress={() => onLogin()}
+                      disabled={props.state.loginReducer.loading}
                     >
-                      Login
+                      {props.state.loginReducer.loading ? "Loading" : "Login"}
                     </Button>
                   </View>
                   <View style={styles.inputContainer}>

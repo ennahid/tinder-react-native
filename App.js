@@ -11,17 +11,32 @@ import * as eva from "@eva-design/eva";
 import { ApplicationProvider, Layout } from "@ui-kitten/components";
 // import Icon from "./components/Icon";
 import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
 import { createStore, applyMiddleware } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 import thunkMiddleware from "redux-thunk";
 import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers";
 import Login from "./Login";
+import SetupContainer from "./SetupContainer";
+
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage,
+  whiteList: ["loginReducer"],
+};
 
 const client = axios.create({
   baseURL: "https://api.github.com",
   responseType: "json",
 });
-const Mstore = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const Mstore = createStore(persistedReducer, applyMiddleware(thunkMiddleware));
+
+const persistor = persistStore(Mstore);
 
 const AppNavigation = createBottomTabNavigator(
   {
@@ -118,39 +133,24 @@ const AppNavigation = createBottomTabNavigator(
   }
 );
 
-const AppContainer = createAppContainer(AppNavigation);
-
-// const App = () => {
-//   return (
-//     <Provider store={store}>
-//       <AppContainer />
-//     </Provider>
-//   );
-// };
-// export default App;
-
-// const store = configureStore({});
-const store = createStore(
-  rootReducer
-  // applyMiddleware(axiosMiddleware(client))
-);
+export const AppContainer = createAppContainer(AppNavigation);
 
 const app = () => <AppContainer />;
 
-// export default app;
-
+import { purgeStoredState } from "redux-persist";
 export default class App extends Component {
   render() {
     return (
-      // <AppContainer />
-      // <View>
-      // </View>
       <Provider store={Mstore}>
-        {/* <Text>{JSON.stringify(Mstore)}</Text> */}
-        <ApplicationProvider {...eva} theme={eva.light}>
-          <Login />
-        </ApplicationProvider>
-        {/* <AppContainer /> */}
+        <PersistGate loading={null} persistor={persistor}>
+          <ApplicationProvider {...eva} theme={eva.light}>
+            <Text onPress={() => purgeStoredState(persistConfig)}>
+              heelllooo cleaarr
+            </Text>
+
+            <SetupContainer />
+          </ApplicationProvider>
+        </PersistGate>
       </Provider>
     );
   }

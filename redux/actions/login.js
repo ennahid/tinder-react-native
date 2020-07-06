@@ -1,20 +1,7 @@
 import * as types from "./actionTypes";
 import { API_URL } from "../../app.json";
 import axios from "axios";
-
-export function login_Success(user) {
-  return {
-    type: types.LOGIN_SUCCESS,
-    value: "ddddd",
-  };
-}
-
-export function login_Fail(user) {
-  return {
-    type: types.LOGIN_FAIL,
-    value: "ddddd",
-  };
-}
+import { setToken } from "../../token.helper";
 
 export function createUser(formData) {
   return function (dispatch) {
@@ -30,34 +17,72 @@ export function createUser(formData) {
       },
     })
       .then(function (response) {
-        dispatch({ type: "LOGIN_SUCCESS", payload: "helloworld" });
-
-        if (response.status === 200) {
-          alert(JSON.stringify(response.data));
-          // dispatch({ type: "POST_REQUEST_SUCCESS" })
-          // dispatch({
-          //   type: "CREATE_CLIENT_SUCCESS",
-          //   payload: response.data.data,
-          // });
-          // history.push("/clients");
+        dispatch({ type: "LOGIN_POST_LOADING", payload: false });
+        if (response?.status === 200 && response.data?.success) {
+          dispatch({
+            type: "LOGIN_SUCCESS",
+            step: response?.data?.step,
+            token: response?.token,
+          });
         } else {
-          // dispatch({
-          //   type: "CATCH_ERROR",
-          //   payload: response.data.data.message,
-          // });
+          alert(JSON.stringify(response));
+          dispatch({
+            type: "LOGIN_ERROR",
+            payload: response.data?.message,
+          });
         }
         // // console.log(response)
       })
       .catch(function (error) {
-        // dispatch({ type: "CATCH_ERROR", payload: error.message });
-        // console.log(error);
-        // alert(`${API_URL}/myapi/clients/signup`);
-        // alert(JSON.stringify(error.message));
+        dispatch({
+          type: "LOGIN_ERROR",
+          payload: error,
+        });
       })
       .finally(() => {
         dispatch({ type: "LOGIN_POST_LOADING", payload: false });
-        // dispatch({ type: "LOGIN_SUCCESS", payload: "helloworld" });
         // alert("rffff");
+      });
+  };
+}
+
+export function loginUser(formData) {
+  return function (dispatch) {
+    dispatch({ type: "LOGIN_POST_LOADING", payload: true });
+    axios({
+      method: "post",
+      url: `${API_URL}/myapi/clients/login`,
+      data: formData,
+      config: {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    })
+      .then(function (response) {
+        dispatch({ type: "LOGIN_POST_LOADING", payload: false });
+        if (response?.status === 200 && response.data?.success) {
+          dispatch({
+            type: "LOGIN_SUCCESS",
+            step: response?.data?.step,
+            token: response?.token,
+          });
+        } else {
+          alert(JSON.stringify(response));
+          dispatch({
+            type: "LOGIN_ERROR",
+            payload: response.data?.message,
+          });
+        }
+      })
+      .catch(function (error) {
+        dispatch({
+          type: "LOGIN_ERROR",
+          payload: error,
+        });
+      })
+      .finally(() => {
+        dispatch({ type: "LOGIN_POST_LOADING", payload: false });
       });
   };
 }
