@@ -1,40 +1,54 @@
-import React from 'react';
-import { View, ImageBackground } from 'react-native';
-import CardStack, { Card } from 'react-native-card-stack-swiper';
-import City from '../components/City';
-import Filters from '../components/Filters';
-import CardItem from '../components/CardItem';
-import styles from '../assets/styles';
-import Demo from '../assets/data/demo.js';
+import React from "react";
+import { View, ImageBackground, Image } from "react-native";
+import CardStack, { Card } from "react-native-card-stack-swiper";
+import City from "../components/City";
+import Filters from "../components/Filters";
+import CardItem from "../components/CardItem";
+import { connect } from "react-redux";
+import styles from "../assets/styles";
+import Demo from "../assets/data/demo.js";
 
-const Home = () => {
+const Home = (props) => {
   return (
     <ImageBackground
-      source={require('../assets/images/bg.png')}
+      source={require("../assets/images/bg.png")}
       style={styles.bg}
     >
       <View style={styles.containerHome}>
         <View style={styles.top}>
-          <City />
-          <Filters />
+          <Image
+            style={{
+              width: 150,
+              height: 60,
+              resizeMode: "contain",
+              // backgroundColor: "#cecece",
+            }}
+            source={require("../assets/images/dk.png")}
+          />
+          {/* <City />
+          <Filters />  */}
         </View>
 
         <CardStack
           loop={true}
-          verticalSwipe={false}
+          // onSwipedAll={() => console.log("this is all")}
+          // verticalSwipe={false}
           renderNoMoreCards={() => null}
-          ref={swiper => (this.swiper = swiper)}
+          ref={(swiper) => (this.swiper = swiper)}
         >
           {Demo.map((item, index) => (
             <Card key={index}>
               <CardItem
                 image={item.image}
                 name={item.name}
-                description={item.description}
+                // description={item.description}
+                description={props?.state?.loginReducer?.email}
                 matches={item.match}
                 actions
                 onPressLeft={() => this.swiper.swipeLeft()}
                 onPressRight={() => this.swiper.swipeRight()}
+                onSuperLike={() => this.swiper.swipeTop()}
+                onPressStar={() => this.swiper.swipeBottom()}
               />
             </Card>
           ))}
@@ -43,5 +57,11 @@ const Home = () => {
     </ImageBackground>
   );
 };
-
-export default Home;
+const mapStateToProps = (state) => {
+  // Redux Store --> Component
+  return {
+    state: state,
+  };
+};
+// export default Home;
+export default connect(mapStateToProps)(Home);

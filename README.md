@@ -18,6 +18,24 @@
 	<img src="https://github.com/stevenpersia/tinder-react-native/blob/master/preview/tinderclone-preview.gif" width="300">
 </p>
 
+## FIX THIS BEFORE YOU START
+
+I just got a similar error for the first time today. It appears in \node_modules\metro-config\src\defaults\blacklist.js, there is an invalid regular expression that needed changed. I changed the first expression under sharedBlacklist from:
+
+var sharedBlacklist = [
+/node*modules[/\\]react[/\\]dist[/\\].*/,
+/website\/node*modules\/.*/,
+/heapCapture\/bundle\.js/,
+/._\/**tests**\/._/
+];
+
+to:
+
+`var sharedBlacklist = [`
+`/node_modules[\/\\]react[\/\\]dist[\/\\].*/,`
+`/website\/node_modules\/.*/,`
+`/heapCapture\/bundle\.js/,`
+`/.*\/__tests__\/.*/ ];`
 
 ## Overview
 
@@ -26,7 +44,6 @@
 More features will be added to the project in the future.
 
 This project was inspired by this [amazing Kishore's work on Dribbble](https://dribbble.com/shots/5631075-Dating-App-Sketch-Freebie-Day-334-365-Project365). Feel free to follow this guy because he does great stuff.
-
 
 ## Screenshots
 
@@ -47,13 +64,11 @@ This project was inspired by this [amazing Kishore's work on Dribbble](https://d
 		alt="Capture 4"
 		src="https://github.com/stevenpersia/tinder-react-native/blob/master/preview/capture-4.png">
 
-
 ## Installation and usage
 
 Be sure, you have installed all dependencies and applications to run React Native project on your computer : [Getting Started with React Native](https://facebook.github.io/react-native/docs/getting-started).
 
 This project works fine for iOS but in Android version there are serious UI problems because I've only worked on iOS.
-
 
 ### Running the project
 
@@ -77,7 +92,6 @@ react-native run-ios
 # or
 react-native run-android
 ```
-
 
 ## Props
 
@@ -103,7 +117,6 @@ react-native run-android
 | `name`        | string | Yes      | Name of member.         | `name="John Doe"`                                                                            |
 | `lastMessage` | string | Yes      | Last message of member. | `lastMessage="You want order in Gotham. Batman must take off his mask and turn himself in."` |
 
-
 ### ProfileItem
 
 | Name       | Type   | Required | Description                 | Example                                    |
@@ -116,7 +129,6 @@ react-native run-android
 | `info2`    | string | No       | More information of member. | `info2="Tea Totaller & Loves Photography"` |
 | `info3`    | string | No       | More information of member. | `info3="Beaches, Mountain & Coffee"`       |
 | `info4`    | string | No       | More information of member. | `info4="Last seen: 23h ago"`               |
-
 
 ## Star, Fork, Clone & Contribute
 
