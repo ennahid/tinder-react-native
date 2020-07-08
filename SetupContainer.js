@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Login from "./Login";
 import { AppContainer } from "./App";
 import { Text } from "react-native";
+import ProfileMaker from "./ProfileMaker";
 
 const SetupContainer = (props) => {
   useEffect(() => {
@@ -12,14 +13,14 @@ const SetupContainer = (props) => {
   }, []);
   return (
     <>
-      {/* {props?.state?.loginReducer?.step == "1" ? <Login /> : <AppContainer />} */}
-
+      <ProfileMaker />
+      {/* {props?.state?.loginReducer?.step == "1" ? <Login /> : <AppContainer />}
       {!props?.state?.loginReducer?.loggedIn ||
       props?.state?.loginReducer?.step === 0 ? (
         <Login />
-      ) : (
-        <Text>bb : {JSON.stringify(props.state.loginReducer)}</Text>
-      )}
+        ) : (
+        // <Text>bb : {JSON.stringify(props.state.loginReducer)}</Text>
+      )} */}
     </>
   );
 };
