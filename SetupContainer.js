@@ -4,20 +4,21 @@ import Login from "./Login";
 import { AppContainer } from "./App";
 import { Text } from "react-native";
 import ProfileMaker from "./ProfileMaker";
+import { getUserIdFromUserData, getToken } from "./token.helper";
+import ProfilePreferences from "./ProfilePreferences";
 
 const SetupContainer = (props) => {
   useEffect(() => {
-    props.dispatch({
-      type: "LOGIN_INIT",
-    });
+    props.dispatch({ type: "LOGIN_INIT" });
+    props.dispatch({ type: "CLIENT_INIT" });
   }, []);
 
   function switchedComponent(step) {
     switch (step) {
-      case 1:
-        return <ProfileMaker />;
       case 2:
-        return <Login />;
+        return <ProfileMaker />;
+      case 1:
+        return <ProfilePreferences />;
       case 0:
         return <AppContainer />;
       default:
@@ -26,7 +27,10 @@ const SetupContainer = (props) => {
   }
   return (
     <>
-      <Text>{JSON.stringify(props.state.loginReducer)}</Text>
+      {/* <Text>userId : {getUserIdFromUserData()}</Text>
+      <Text>token : {getToken()}</Text>
+      <Text>-------------</Text>*/}
+      <Text>{JSON.stringify(props.state.clientsReducer)}</Text>
       {props?.state?.loginReducer?.loggedIn ? (
         switchedComponent(props?.state?.loginReducer?.step)
       ) : (

@@ -19,12 +19,12 @@ export function createUser(formData) {
       .then(function (response) {
         dispatch({ type: "LOGIN_POST_LOADING", payload: false });
         if (response?.status === 200 && response.data?.success) {
-          setToken("gggggggggg");
+          setToken(response?.data?.token);
           setUserData(response?.data?.data);
           dispatch({
             type: "LOGIN_SUCCESS",
             step: response?.data?.data?.step,
-            token: response?.token,
+            token: response?.data?.token,
             userData: response?.data?.data,
           });
         } else {
@@ -65,13 +65,13 @@ export function loginUser(formData) {
       .then(function (response) {
         dispatch({ type: "LOGIN_POST_LOADING", payload: false });
         if (response?.status === 200 && response.data?.success) {
-          alert(JSON.stringify(response?.data?.data));
-          setToken(response?.token);
+          // alert(JSON.stringify(response?.data?.data));
+          setToken(response?.data?.token);
           setUserData(response?.data?.data);
           dispatch({
             type: "LOGIN_SUCCESS",
             step: response?.data?.data?.step,
-            token: response?.token,
+            token: response?.data?.token,
             userData: response?.data?.data,
           });
         } else {

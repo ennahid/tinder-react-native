@@ -6,16 +6,17 @@ import { getToken, getUserIdFromUserData } from "../../token.helper";
 export function addUserData(userData, formData) {
   return function (dispatch) {
     dispatch({ type: "CLIENT_POST_LOADING", payload: true });
-    alert(JSON.stringify(getToken()));
+    // alert(getUserIdFromUserData());
+    // alert(JSON.stringify(formData));
+    // return;
     axios({
       method: "post",
       url: `${API_URL}/myapi/clients/${getUserIdFromUserData()}`,
-      headers: { Authorization: "Bearer " + getToken() },
       data: formData,
-      config: {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      headers: {
+        Accept: "multipart/form-data",
+        "Content-Type": "multipart/form-data",
+        Authorization: "Bearer " + getToken(),
       },
     })
       .then(function (response) {
@@ -28,7 +29,7 @@ export function addUserData(userData, formData) {
             userData: response?.data,
           });
         } else {
-          alert(JSON.stringify(response));
+          //   alert(JSON.stringify(response));
           dispatch({
             type: "CLIENT_DATA_ERROR",
             payload: response.data?.message,

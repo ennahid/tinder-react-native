@@ -101,19 +101,19 @@ const ProfileMaker = (props) => {
     setUserData((values) => ({ ...values, [name]: value }));
   };
   const onSubmitUserData = () => {
-    // alert(JSON.stringify(imagesData));
     let formdata = new FormData();
     for (const key in userData) {
       formdata.append(key, userData[key]);
     }
     for (const key in images) {
-      formdata.append(`image[${key}]`, images[key]);
+      if (images[key] !== "") {
+        formdata.append(`productImage${key}`, {
+          uri: imagesData[key].uri,
+          name: imagesData[key].fileName,
+          type: imagesData[key].type,
+        });
+      }
     }
-    // formdata.append("product[images_attributes[0][file]]", {
-    //   uri: photo.uri,
-    //   name: "image.jpg",
-    //   type: "image/jpeg",
-    // });
     props.dispatch(addUserData(props.state.loginReducer.userId, formdata));
   };
   return (
@@ -261,12 +261,12 @@ const ProfileMaker = (props) => {
               <Text style={styles.TextBlockTitle}>Your Age</Text>
               <DatePicker
                 style={{ borderWidth: 0 }}
-                // date={this.state.date}
+                date={userData["birthday"] || null}
                 mode="date"
                 placeholder="Birthday"
-                format="YYYY-MM-DD"
-                minDate="2016-05-01"
-                maxDate="2016-06-01"
+                format="YYYY/MM/DD"
+                minDate="1940-01-01"
+                maxDate="2019-01-01"
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
                 customStyles={{
@@ -278,7 +278,6 @@ const ProfileMaker = (props) => {
                     alignItems: "flex-start",
                     justifyContent: "center",
                     paddingHorizontal: 15,
-                    // backgroundColor: "green",
                     height: 0,
                   },
                   dateTouchBody: {
@@ -287,7 +286,6 @@ const ProfileMaker = (props) => {
                     height: 70,
                     marginVertical: 5,
                     marginBottom: 10,
-                    // paddingVertical: 20,
                   },
                   placeholderText: {
                     fontSize: 16,
@@ -348,8 +346,9 @@ const ProfileMaker = (props) => {
             size={"large"}
             style={styles.NextPageButton}
             onPress={() => onSubmitUserData()}
+            disabled={props.state.clientsReducer.loading}
           >
-            Continue
+            {props.state.clientsReducer.loading ? "Loading" : "Continue"}
           </Button>
         </ScrollView>
       </SafeAreaView>
@@ -383,7 +382,7 @@ const styles = StyleSheet.create({
   },
   ProfileMakerPage: {
     flex: 1,
-    backgroundColor: "#efefef",
+    backgroundColor: "#f5f5f5",
   },
   ImagesContainer: {
     flexDirection: "row",
@@ -409,7 +408,6 @@ const styles = StyleSheet.create({
     width: ImagePickerWidth,
     borderWidth: 1,
     borderColor: "#dfe2e7",
-    // borderStyle: "dotted",
     alignItems: "center",
     justifyContent: "center",
   },

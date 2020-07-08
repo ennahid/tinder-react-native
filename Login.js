@@ -13,7 +13,10 @@ import { connect } from "react-redux";
 import { createUser, loginUser } from "./redux/actions/login";
 
 const Login = (props) => {
-  const [signup, setSignupValues] = useState("");
+  const [signup, setSignupValues] = useState({
+    email: "abdel@gmail.com",
+    password: "ffff",
+  });
   const [login, setLoginValues] = useState({
     email: "abdel@gmail.com",
     password: "ffff",
@@ -180,7 +183,7 @@ const Login = (props) => {
 const Lstyles = StyleSheet.create({
   loginPage: {
     flex: 1,
-    // backgroundColor: "#F1F1F1",
+    backgroundColor: "#f5f5f5",
     // backgroundColor: "#f00",
     justifyContent: "center",
     alignItems: "center",

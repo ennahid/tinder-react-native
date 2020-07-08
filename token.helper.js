@@ -1,28 +1,24 @@
 var jwtDecode = require("jwt-decode");
 // import AsyncStorage from "@react-native-community/async-storage";
-import { AsyncStorage } from "react-native";
+import SyncStorage from "sync-storage";
 
-const storeData = async (name, value) => {
+SyncStorage.init();
+const storeData = (name, value) => {
   try {
-    await AsyncStorage.setItem(name, value);
+    SyncStorage.set(name, value);
   } catch (e) {
     // saving error
-    alert(e);
+    alert(e.message);
   }
 };
 
-const getData = async (name) => {
+const getData = (name) => {
   try {
-    const value = await AsyncStorage.getItem(name);
-    if (value !== null) {
-      // value previously stored
-      return value;
-    }
+    return SyncStorage.get(name);
   } catch (e) {
     // error reading value
-    alert(e);
+    alert(e.message);
   }
-  // return value;
 };
 
 export const setToken = (Token) => {
@@ -32,13 +28,13 @@ export const getToken = () => {
   return getData("SM-P-TOKEN");
 };
 export const setUserData = (userData) => {
-  storeData("SM-P-DATA", JSON.stringify(userData));
+  storeData("SM-P-DATA", userData);
 };
 export const getStepFromUserData = () => {
-  // return JSON.parse(getData("SM-P-DATA")).step;
+  return getData("SM-P-DATA")?.step;
 };
 export const getUserIdFromUserData = () => {
-  // return JSON.parse(getData("SM-P-DATA"))._id;
+  return getData("SM-P-DATA")?._id;
 };
 export const getUserNameFromUserData = () => {
   // return JSON.parse(getData("SM-P-DATA")).userName;
