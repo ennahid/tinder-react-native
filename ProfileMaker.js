@@ -12,7 +12,10 @@ import {
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+import { Button } from "@ui-kitten/components";
+import DatePicker from "react-native-datepicker";
 import ImagePicker from "react-native-image-picker";
+import { addUserData } from "./redux/actions/client";
 // var ImagePicker = require("react-native-image-picker");
 
 const options = {
@@ -36,6 +39,8 @@ const fullWidth = Dimensions.get("window").width;
 const ImagePickerWidth = fullWidth / 3;
 const ProfileMaker = (props) => {
   const [images, setImages] = useState({});
+  const [imagesData, setImagesData] = useState({});
+  const [userData, setUserData] = useState({});
   useEffect(() => {}, []);
 
   const showImagePicker = (imageNumber) => {
@@ -55,6 +60,7 @@ const ProfileMaker = (props) => {
             continue;
           } else {
             setImages((values) => ({ ...values, [imageNum]: response.uri }));
+            setImagesData((values) => ({ ...values, [imageNum]: response }));
           }
         }
       }
@@ -81,10 +87,34 @@ const ProfileMaker = (props) => {
             continue;
           } else {
             setImages((values) => ({ ...values, [imageNum]: response.uri }));
+            setImagesData((values) => ({
+              ...values,
+              [imageNum]: response,
+            }));
           }
         }
       }
     });
+  };
+
+  const onValueChange = (name, value) => {
+    setUserData((values) => ({ ...values, [name]: value }));
+  };
+  const onSubmitUserData = () => {
+    // alert(JSON.stringify(imagesData));
+    let formdata = new FormData();
+    for (const key in userData) {
+      formdata.append(key, userData[key]);
+    }
+    for (const key in images) {
+      formdata.append(`image[${key}]`, images[key]);
+    }
+    // formdata.append("product[images_attributes[0][file]]", {
+    //   uri: photo.uri,
+    //   name: "image.jpg",
+    //   type: "image/jpeg",
+    // });
+    props.dispatch(addUserData(props.state.loginReducer.userId, formdata));
   };
   return (
     <>
@@ -222,26 +252,65 @@ const ProfileMaker = (props) => {
               <TextInput
                 style={styles.TextBlockInput}
                 placeholder={"Jhon Doe"}
-                //   onChangeText={(text) => onChangeText(text)}
-                //   value={value}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("name", text)}
+                value={userData["name"]}
               />
             </View>
             <View style={styles.TextBlock}>
               <Text style={styles.TextBlockTitle}>Your Age</Text>
-              <TextInput
-                style={styles.TextBlockInput}
-                placeholder={"01/01/1999"}
-                //   onChangeText={(text) => onChangeText(text)}
-                //   value={value}
+              <DatePicker
+                style={{ borderWidth: 0 }}
+                // date={this.state.date}
+                mode="date"
+                placeholder="Birthday"
+                format="YYYY-MM-DD"
+                minDate="2016-05-01"
+                maxDate="2016-06-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    display: "none",
+                  },
+                  dateInput: {
+                    borderWidth: 0,
+                    alignItems: "flex-start",
+                    justifyContent: "center",
+                    paddingHorizontal: 15,
+                    // backgroundColor: "green",
+                    height: 0,
+                  },
+                  dateTouchBody: {
+                    width: fullWidth,
+                    backgroundColor: "#fff",
+                    height: 70,
+                    marginVertical: 5,
+                    marginBottom: 10,
+                    // paddingVertical: 20,
+                  },
+                  placeholderText: {
+                    fontSize: 16,
+                    color: "#C7C7CD",
+                  },
+                }}
+                onDateChange={(date) => {
+                  setUserData((values) => ({ ...values, birthday: date }));
+                }}
               />
             </View>
             <View style={styles.TextBlock}>
               <Text style={styles.TextBlockTitle}>About You</Text>
               <TextInput
                 style={styles.TextBlockInput}
-                placeholder={"Jhon Doe"}
-                //   onChangeText={(text) => onChangeText(text)}
-                //   value={value}
+                multiline={true}
+                // numberOfLines={10}
+                blurOnSubmit={false}
+                editable={true}
+                placeholder={"Your bio"}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("bio", text)}
+                value={userData["bio"]}
               />
             </View>
             <View style={styles.TextBlock}>
@@ -249,8 +318,9 @@ const ProfileMaker = (props) => {
               <TextInput
                 style={styles.TextBlockInput}
                 placeholder={"Add job title"}
-                //   onChangeText={(text) => onChangeText(text)}
-                //   value={value}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("job", text)}
+                value={userData["job"]}
               />
             </View>
             <View style={styles.TextBlock}>
@@ -258,20 +328,29 @@ const ProfileMaker = (props) => {
               <TextInput
                 style={styles.TextBlockInput}
                 placeholder={"Add company"}
-                //   onChangeText={(text) => onChangeText(text)}
-                //   value={value}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("company", text)}
+                value={userData["company"]}
               />
             </View>
             <View style={styles.TextBlock}>
               <Text style={styles.TextBlockTitle}>School</Text>
               <TextInput
                 style={styles.TextBlockInput}
-                placeholder={"add Scool"}
-                //   onChangeText={(text) => onChangeText(text)}
-                //   value={value}
+                placeholder={"Add School"}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("school", text)}
+                value={userData["school"]}
               />
             </View>
           </View>
+          <Button
+            size={"large"}
+            style={styles.NextPageButton}
+            onPress={() => onSubmitUserData()}
+          >
+            Continue
+          </Button>
         </ScrollView>
       </SafeAreaView>
     </>
@@ -279,25 +358,28 @@ const ProfileMaker = (props) => {
 };
 
 const styles = StyleSheet.create({
+  NextPageButton: {
+    marginHorizontal: 5,
+    marginVertical: 25,
+  },
   TextBlock: {
     paddingVertical: 5,
   },
+  TextBlockTitle: {
+    fontSize: 15,
+    color: "#4a4a4a",
+    fontWeight: "500",
+    paddingHorizontal: 15,
+  },
   TextBlockInput: {
-    fontSize: 19,
+    fontSize: 16,
     minHeight: 50,
     width: fullWidth,
-    marginVertical: 10,
+    marginVertical: 5,
+    marginBottom: 10,
     paddingHorizontal: 15,
     backgroundColor: "#fff",
     paddingVertical: 20,
-    // paddingTop: 15,
-    // paddingBottom: 15,
-  },
-  TextBlockTitle: {
-    fontSize: 20,
-    // fontWeight: "500",
-    color: "#4a4a4a",
-    paddingHorizontal: 15,
   },
   ProfileMakerPage: {
     flex: 1,

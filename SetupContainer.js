@@ -11,16 +11,27 @@ const SetupContainer = (props) => {
       type: "LOGIN_INIT",
     });
   }, []);
+
+  function switchedComponent(step) {
+    switch (step) {
+      case 1:
+        return <ProfileMaker />;
+      case 2:
+        return <Login />;
+      case 0:
+        return <AppContainer />;
+      default:
+        return <Login />;
+    }
+  }
   return (
     <>
-      <ProfileMaker />
-      {/* {props?.state?.loginReducer?.step == "1" ? <Login /> : <AppContainer />}
-      {!props?.state?.loginReducer?.loggedIn ||
-      props?.state?.loginReducer?.step === 0 ? (
+      <Text>{JSON.stringify(props.state.loginReducer)}</Text>
+      {props?.state?.loginReducer?.loggedIn ? (
+        switchedComponent(props?.state?.loginReducer?.step)
+      ) : (
         <Login />
-        ) : (
-        // <Text>bb : {JSON.stringify(props.state.loginReducer)}</Text>
-      )} */}
+      )}
     </>
   );
 };

@@ -7,6 +7,8 @@ const initialState = {
   token: "",
   loading: false,
   loginError: "",
+  userData: null,
+  userId: null,
 };
 
 export default function loginReducer(state = initialState, action) {
@@ -26,6 +28,8 @@ export default function loginReducer(state = initialState, action) {
         ...state,
         step: action.step,
         token: action.token,
+        userData: action.userData,
+        userId: action.userData._id,
         loggedIn: true,
       };
     default:

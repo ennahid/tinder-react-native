@@ -14,7 +14,10 @@ import { createUser, loginUser } from "./redux/actions/login";
 
 const Login = (props) => {
   const [signup, setSignupValues] = useState("");
-  const [login, setLoginValues] = useState("");
+  const [login, setLoginValues] = useState({
+    email: "abdel@gmail.com",
+    password: "ffff",
+  });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // useEffect(() => {
@@ -61,7 +64,7 @@ const Login = (props) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Email"
-                    value={signup["email"]}
+                    value={signup["email"] || "abdel@gmail.com"}
                     size={"large"}
                     onChangeText={(nextValue) =>
                       SignupSetFormValue("email", nextValue)
@@ -72,7 +75,7 @@ const Login = (props) => {
                   <Input
                     secureTextEntry={true}
                     placeholder="Password"
-                    value={signup["password"]}
+                    value={signup["password"] || "ffff"}
                     size={"large"}
                     onChangeText={(nextValue) =>
                       SignupSetFormValue("password", nextValue)
@@ -120,7 +123,7 @@ const Login = (props) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Email"
-                    value={login["email"]}
+                    value={signup["email"] || "abdel@gmail.com"}
                     size={"large"}
                     onChangeText={(nextValue) =>
                       LoginSetFormValue("email", nextValue)
@@ -130,7 +133,7 @@ const Login = (props) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Password"
-                    value={login["password"]}
+                    value={login["password"] || "ffff"}
                     size={"large"}
                     onChangeText={(nextValue) =>
                       LoginSetFormValue("password", nextValue)

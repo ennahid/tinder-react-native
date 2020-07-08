@@ -21,6 +21,7 @@
     "react": "16.8.6",
     "react-native": "0.59.9",
     "react-native-card-stack-swiper": "^1.1.0",
+    "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "^1.0.12",
     "react-native-image-picker": "^2.3.2",
     "react-native-svg": "^12.1.0",

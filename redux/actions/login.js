@@ -1,7 +1,7 @@
 import * as types from "./actionTypes";
 import { API_URL } from "../../app.json";
 import axios from "axios";
-import { setToken } from "../../token.helper";
+import { setToken, setUserData } from "../../token.helper";
 
 export function createUser(formData) {
   return function (dispatch) {
@@ -19,10 +19,13 @@ export function createUser(formData) {
       .then(function (response) {
         dispatch({ type: "LOGIN_POST_LOADING", payload: false });
         if (response?.status === 200 && response.data?.success) {
+          setToken("gggggggggg");
+          setUserData(response?.data?.data);
           dispatch({
             type: "LOGIN_SUCCESS",
-            step: response?.data?.step,
+            step: response?.data?.data?.step,
             token: response?.token,
+            userData: response?.data?.data,
           });
         } else {
           alert(JSON.stringify(response));
@@ -62,10 +65,14 @@ export function loginUser(formData) {
       .then(function (response) {
         dispatch({ type: "LOGIN_POST_LOADING", payload: false });
         if (response?.status === 200 && response.data?.success) {
+          alert(JSON.stringify(response?.data?.data));
+          setToken(response?.token);
+          setUserData(response?.data?.data);
           dispatch({
             type: "LOGIN_SUCCESS",
-            step: response?.data?.step,
+            step: response?.data?.data?.step,
             token: response?.token,
+            userData: response?.data?.data,
           });
         } else {
           alert(JSON.stringify(response));
