@@ -1,6 +1,13 @@
 import React from "react";
 import styles from "../assets/styles";
-import { Text, View, Image, Dimensions, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import Icon from "./Icon";
 
 const CardItem = ({
@@ -18,21 +25,13 @@ const CardItem = ({
 }) => {
   // Custom styling
   const fullWidth = Dimensions.get("window").width;
+  const fullHeight = Dimensions.get("window").height;
   const imageStyle = [
     {
-      borderRadius: 8,
-      width: variant ? fullWidth / 2 - 30 : fullWidth - 80,
-      height: variant ? 170 : 350,
-      margin: variant ? 0 : 20,
-    },
-  ];
-
-  const nameStyle = [
-    {
-      paddingTop: variant ? 10 : 15,
-      paddingBottom: variant ? 5 : 7,
-      color: "#363636",
-      fontSize: variant ? 15 : 30,
+      // borderRadius: "8 8 0 0",
+      width: fullWidth - 20,
+      height: fullWidth - 80,
+      margin: 0,
     },
   ];
 
@@ -51,10 +50,15 @@ const CardItem = ({
       )}
 
       {/* NAME */}
-      <Text style={nameStyle}>{name}</Text>
+      <View style={Lstyles.profileInfo}>
+        <Text style={Lstyles.nameStyle}>
+          {name}, {"26"}
+        </Text>
+        <Text style={Lstyles.locationStyle}>Casablanca</Text>
+      </View>
 
       {/* DESCRIPTION */}
-      {description && (
+      {fullHeight > 700 && description && (
         <Text style={styles.descriptionCardItem}>{description}</Text>
       )}
 
@@ -115,5 +119,23 @@ const CardItem = ({
     </View>
   );
 };
+
+const Lstyles = StyleSheet.create({
+  profileInfo: {
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    width: " 100%",
+    padding: 20,
+  },
+  nameStyle: {
+    color: "#363636",
+    fontSize: 23,
+    fontWeight: "500",
+  },
+  locationStyle: {
+    fontStyle: "italic",
+    color: "#ccc",
+  },
+});
 
 export default CardItem;

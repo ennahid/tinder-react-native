@@ -27,11 +27,13 @@ export default StyleSheet.create({
     backgroundColor: WHITE,
     borderRadius: 8,
     alignItems: "center",
-    margin: 10,
+    margin: 0,
+    marginTop: 10,
     shadowOpacity: 0.05,
     shadowRadius: 10,
     shadowColor: BLACK,
     shadowOffset: { height: 0, width: 0 },
+    overflow: "hidden",
   },
   matchesCardItem: {
     marginTop: -35,
@@ -75,7 +77,8 @@ export default StyleSheet.create({
   actionsCardItem: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 30,
+    paddingVertical: 15,
+    // backgroundColor: "red",
   },
   buttonBorder: {
     width: 85,
@@ -122,7 +125,6 @@ export default StyleSheet.create({
     height: 40,
     borderRadius: 30,
     backgroundColor: WHITE,
-    // backgroundColor: "#f00",
     marginHorizontal: 3,
     alignItems: "center",
     borderColor: LIGHTGREY,
@@ -281,7 +283,6 @@ export default StyleSheet.create({
     paddingBottom: "0%",
     height: "30%",
     marginHorizontal: 10,
-    // backgroundColor: "#f00",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -384,12 +385,15 @@ export default StyleSheet.create({
   inputContainer: {
     width: "100%",
     marginBottom: 10,
-    // backgroundColor: "#f00",
   },
   checkboxContainer: {
     // backgroundColor: "#ccc",
     // height: 100,
     width: "100%",
     marginBottom: 10,
+  },
+  NextPageButton: {
+    marginHorizontal: 5,
+    marginVertical: 25,
   },
 });

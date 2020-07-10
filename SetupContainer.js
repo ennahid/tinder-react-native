@@ -15,13 +15,15 @@ const SetupContainer = (props) => {
 
   function switchedComponent(step) {
     switch (step) {
-      case 2:
-        return <ProfileMaker />;
       case 1:
+        return <ProfileMaker />;
+      case 2:
         return <ProfilePreferences />;
       case 0:
         return <AppContainer />;
+      // return <Text>hell</Text>;
       default:
+        // return <Text>-------------</Text>;
         return <Login />;
     }
   }
@@ -30,7 +32,11 @@ const SetupContainer = (props) => {
       {/* <Text>userId : {getUserIdFromUserData()}</Text>
       <Text>token : {getToken()}</Text>
       <Text>-------------</Text>*/}
-      <Text>{JSON.stringify(props.state.clientsReducer)}</Text>
+      {/* <Text>hello : {getToken() ? "3Maer" : "khawi"}</Text>
+      <Text>hello : {getToken()}</Text> */}
+      {/* <Text>{JSON.stringify(props.state.clientsReducer)}</Text> */}
+      <Text>{JSON.stringify(props?.state?.loginReducer?.loggedIn)}</Text>
+      {/* <AppContainer /> */}
       {props?.state?.loginReducer?.loggedIn ? (
         switchedComponent(props?.state?.loginReducer?.step)
       ) : (

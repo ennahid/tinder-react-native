@@ -37,6 +37,16 @@ to:
 `/heapCapture\/bundle\.js/,`
 `/.*\/__tests__\/.*/ ];`
 
+---
+
+> Task :react-native-gesture-handler:compileDebugJavaWithJavac FAILED
+
+```
+npm i jetifier
+npx jetify
+
+```
+
 ## Overview
 
 **Perfect to start an Tinder Clone app.** 4 screens are availables : Explore, Matches, Messages and Profile. You'll find some components like Card Component to pass props and variant. No frameworks UI like Bootstrap or Material UI are used.

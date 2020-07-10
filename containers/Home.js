@@ -1,58 +1,42 @@
-import React from "react";
-import { View, ImageBackground, Image } from "react-native";
-import CardStack, { Card } from "react-native-card-stack-swiper";
-import City from "../components/City";
-import Filters from "../components/Filters";
-import CardItem from "../components/CardItem";
+import React, { useEffect } from "react";
+import { View, ImageBackground, Image, Dimensions, Text } from "react-native";
+
 import { connect } from "react-redux";
 import styles from "../assets/styles";
-import Demo from "../assets/data/demo.js";
+import MyCardStack from "../components/MyCardStack";
 
+const fullHeight = Dimensions.get("window").height;
 const Home = (props) => {
+  useEffect(() => {
+    // alert(JSON.stringify(props));
+  }, [props]);
   return (
     <ImageBackground
       source={require("../assets/images/bg.png")}
       style={styles.bg}
+      // style={{ backgroundColor: "red" }}
     >
+      {/* <View style={styles.containerHome}> */}
       <View style={styles.containerHome}>
-        <View style={styles.top}>
-          <Image
-            style={{
-              width: 150,
-              height: 60,
-              resizeMode: "contain",
-              // backgroundColor: "#cecece",
-            }}
-            source={require("../assets/images/dk.png")}
-          />
-          {/* <City />
-          <Filters />  */}
-        </View>
+        {/* <Text>{JSON.stringify(Demo)}</Text> */}
+        {fullHeight > 700 && (
+          <View style={styles.top}>
+            <Image
+              style={{
+                width: 150,
+                height: 60,
+                resizeMode: "contain",
+                // backgroundColor: "#cecece",
+              }}
+              source={require("../assets/images/dk.png")}
+            />
 
-        <CardStack
-          loop={true}
-          // onSwipedAll={() => console.log("this is all")}
-          // verticalSwipe={false}
-          renderNoMoreCards={() => null}
-          ref={(swiper) => (this.swiper = swiper)}
-        >
-          {Demo.map((item, index) => (
-            <Card key={index}>
-              <CardItem
-                image={item.image}
-                name={item.name}
-                // description={item.description}
-                description={props?.state?.loginReducer?.email}
-                matches={item.match}
-                actions
-                onPressLeft={() => this.swiper.swipeLeft()}
-                onPressRight={() => this.swiper.swipeRight()}
-                onSuperLike={() => this.swiper.swipeTop()}
-                onPressStar={() => this.swiper.swipeBottom()}
-              />
-            </Card>
-          ))}
-        </CardStack>
+            {/* <City />
+          <Filters />  */}
+          </View>
+        )}
+
+        <MyCardStack />
       </View>
     </ImageBackground>
   );

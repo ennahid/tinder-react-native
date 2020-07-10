@@ -24,7 +24,7 @@ import SetupContainer from "./SetupContainer";
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whiteList: ["loginReducer"],
+  whitelist: ["loginReducer"],
 };
 
 const client = axios.create({
@@ -145,9 +145,8 @@ export default class App extends Component {
         <PersistGate loading={null} persistor={persistor}>
           <ApplicationProvider {...eva} theme={eva.light}>
             <Text onPress={() => purgeStoredState(persistConfig)}>
-              heelllooo cleaarr
+              Clear Cache Now
             </Text>
-
             <SetupContainer />
           </ApplicationProvider>
         </PersistGate>

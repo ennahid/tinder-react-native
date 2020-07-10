@@ -1,4 +1,5 @@
 import * as types from "../actions/actionTypes";
+import { getToken } from "../../token.helper";
 
 const initialState = {
   loggedIn: false,

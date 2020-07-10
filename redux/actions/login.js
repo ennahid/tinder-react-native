@@ -28,7 +28,6 @@ export function createUser(formData) {
             userData: response?.data?.data,
           });
         } else {
-          alert(JSON.stringify(response));
           dispatch({
             type: "LOGIN_ERROR",
             payload: response.data?.message,
@@ -65,7 +64,6 @@ export function loginUser(formData) {
       .then(function (response) {
         dispatch({ type: "LOGIN_POST_LOADING", payload: false });
         if (response?.status === 200 && response.data?.success) {
-          // alert(JSON.stringify(response?.data?.data));
           setToken(response?.data?.token);
           setUserData(response?.data?.data);
           dispatch({
@@ -75,7 +73,6 @@ export function loginUser(formData) {
             userData: response?.data?.data,
           });
         } else {
-          alert(JSON.stringify(response));
           dispatch({
             type: "LOGIN_ERROR",
             payload: response.data?.message,

@@ -3,7 +3,7 @@ export default function reducer(state = { account: {} }, action) {
     case action.GET_ACCOUNT:
       return { ...state, loading: true };
     case action.GET_ACCOUNT_SUCCESS:
-      console.log("reducer action.payload: " + JSON.stringify(action.payload));
+      // console.log("reducer action.payload: " + JSON.stringify(action.payload));
       return { ...state, loading: false, account: action.payload.data };
     case action.GET_ACCOUNT_FAIL:
       return {

@@ -24,16 +24,13 @@ const Login = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // useEffect(() => {
-  //   // alert(JSON.stringify(props));
   // }, []);
 
   const onSignUp = () => {
     props.dispatch(createUser(signup));
-    // alert(JSON.stringify(signup));
   };
   const onLogin = () => {
     props.dispatch(loginUser(login));
-    // alert(JSON.stringify(login));
   };
 
   const SignupSetFormValue = (name, value) => {
@@ -184,7 +181,6 @@ const Lstyles = StyleSheet.create({
   loginPage: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-    // backgroundColor: "#f00",
     justifyContent: "center",
     alignItems: "center",
     //

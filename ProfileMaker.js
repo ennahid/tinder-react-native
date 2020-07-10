@@ -16,6 +16,7 @@ import { Button } from "@ui-kitten/components";
 import DatePicker from "react-native-datepicker";
 import ImagePicker from "react-native-image-picker";
 import { addUserData } from "./redux/actions/client";
+import Gstyles from "./assets/styles";
 // var ImagePicker = require("react-native-image-picker");
 
 const options = {
@@ -344,7 +345,7 @@ const ProfileMaker = (props) => {
           </View>
           <Button
             size={"large"}
-            style={styles.NextPageButton}
+            style={Gstyles.NextPageButton}
             onPress={() => onSubmitUserData()}
             disabled={props.state.clientsReducer.loading}
           >
@@ -357,10 +358,6 @@ const ProfileMaker = (props) => {
 };
 
 const styles = StyleSheet.create({
-  NextPageButton: {
-    marginHorizontal: 5,
-    marginVertical: 25,
-  },
   TextBlock: {
     paddingVertical: 5,
   },
