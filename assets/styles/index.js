@@ -13,7 +13,7 @@ const OFFLINE_STATUS = "#D04949";
 
 const STAR_ACTIONS = "#FFA200";
 const LIKE_ACTIONS = "#B644B2";
-const DISLIKE_ACTIONS = "#363636";
+const DISLIKE_ACTIONS = "#737373";
 const FLASH_ACTIONS = "#5028D7";
 
 const ICON_FONT = "tinderclone";
@@ -28,7 +28,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     margin: 0,
-    marginTop: 10,
+    marginTop: 50,
     shadowOpacity: 0.05,
     shadowRadius: 10,
     shadowColor: BLACK,
@@ -77,8 +77,10 @@ export default StyleSheet.create({
   actionsCardItem: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 15,
-    // backgroundColor: "red",
+    width: "100%",
+    marginTop: DIMENSION_HEIGHT - 250,
   },
   buttonBorder: {
     width: 85,
@@ -111,9 +113,9 @@ export default StyleSheet.create({
     // shadowOffset: { height: 15, width: 0 },
   },
   miniButtonBorder: {
-    width: 60,
-    height: 60,
-    borderRadius: 40,
+    width: 70,
+    height: 70,
+    borderRadius: 90,
     borderColor: LIGHTGREY,
     borderWidth: 25,
     alignItems: "center",
@@ -121,9 +123,9 @@ export default StyleSheet.create({
     marginHorizontal: 5,
   },
   miniButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 30,
+    width: 50,
+    height: 50,
+    borderRadius: 90,
     backgroundColor: WHITE,
     marginHorizontal: 3,
     alignItems: "center",
@@ -142,6 +144,7 @@ export default StyleSheet.create({
   star: {
     fontFamily: ICON_FONT,
     color: STAR_ACTIONS,
+    fontSize: 20,
   },
   like: {
     fontSize: 25,

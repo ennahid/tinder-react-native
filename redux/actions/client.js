@@ -1,5 +1,4 @@
 import * as types from "./actionTypes";
-import { API_URL } from "../../app.json";
 import axios from "axios";
 import { getToken, getUserIdFromUserData } from "../../token.helper";
 

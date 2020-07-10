@@ -19,7 +19,7 @@ const CardItem = ({
   onPressLeft,
   onPressRight,
   onSuperLike,
-  onPressStar,
+  onPressBack,
   status,
   variant,
 }) => {
@@ -76,7 +76,7 @@ const CardItem = ({
           <View style={styles.miniButtonBorder}>
             <TouchableOpacity
               style={styles.miniButton}
-              onPress={() => onPressStar()}
+              onPress={() => onPressBack()}
             >
               <Text style={styles.star}>
                 <Icon name="star" />

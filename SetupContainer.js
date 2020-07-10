@@ -32,10 +32,10 @@ const SetupContainer = (props) => {
       {/* <Text>userId : {getUserIdFromUserData()}</Text>
       <Text>token : {getToken()}</Text>
       <Text>-------------</Text>*/}
-      {/* <Text>hello : {getToken() ? "3Maer" : "khawi"}</Text>
-      <Text>hello : {getToken()}</Text> */}
+      {/* <Text>hello : {getToken() ? "3Maer" : "khawi"}</Text>*/}
+      {/* <Text>hello : {getToken()}</Text> */}
       {/* <Text>{JSON.stringify(props.state.clientsReducer)}</Text> */}
-      <Text>{JSON.stringify(props?.state?.loginReducer?.loggedIn)}</Text>
+      {/* <Text>{JSON.stringify(props?.state?.loginReducer)}</Text> */}
       {/* <AppContainer /> */}
       {props?.state?.loginReducer?.loggedIn ? (
         switchedComponent(props?.state?.loginReducer?.step)

@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { View, ImageBackground, Image, Dimensions, Text } from "react-native";
 
 import { connect } from "react-redux";
 import styles from "../assets/styles";
 import MyCardStack from "../components/MyCardStack";
+import MyCardSwipers from "../components/MyCardSwipers";
+import { onSwipe, onSwipeBack, getUsers } from "../redux/actions/explore";
+import { getToken } from "../token.helper";
 
 const fullHeight = Dimensions.get("window").height;
 const Home = (props) => {
   useEffect(() => {
     // alert(JSON.stringify(props));
-  }, [props]);
+    props.dispatch(getUsers());
+  }, [getToken()]);
+  // const gSwiper = useRef(null);
   return (
     <ImageBackground
       source={require("../assets/images/bg.png")}
@@ -35,7 +40,6 @@ const Home = (props) => {
           <Filters />  */}
           </View>
         )}
-
         <MyCardStack />
       </View>
     </ImageBackground>

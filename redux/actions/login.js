@@ -1,7 +1,7 @@
 import * as types from "./actionTypes";
-import { API_URL } from "../../app.json";
 import axios from "axios";
 import { setToken, setUserData } from "../../token.helper";
+import { API_URL } from "../../app.json";
 
 export function createUser(formData) {
   return function (dispatch) {
