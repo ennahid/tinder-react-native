@@ -8,6 +8,8 @@ import MyCardSwipers from "../components/MyCardSwipers";
 import { onSwipe, onSwipeBack, getUsers } from "../redux/actions/explore";
 import { getToken } from "../token.helper";
 
+import MatchedModal from "../components/MatchedModal";
+
 const fullHeight = Dimensions.get("window").height;
 const Home = (props) => {
   useEffect(() => {
@@ -22,7 +24,14 @@ const Home = (props) => {
       // style={{ backgroundColor: "red" }}
     >
       {/* <View style={styles.containerHome}> */}
+
       <View style={styles.containerHome}>
+        <MatchedModal
+          isVisible={props.state.exploreReducer.matches.length > 0}
+          matchs={props.state.exploreReducer.matches}
+          image={require("../assets/images/09.jpg")}
+        />
+
         {fullHeight > 700 && (
           <View style={styles.top}>
             <Image

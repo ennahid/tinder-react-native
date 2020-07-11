@@ -29,6 +29,7 @@ const SetupContainer = (props) => {
   }
   return (
     <>
+      <Text>{JSON.stringify(props.state.exploreReducer.matches)}</Text>
       {/* <Text>userId : {getUserIdFromUserData()}</Text>
       <Text>token : {getToken()}</Text>
       <Text>-------------</Text>*/}

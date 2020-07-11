@@ -22,6 +22,9 @@ export function getUsers(direction, userId) {
             type: "GET_USERS_SUCCESS",
             payload: response?.data.data,
           });
+          dispatch({
+            type: "EXPLORE_INIT",
+          });
         } else {
           dispatch({
             type: "CLIENT_DATA_ERROR",
@@ -111,5 +114,11 @@ export function onSwipeBack(direction, userId) {
     //   .finally(() => {
     //     dispatch({ type: "CLIENT_POST_LOADING", payload: false });
     //   });
+  };
+}
+
+export function onMatchViewed() {
+  return function (dispatch) {
+    dispatch({ type: "MATCH_VIEWED" });
   };
 }

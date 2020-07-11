@@ -1,4 +1,4 @@
-import React, { version, useEffect, useRef } from "react";
+import React, { version, useEffect, useRef, useState } from "react";
 import styles from "../assets/styles";
 
 import {
@@ -9,15 +9,19 @@ import {
   Dimensions,
   TouchableHighlight,
   Easing,
+  // Modal,
   StyleSheet,
   Animated,
 } from "react-native";
 import Icon from "./Icon";
 import { connect } from "react-redux";
+import Modal from "react-native-modal";
+import { onMatchViewed } from "../redux/actions/explore";
 
 const fullHeight = Dimensions.get("window").height;
 const fullWidth = Dimensions.get("window").width;
-const MatchedModal = ({ image }) => {
+const MatchedModal = ({ matches, image, dispatch, state }) => {
+  const [isVisibleState, setIsVisibleState] = useState(false);
   const slideFromLeft = useRef(new Animated.Value(-fullWidth / 20)).current;
   const slideFromRight = useRef(new Animated.Value(fullWidth / 20)).current;
   const slideButtonFromLeft = useRef(new Animated.Value(-fullWidth / 20))
@@ -27,105 +31,124 @@ const MatchedModal = ({ image }) => {
   const overlayOpacity = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    Animated.parallel([
-      Animated.timing(overlayOpacity, {
-        toValue: 0.5,
-        duration: 500,
-        easing: Easing.inOut(Easing.ease),
-      }),
-      Animated.timing(opacityAnim, {
-        toValue: 1,
-        duration: 500,
-        delay: 200,
-        easing: Easing.inOut(Easing.ease),
-      }),
-      Animated.timing(slideFromLeft, {
-        toValue: 10,
-        duration: 600,
-        delay: 300,
-        easing: Easing.out(Easing.ease),
-      }),
-      Animated.timing(slideFromRight, {
-        toValue: -10,
-        duration: 600,
-        delay: 300,
-        easing: Easing.out(Easing.ease),
-      }),
-      Animated.timing(slideButtonFromLeft, {
-        toValue: 0,
-        duration: 600,
-        delay: 300,
-        easing: Easing.out(Easing.ease),
-      }),
-      Animated.timing(slideButtonFromRight, {
-        toValue: 0,
-        duration: 600,
-        delay: 300,
-        easing: Easing.out(Easing.ease),
-      }),
-    ]).start(() => {
-      // callback
-    });
-  }, [
-    slideFromLeft,
-    slideFromRight,
-    overlayOpacity,
-    opacityAnim,
-    slideButtonFromLeft,
-    slideButtonFromRight,
-  ]);
+    if (!isVisibleState) {
+      slideFromLeft.setValue(-fullWidth / 20);
+      slideFromRight.setValue(fullWidth / 20);
+      slideButtonFromLeft.setValue(-fullWidth / 20);
+      slideButtonFromRight.setValue(fullWidth / 20);
+      overlayOpacity.setValue(0);
+      opacityAnim.setValue(0);
+    }
+    if (state.exploreReducer.matches.length > 0) {
+      setIsVisibleState(true);
+      Animated.parallel([
+        Animated.timing(overlayOpacity, {
+          toValue: 0.7,
+          duration: 800,
+          easing: Easing.inOut(Easing.ease),
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 1,
+          duration: 500,
+          delay: 200,
+          easing: Easing.inOut(Easing.ease),
+        }),
+        Animated.timing(slideFromLeft, {
+          toValue: 10,
+          duration: 600,
+          delay: 300,
+          easing: Easing.out(Easing.ease),
+        }),
+        Animated.timing(slideFromRight, {
+          toValue: -10,
+          duration: 600,
+          delay: 300,
+          easing: Easing.out(Easing.ease),
+        }),
+        Animated.timing(slideButtonFromLeft, {
+          toValue: 0,
+          duration: 600,
+          delay: 300,
+          easing: Easing.out(Easing.ease),
+        }),
+        Animated.timing(slideButtonFromRight, {
+          toValue: 0,
+          duration: 600,
+          delay: 300,
+          easing: Easing.out(Easing.ease),
+        }),
+      ]).start(() => {});
+    }
+  }, [state.exploreReducer.matches]);
+
+  const CloseModal = () => {
+    setIsVisibleState(false);
+    dispatch(onMatchViewed());
+  };
   return (
-    <View style={Lstyles.modalPage}>
-      <Animated.View
-        style={[Lstyles.overlay, { opacity: overlayOpacity }]}
-      ></Animated.View>
-      <View style={Lstyles.imagesContaier}>
-        <Animated.View
-          style={[
-            Lstyles.block,
-            { opacity: opacityAnim, translateX: slideFromLeft },
-          ]}
-        >
-          <Image source={image} style={Lstyles.MatchedImage} />
-        </Animated.View>
-        <Animated.View
-          style={[
-            Lstyles.block,
-            { opacity: opacityAnim, translateX: slideFromRight },
-          ]}
-        >
-          <Image source={image} style={Lstyles.MatchedImage} />
-        </Animated.View>
-      </View>
-      <View style={Lstyles.ButtonsContainer}>
-        <Animated.View
-          style={[
-            Lstyles.block,
-            { opacity: opacityAnim, translateX: slideButtonFromRight },
-          ]}
-        >
-          <TouchableHighlight
-            onPress={() => alert("gg")}
-            style={styles.primaryButton}
+    <Modal
+      visible={isVisibleState}
+      style={Lstyles.modalPage}
+      animationOut="fadeOut"
+      animationIn="fadeIn"
+      useNativeDriver={true}
+    >
+      {isVisibleState && (
+        <View style={Lstyles.modalPage}>
+          <Animated.View
+            style={[Lstyles.overlayContainer, { opacity: overlayOpacity }]}
           >
-            <Text style={styles.buttonText}>LET'S CHAT</Text>
-          </TouchableHighlight>
-        </Animated.View>
-        <Animated.View
-          style={[
-            Lstyles.block,
-            { opacity: opacityAnim, translateX: slideButtonFromLeft },
-          ]}
-        >
-          <TouchableHighlight
-            onPress={() => alert("gg")}
-            style={styles.secondayButton}
-          >
-            <Text style={styles.buttonText}>KEEP SWIPING</Text>
-          </TouchableHighlight>
-        </Animated.View>
-      </View>
-    </View>
+            <View style={Lstyles.overlay}></View>
+          </Animated.View>
+          <View style={Lstyles.imagesContaier}>
+            <Animated.View
+              style={[
+                Lstyles.block,
+                { opacity: opacityAnim, translateX: slideFromLeft },
+              ]}
+            >
+              <Image source={image} style={Lstyles.MatchedImage} />
+            </Animated.View>
+            <Animated.View
+              style={[
+                Lstyles.block,
+                { opacity: opacityAnim, translateX: slideFromRight },
+              ]}
+            >
+              <Image source={image} style={Lstyles.MatchedImage} />
+            </Animated.View>
+          </View>
+          <View style={Lstyles.ButtonsContainer}>
+            <Animated.View
+              style={[
+                Lstyles.block,
+                { opacity: opacityAnim, translateX: slideButtonFromRight },
+              ]}
+            >
+              <TouchableHighlight
+                onPress={() => CloseModal()}
+                style={styles.primaryButton}
+              >
+                <Text style={styles.buttonText}>LET'S CHAT</Text>
+              </TouchableHighlight>
+            </Animated.View>
+            <Animated.View
+              style={[
+                Lstyles.block,
+                { opacity: opacityAnim, translateX: slideButtonFromLeft },
+              ]}
+            >
+              <TouchableHighlight
+                onPress={() => CloseModal()}
+                style={styles.secondayButton}
+              >
+                <Text style={styles.buttonText}>KEEP SWIPING</Text>
+              </TouchableHighlight>
+            </Animated.View>
+          </View>
+        </View>
+      )}
+    </Modal>
   );
 };
 
@@ -139,14 +162,18 @@ const Lstyles = StyleSheet.create({
     top: 0,
     alignItems: "center",
     justifyContent: "center",
-    paddingBottom: 100,
+    // paddingBottom: 100,
     // backgroundColor: "red",
   },
-  overlay: {
+  overlayContainer: {
     position: "absolute",
     width: "100%",
     height: fullHeight,
+  },
+  overlay: {
     backgroundColor: "#000",
+    height: "100%",
+    width: "100%",
     top: 0,
     left: 0,
     // opacity: 0.5,

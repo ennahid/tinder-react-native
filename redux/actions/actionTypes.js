@@ -13,3 +13,5 @@ export const SWIPE_SUCCESS = "SWIPE_SUCCESS";
 export const SWIPE_BACK_SUCESS = "SWIPE_BACK_SUCESS";
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
 export const GOT_MATCH = "GOT_MATCH";
+export const MATCH_INIT = "MATCH_INIT";
+export const MATCH_VIEWED = "MATCH_VIEWED";
