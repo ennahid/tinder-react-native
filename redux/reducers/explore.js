@@ -42,6 +42,8 @@ export default function exploreReducer(state = initialState, action) {
         return {
           ...state,
           matches: [...state.matches, action.matchId],
+          lastSwipes: [],
+          lastSwipe: null,
         };
       }
       return { ...state };
@@ -51,12 +53,12 @@ export default function exploreReducer(state = initialState, action) {
         matches: state.matches.slice(1),
       };
     case types.SWIPE_BACK_SUCESS:
-      let myLastSwipesArray = [...state.lastSwipes];
-      myLastSwipesArray = myLastSwipesArray.slice(0, -1);
+      let myLastSwipesArray1 = [...state.lastSwipes];
+      myLastSwipesArray1 = myLastSwipesArray1.slice(0, -1);
       return {
         ...state,
         lastSwipes: state.lastSwipes.slice(0, -1),
-        lastSwipe: myLastSwipesArray[myLastSwipesArray.length - 1],
+        lastSwipe: myLastSwipesArray1[myLastSwipesArray1.length - 1],
       };
     default:
       return state;

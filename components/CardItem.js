@@ -34,6 +34,7 @@ const CardItem = ({
       // borderRadius: "8 8 0 0",
       width: fullWidth - 20,
       height: fullWidth - 80,
+      // height: 200,
       margin: 0,
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,

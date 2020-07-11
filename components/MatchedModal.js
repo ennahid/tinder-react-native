@@ -55,26 +55,26 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
         }),
         Animated.timing(slideFromLeft, {
           toValue: 10,
-          duration: 600,
+          duration: 500,
           delay: 300,
           easing: Easing.out(Easing.ease),
         }),
         Animated.timing(slideFromRight, {
           toValue: -10,
-          duration: 600,
+          duration: 500,
           delay: 300,
           easing: Easing.out(Easing.ease),
         }),
         Animated.timing(slideButtonFromLeft, {
           toValue: 0,
-          duration: 600,
-          delay: 300,
+          duration: 200,
+          delay: 500,
           easing: Easing.out(Easing.ease),
         }),
         Animated.timing(slideButtonFromRight, {
           toValue: 0,
-          duration: 600,
-          delay: 300,
+          duration: 200,
+          delay: 500,
           easing: Easing.out(Easing.ease),
         }),
       ]).start(() => {});

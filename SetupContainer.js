@@ -29,7 +29,13 @@ const SetupContainer = (props) => {
   }
   return (
     <>
-      <Text>{JSON.stringify(props.state.exploreReducer.matches)}</Text>
+      {/* <Text>{JSON.stringify(props.state.exploreReducer.matches)}</Text>
+      <Text>{JSON.stringify(props.state.exploreReducer.lastSwipes)}</Text>
+      <Text>
+        {JSON.stringify(
+          props.state.exploreReducer.users.map((item) => item._id)
+        )}
+      </Text> */}
       {/* <Text>userId : {getUserIdFromUserData()}</Text>
       <Text>token : {getToken()}</Text>
       <Text>-------------</Text>*/}
