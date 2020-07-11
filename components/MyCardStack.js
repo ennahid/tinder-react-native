@@ -7,6 +7,7 @@ import { onSwipe, onSwipeBack, getUsers } from "../redux/actions/explore";
 import { Text, View, Image } from "react-native";
 import MyCardSwipers from "./MyCardSwipers";
 import { connect } from "react-redux";
+import MatchedModal from "./MatchedModal";
 
 const MyCardStack = ({ dispatch, state }) => {
   useEffect(() => {}, []);
@@ -22,25 +23,32 @@ const MyCardStack = ({ dispatch, state }) => {
         disableBottomSwipe={true}
         duration={150}
         renderNoMoreCards={() => null}
+        // verticalSwipe={false}
+        // horizontalSwipe={false}
         ref={(swiper) => (this.gSwiper = swiper)}
       >
-        {state.exploreReducer.users?.map((item, index) => (
-          <Card
-            key={index}
-            onSwipedRight={() => swipeAction("right", item._id)}
-            onSwipedLeft={() => swipeAction("left", item._id)}
-            onSwipedTop={() => swipeAction("top", item._id)}
-          >
-            <CardItem
-              image={Demo[0].image}
-              name={item.email}
-              description={Demo[0].description}
-              matches={Demo[0].match}
-            />
-          </Card>
-        ))}
+        <>
+          {state.exploreReducer.users?.map((item, index) => (
+            <Card
+              key={index}
+              onSwipedRight={() => swipeAction("right", item._id)}
+              onSwipedLeft={() => swipeAction("left", item._id)}
+              onSwipedTop={() => swipeAction("top", item._id)}
+            >
+              <CardItem
+                image={Demo[0].image}
+                name={item.email}
+                description={Demo[0].description}
+                matches={Demo[0].match}
+              />
+            </Card>
+          ))}
+        </>
       </CardStack>
       <MyCardSwipers swiper={this.gSwiper} />
+      {state.exploreReducer.matches.length > 0 && (
+        <MatchedModal image={Demo[0].image} />
+      )}
     </>
   );
 };

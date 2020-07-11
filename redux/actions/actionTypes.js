@@ -12,3 +12,4 @@ export const EXPLORE_INIT = "EXPLORE_INIT";
 export const SWIPE_SUCCESS = "SWIPE_SUCCESS";
 export const SWIPE_BACK_SUCESS = "SWIPE_BACK_SUCESS";
 export const GET_USERS_SUCCESS = "GET_USERS_SUCCESS";
+export const GOT_MATCH = "GOT_MATCH";

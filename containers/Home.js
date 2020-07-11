@@ -23,7 +23,6 @@ const Home = (props) => {
     >
       {/* <View style={styles.containerHome}> */}
       <View style={styles.containerHome}>
-        {/* <Text>{JSON.stringify(Demo)}</Text> */}
         {fullHeight > 700 && (
           <View style={styles.top}>
             <Image
@@ -45,6 +44,7 @@ const Home = (props) => {
     </ImageBackground>
   );
 };
+
 const mapStateToProps = (state) => {
   // Redux Store --> Component
   return {

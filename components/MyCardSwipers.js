@@ -59,7 +59,6 @@ const MyCardSwipers = ({ state, dispatch, swiper }) => {
   };
   return (
     <>
-      <Text>{JSON.stringify(state.exploreReducer.lastSwipes)}</Text>
       <View style={styles.actionsCardItem}>
         <View style={styles.miniButtonBorder}>
           <TouchableOpacity

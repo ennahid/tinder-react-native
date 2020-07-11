@@ -49,35 +49,25 @@ export function onSwipe(direction, userId) {
     axios({
       method: "post",
       url: `${API_URL}/myapi/clients/${url_value}/${userId}`,
-      // data: formData,
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: "Bearer " + getToken(),
       },
     })
       .then(function (response) {
-        dispatch({ type: "CLIENT_POST_LOADING", payload: false });
+        // dispatch({ type: "CLIENT_POST_LOADING", payload: false });
         if (response?.status === 200 && response.data?.success) {
-          dispatch({
-            type: "CLIENT_DATA_SUCSESS",
-            step: response?.data?.step,
-            userData: response?.data,
-          });
-        } else {
-          dispatch({
-            type: "CLIENT_DATA_ERROR",
-            payload: response.data?.message,
-          });
+          if (response.data?.match) {
+            dispatch({
+              type: "GOT_MATCH",
+              matchId: response?.data?.data,
+            });
+          }
         }
       })
-      .catch(function (error) {
-        dispatch({
-          type: "CLIENT_DATA_ERROR",
-          payload: error,
-        });
-      })
+      .catch(function (error) {})
       .finally(() => {
-        dispatch({ type: "CLIENT_POST_LOADING", payload: false });
+        // dispatch({ type: "CLIENT_POST_LOADING", payload: false });
       });
   };
 }

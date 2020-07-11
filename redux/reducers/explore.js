@@ -4,6 +4,7 @@ const initialState = {
   users: [],
   lastSwipes: [],
   lastSwipe: null,
+  matches: [],
 };
 
 export default function exploreReducer(state = initialState, action) {
@@ -26,6 +27,11 @@ export default function exploreReducer(state = initialState, action) {
           { direction: action.direction, userId: action.userId },
         ],
         lastSwipe: { direction: action.direction, userId: action.userId },
+      };
+    case types.GOT_MATCH:
+      return {
+        ...state,
+        matches: [...state.matches, action.matchId],
       };
     case types.SWIPE_BACK_SUCESS:
       let myLastSwipesArray = state.lastSwipes;

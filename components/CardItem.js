@@ -9,6 +9,8 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "./Icon";
+import MatchedModal from "./MatchedModal";
+import { connect } from "react-redux";
 
 const CardItem = ({
   actions,
@@ -22,6 +24,7 @@ const CardItem = ({
   onPressBack,
   status,
   variant,
+  state,
 }) => {
   // Custom styling
   const fullWidth = Dimensions.get("window").width;
@@ -32,90 +35,102 @@ const CardItem = ({
       width: fullWidth - 20,
       height: fullWidth - 80,
       margin: 0,
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
     },
   ];
 
   return (
-    <View style={styles.containerCardItem}>
-      {/* IMAGE */}
-      <Image source={image} style={imageStyle} />
+    <View style={{ height: fullHeight }}>
+      <Text>{JSON.stringify(state.exploreReducer.matches)}</Text>
+      {/* {state.exploreReducer.matches.length > 0 && (
+        // <MatchedModal image={image} />
+      )} */}
 
-      {/* MATCHES */}
-      {matches && (
-        <View style={styles.matchesCardItem}>
-          <Text style={styles.matchesTextCardItem}>
-            <Icon name="heart" /> {matches}% Match!
+      <View style={styles.containerCardItem}>
+        {/* IMAGE */}
+        <Image source={image} style={imageStyle} />
+        {/* MATCHES */}
+        {matches && (
+          <View style={styles.matchesCardItem}>
+            <Text style={styles.matchesTextCardItem}>
+              <Icon name="heart" /> {matches}% Match!
+            </Text>
+          </View>
+        )}
+
+        {/* NAME */}
+        <View style={Lstyles.profileInfo}>
+          <Text style={Lstyles.nameStyle}>
+            {name}, {"26"}
           </Text>
+          <Text style={Lstyles.locationStyle}>Casablanca</Text>
         </View>
-      )}
 
-      {/* NAME */}
-      <View style={Lstyles.profileInfo}>
-        <Text style={Lstyles.nameStyle}>
-          {name}, {"26"}
-        </Text>
-        <Text style={Lstyles.locationStyle}>Casablanca</Text>
+        {/* DESCRIPTION */}
+        {fullHeight > 700 && description && (
+          <Text style={styles.descriptionCardItem}>{description}</Text>
+        )}
+
+        {/* STATUS */}
+        {status && (
+          <View style={styles.status}>
+            <View
+              style={status === "Online" ? styles.online : styles.offline}
+            />
+            <Text style={styles.statusText}>{status}</Text>
+          </View>
+        )}
+
+        {/* ACTIONS */}
+        {actions && (
+          <View style={styles.actionsCardItem}>
+            <View style={styles.miniButtonBorder}>
+              <TouchableOpacity
+                style={styles.miniButton}
+                onPress={() => onPressBack()}
+              >
+                <Text style={styles.star}>
+                  <Icon name="star" />
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonBorder}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => onPressLeft()}
+              >
+                <Text style={styles.like}>
+                  <Icon name="like" />
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonBorder}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => onPressRight()}
+              >
+                <Text style={styles.dislike}>
+                  <Icon name="dislike" />
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.miniButtonBorder}>
+              <TouchableOpacity
+                style={styles.miniButton}
+                onPress={() => onSuperLike()}
+              >
+                <Text style={styles.flash}>
+                  <Icon name="flash" />
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </View>
-
-      {/* DESCRIPTION */}
-      {fullHeight > 700 && description && (
-        <Text style={styles.descriptionCardItem}>{description}</Text>
-      )}
-
-      {/* STATUS */}
-      {status && (
-        <View style={styles.status}>
-          <View style={status === "Online" ? styles.online : styles.offline} />
-          <Text style={styles.statusText}>{status}</Text>
-        </View>
-      )}
-
-      {/* ACTIONS */}
-      {actions && (
-        <View style={styles.actionsCardItem}>
-          <View style={styles.miniButtonBorder}>
-            <TouchableOpacity
-              style={styles.miniButton}
-              onPress={() => onPressBack()}
-            >
-              <Text style={styles.star}>
-                <Icon name="star" />
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonBorder}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => onPressLeft()}
-            >
-              <Text style={styles.like}>
-                <Icon name="like" />
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonBorder}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => onPressRight()}
-            >
-              <Text style={styles.dislike}>
-                <Icon name="dislike" />
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.miniButtonBorder}>
-            <TouchableOpacity
-              style={styles.miniButton}
-              onPress={() => onSuperLike()}
-            >
-              <Text style={styles.flash}>
-                <Icon name="flash" />
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
     </View>
   );
 };
@@ -138,4 +153,12 @@ const Lstyles = StyleSheet.create({
   },
 });
 
-export default CardItem;
+// export default CardItem;
+const mapStateToProps = (state) => {
+  // Redux Store --> Component
+  return {
+    state: state,
+  };
+};
+// export default MatchedModal;
+export default connect(mapStateToProps)(CardItem);

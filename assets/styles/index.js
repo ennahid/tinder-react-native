@@ -28,12 +28,12 @@ export default StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     margin: 0,
-    marginTop: 50,
+    marginTop: 20,
     shadowOpacity: 0.05,
     shadowRadius: 10,
     shadowColor: BLACK,
     shadowOffset: { height: 0, width: 0 },
-    overflow: "hidden",
+    // overflow: "hidden",
   },
   matchesCardItem: {
     marginTop: -35,
@@ -80,7 +80,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 15,
     width: "100%",
-    marginTop: DIMENSION_HEIGHT - 250,
+    marginTop: DIMENSION_HEIGHT - 230,
   },
   buttonBorder: {
     width: 85,
@@ -299,7 +299,10 @@ export default StyleSheet.create({
   },
 
   // CONTAINER - HOME
-  containerHome: { marginHorizontal: 10 },
+  containerHome: {
+    position: "relative",
+    marginHorizontal: 10,
+  },
 
   // CONTAINER - MATCHES
   containerMatches: {
@@ -398,5 +401,28 @@ export default StyleSheet.create({
   NextPageButton: {
     marginHorizontal: 5,
     marginVertical: 25,
+  },
+  primaryButton: {
+    backgroundColor: PRIMARY_COLOR,
+    width: "100%",
+    paddingVertical: 20,
+    alignItems: "center",
+    marginVertical: 5,
+    borderRadius: 6,
+  },
+  secondayButton: {
+    // backgroundColor: PRIMARY_COLOR,
+    width: "100%",
+    paddingVertical: 17,
+    alignItems: "center",
+    marginVertical: 5,
+    borderWidth: 3,
+    borderRadius: 6,
+    borderColor: "#fff",
+    marginVertical: 5,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "500",
   },
 });

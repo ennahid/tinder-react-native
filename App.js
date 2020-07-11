@@ -144,9 +144,9 @@ export default class App extends Component {
       <Provider store={Mstore}>
         <PersistGate loading={null} persistor={persistor}>
           <ApplicationProvider {...eva} theme={eva.light}>
-            <Text onPress={() => purgeStoredState(persistConfig)}>
+            {/* <Text onPress={() => purgeStoredState(persistConfig)}>
               Clear Cache Now
-            </Text>
+            </Text> */}
             <SetupContainer />
           </ApplicationProvider>
         </PersistGate>
