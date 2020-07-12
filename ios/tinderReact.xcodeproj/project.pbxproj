@@ -48,6 +48,11 @@
 		F3EA7DA5D17D4FC39DD8B3D2 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1091F79D5F8433188D5C50A /* libRNSVG.a */; };
 		18F152150E274235B86DD1C6 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE575981D1F84B0B9FD7A7B7 /* libRNSVG-tvOS.a */; };
 		6225992F74974DAAA920856B /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CB75B77446452EA7D89EFA /* libRNImagePicker.a */; };
+		9DC4A5DF16A24763B3D8D0B4 /* libRNReanimated.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1EC26E39ED8489D94302C20 /* libRNReanimated.a */; };
+		CB8671F7FC5643C386F980B6 /* libRNReanimated-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B5504D66056A465C95E901AF /* libRNReanimated-tvOS.a */; };
+		35F03DED778048D09FBE2199 /* libRNScreens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8815774E65A4101ADA0A7CE /* libRNScreens.a */; };
+		AB134B0145C4489489811064 /* libRNScreens-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9E95833A9B4D89BC6CF0A5 /* libRNScreens-tvOS.a */; };
+		8F0A50A96D5A476184AE9D4A /* libRNCSafeAreaContext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AC5BE3D6F2843939766D9EC /* libRNCSafeAreaContext.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,6 +387,14 @@
 		AE575981D1F84B0B9FD7A7B7 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		3AC945348E1749B68E722911 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		45CB75B77446452EA7D89EFA /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		D6E2C5C43A2C42BFA568A8AC /* RNReanimated.xcodeproj */ = {isa = PBXFileReference; name = "RNReanimated.xcodeproj"; path = "../node_modules/react-native-reanimated/ios/RNReanimated.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B1EC26E39ED8489D94302C20 /* libRNReanimated.a */ = {isa = PBXFileReference; name = "libRNReanimated.a"; path = "libRNReanimated.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		B5504D66056A465C95E901AF /* libRNReanimated-tvOS.a */ = {isa = PBXFileReference; name = "libRNReanimated-tvOS.a"; path = "libRNReanimated-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7BFB22CDC30E41EBAF18E2F2 /* RNScreens.xcodeproj */ = {isa = PBXFileReference; name = "RNScreens.xcodeproj"; path = "../node_modules/react-native-screens/ios/RNScreens.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		C8815774E65A4101ADA0A7CE /* libRNScreens.a */ = {isa = PBXFileReference; name = "libRNScreens.a"; path = "libRNScreens.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		2C9E95833A9B4D89BC6CF0A5 /* libRNScreens-tvOS.a */ = {isa = PBXFileReference; name = "libRNScreens-tvOS.a"; path = "libRNScreens-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		99C4BA827111433BA0ED8C53 /* SafeAreaView.xcodeproj */ = {isa = PBXFileReference; name = "SafeAreaView.xcodeproj"; path = "../node_modules/react-native-safe-area-context/ios/SafeAreaView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7AC5BE3D6F2843939766D9EC /* libRNCSafeAreaContext.a */ = {isa = PBXFileReference; name = "libRNCSafeAreaContext.a"; path = "libRNCSafeAreaContext.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,6 +428,9 @@
 				82AB8C0021804A5B992A820E /* libRNCAsyncStorage.a in Frameworks */,
 				F3EA7DA5D17D4FC39DD8B3D2 /* libRNSVG.a in Frameworks */,
 				6225992F74974DAAA920856B /* libRNImagePicker.a in Frameworks */,
+				9DC4A5DF16A24763B3D8D0B4 /* libRNReanimated.a in Frameworks */,
+				35F03DED778048D09FBE2199 /* libRNScreens.a in Frameworks */,
+				8F0A50A96D5A476184AE9D4A /* libRNCSafeAreaContext.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +450,8 @@
 				AD54B6998D384DBE97BB5C0C /* libRNSVG-tvOS.a in Frameworks */,
 				50E2A0812E5E4D719AB75E4C /* libRNSVG-tvOS.a in Frameworks */,
 				18F152150E274235B86DD1C6 /* libRNSVG-tvOS.a in Frameworks */,
+				CB8671F7FC5643C386F980B6 /* libRNReanimated-tvOS.a in Frameworks */,
+				AB134B0145C4489489811064 /* libRNScreens-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +646,9 @@
 				587F8824BFA0483D853290E7 /* RNCAsyncStorage.xcodeproj */,
 				107B1191DB894CFC9F03DEC1 /* RNSVG.xcodeproj */,
 				3AC945348E1749B68E722911 /* RNImagePicker.xcodeproj */,
+				D6E2C5C43A2C42BFA568A8AC /* RNReanimated.xcodeproj */,
+				7BFB22CDC30E41EBAF18E2F2 /* RNScreens.xcodeproj */,
+				99C4BA827111433BA0ED8C53 /* SafeAreaView.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1281,12 +1302,20 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
+					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
 				);
 				INFOPLIST_FILE = tinderReactTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1310,12 +1339,20 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
+					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
 				);
 				INFOPLIST_FILE = tinderReactTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1340,6 +1377,9 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
+					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
 				);
 				INFOPLIST_FILE = tinderReact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1366,6 +1406,9 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
+					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
 				);
 				INFOPLIST_FILE = tinderReact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1399,11 +1442,19 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
+					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
 				);
 				INFOPLIST_FILE = "tinderReact-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1436,11 +1487,19 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
+					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
 				);
 				INFOPLIST_FILE = "tinderReact-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1472,11 +1531,19 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
+					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
 				);
 				INFOPLIST_FILE = "tinderReact-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1508,11 +1575,19 @@
 					"$(SRCROOT)\..\node_modules\@react-native-community\async-storage\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
+					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
+					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
 				);
 				INFOPLIST_FILE = "tinderReact-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

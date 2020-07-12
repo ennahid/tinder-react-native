@@ -3,6 +3,9 @@ package com.tinderreact;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
+import com.swmansion.reanimated.ReanimatedPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -28,6 +31,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SafeAreaContextPackage(),
+            new RNScreensPackage(),
+            new ReanimatedPackage(),
             new ImagePickerPackage(),
             new SvgPackage(),
             new AsyncStoragePackage(),
