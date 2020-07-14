@@ -12,9 +12,10 @@ import {
 import { SharedElement } from "react-navigation-shared-element";
 import Demo from "../assets/data/demo.js";
 import { useNavigation } from "react-navigation-hooks";
+import { API_URL } from "../app.json";
 
 import { connect } from "react-redux";
-// import styles from "../assets/styles";
+import Gstyles from "../assets/styles";
 
 const fullWidth = Dimensions.get("window").width;
 const fullHeight = Dimensions.get("window").height;
@@ -32,43 +33,20 @@ const CardsInfoPage = (props) => {
   // const gSwiper = useRef(null);
   return (
     <View style={styles.containerCardInfo}>
-      <SharedElement id={getParam("index")}>
+      <SharedElement id={getParam("item").index}>
         <Image
-          source={Demo[getParam("index")].image}
+          source={{ uri: `${API_URL}/${getParam("item").image}` }}
           resizeMode={"cover"}
           style={imageStyle}
         />
       </SharedElement>
       <View style={styles.container}>
-        <Text style={styles.title}>Tiny House</Text>
-        <View style={styles.details}>
-          {/* <Icon name="star" color="rgb(255, 56, 92)" size={18} /> */}
-          <Text style={styles.detailText}>4.93 (891)</Text>
-          {/* <Icon name="medal" color="rgb(255, 56, 92)" size={18} /> */}
-          <Text style={styles.detailText}>4.93 (891)</Text>
-        </View>
-        <View>
-          <Text style={styles.text}>
-            Light and airy living room interior of tiny home in Upstate, New
-            York.
+        <View style={Gstyles.CardItemProfileInfo}>
+          <Text style={Gstyles.CardItemNameStyle}>
+            {getParam("item").name || ""}, {"26"}
           </Text>
-          <View style={styles.smallDivider} />
-          <View style={styles.host}>
-            <View>
-              <Text style={styles.mediumText}>Tiny House</Text>
-              <Text style={styles.mediumText}>Hosted by Eliza</Text>
-            </View>
-            {/* <Image
-              style={styles.avatar}
-              source={require("../assets/host.jpg")}
-            /> */}
-          </View>
-          <View style={styles.divider} />
-          <Text style={styles.text}>
-            Lovely tiny house with its own 3 piece bathroom, living room with
-            flat screen TV and kitchenette. Has its own deck, barbecue and
-            entranceway overlooking the meadow. No pets.
-          </Text>
+          {/* <Text style={Gstyles.locationStyle}>{API_URL + "/" + image}</Text> */}
+          <Text style={Gstyles.CardItemLocationStyle}>Casablanca</Text>
         </View>
       </View>
     </View>
@@ -78,8 +56,9 @@ const CardsInfoPage = (props) => {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
-    overflow: "hidden",
+    // overflow: "hidden",
     backgroundColor: "#fff",
+    height: fullHeight,
   },
   title: {
     fontSize: 32,
@@ -134,8 +113,8 @@ const styles = StyleSheet.create({
 });
 
 CardsInfoPage.sharedElements = (navigation, otherNavigation, showing) => {
-  const item = navigation.getParam("index");
-  return [item];
+  const item = navigation.getParam("item");
+  return [{ item: item, animation: "fade" }];
 };
 
 const mapStateToProps = (state) => {

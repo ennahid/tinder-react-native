@@ -60,7 +60,6 @@ const ProfileMaker = (props) => {
       if (DialogResponse?.selectedItem && DialogResponse?.selectedItem?.value) {
         ImagePicker.openPicker({ width: 400, height: 400, cropping: true })
           .then((response) => {
-            alert(JSON.stringify(DialogResponse));
             let imageNum = imageNumber;
             for (let index = imageNumber; index >= 1; index--) {
               if (index !== 1 && images[index - 1] == null) {

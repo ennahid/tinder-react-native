@@ -15,13 +15,15 @@ import { connect } from "react-redux";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { useNavigation } from "react-navigation-hooks";
 import { API_URL } from "../app.json";
+import Gstyles from "../assets/styles";
+
 const CardItem = ({
   actions,
   index,
   description,
   image,
-  matches,
   name,
+  matches,
   onPressLeft,
   onPressRight,
   onSuperLike,
@@ -52,14 +54,25 @@ const CardItem = ({
   return (
     <View style={styles.containerCardItem}>
       {/* IMAGE */}
-      <TouchableHighlight onPress={() => navigate("CardsInfoPage", { index })}>
+      <TouchableHighlight
+        onPress={() =>
+          navigate("CardsInfoPage", {
+            item: {
+              index: index,
+              description: description,
+              image: image,
+              name: name,
+            },
+          })
+        }
+      >
         {/* <Text>Navigate</Text> */}
+        {/* // source={{
+          //   uri: `https://img.freepik.com/free-vector/business-people-organization-office-freelance-job-character_40876-1291.jpg?size=338&ext=jpg`,
+          // }} */}
         <SharedElement id={index}>
           <Image
-            // source={{ uri: `${API_URL}/${image}` }}
-            source={{
-              uri: `https://img.freepik.com/free-vector/business-people-organization-office-freelance-job-character_40876-1291.jpg?size=338&ext=jpg`,
-            }}
+            source={{ uri: `${API_URL}/${image}` }}
             style={imageStyle}
             resizeMode={"cover"}
           />
@@ -76,94 +89,32 @@ const CardItem = ({
       )} */}
 
       {/* NAME */}
-      <View style={Lstyles.profileInfo}>
-        <Text style={Lstyles.nameStyle}>
-          {name}, {"26"}
+      <View style={Gstyles.CardItemProfileInfo}>
+        <Text style={Gstyles.CardItemNameStyle}>
+          {name || ""}, {"26"}
         </Text>
-        <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text>
-        <Text style={Lstyles.locationStyle}>Casablanca</Text>
+        {/* <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text> */}
+        <Text style={Gstyles.CardItemLocationStyle}>Casablanca</Text>
       </View>
 
       {/* DESCRIPTION */}
-      {fullHeight > 700 && description && (
-        <Text style={styles.descriptionCardItem}>{description}</Text>
-      )}
+      {/* {fullHeight > 700 && description && (
+        <Text style={styles.descriptionCardItem}>v</Text>
+        // <Text style={styles.descriptionCardItem}>{description}</Text>
+      )} */}
 
       {/* STATUS */}
-      {status && (
+      {/* {status && (
         <View style={styles.status}>
           <View style={status === "Online" ? styles.online : styles.offline} />
           <Text style={styles.statusText}>{status}</Text>
         </View>
-      )}
-
-      {/* ACTIONS */}
-      {actions && (
-        <View style={styles.actionsCardItem}>
-          <View style={styles.miniButtonBorder}>
-            <TouchableOpacity
-              style={styles.miniButton}
-              onPress={() => onPressBack()}
-            >
-              <Text style={styles.star}>
-                <Icon name="star" />
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonBorder}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => onPressLeft()}
-            >
-              <Text style={styles.like}>
-                <Icon name="like" />
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonBorder}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => onPressRight()}
-            >
-              <Text style={styles.dislike}>
-                <Icon name="dislike" />
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.miniButtonBorder}>
-            <TouchableOpacity
-              style={styles.miniButton}
-              onPress={() => onSuperLike()}
-            >
-              <Text style={styles.flash}>
-                <Icon name="flash" />
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
+      )} */}
     </View>
   );
 };
 
-const Lstyles = StyleSheet.create({
-  profileInfo: {
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    width: " 100%",
-    padding: 20,
-  },
-  nameStyle: {
-    color: "#363636",
-    fontSize: 23,
-    fontWeight: "500",
-  },
-  locationStyle: {
-    fontStyle: "italic",
-    color: "#ccc",
-  },
-});
+const Lstyles = StyleSheet.create({});
 
 // export default CardItem;
 const mapStateToProps = (state) => {

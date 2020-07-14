@@ -18,14 +18,14 @@ import MatchedModal from "../components/MatchedModal";
 
 const fullHeight = Dimensions.get("window").height;
 const CardsPage = (props) => {
-  useEffect(() => {
-    props.dispatch(getUsers());
-  }, [getToken()]);
   // useEffect(() => {
-  //   if (props.state.loginReducer.token) {
-  //     props.dispatch(getUsers(props.state.loginReducer.token));
-  //   }
-  // }, [props.state.loginReducer.token]);
+  //   props.dispatch(getUsers());
+  // }, [getToken()]);
+  useEffect(() => {
+    if (props.state.loginReducer.token) {
+      props.dispatch(getUsers(props.state.loginReducer.token));
+    }
+  }, [props.state.loginReducer.token]);
   // const gSwiper = useRef(null);
   return (
     <ImageBackground
@@ -56,7 +56,7 @@ const CardsPage = (props) => {
         props.state.exploreReducer.users.length > 0 ? (
           <MyCardStack navigation={props.navigation} />
         ) : (
-          <Text>Loadingggg.......</Text>
+          <Text>Loadingggg.....</Text>
         )}
       </View>
     </ImageBackground>

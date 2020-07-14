@@ -75,12 +75,21 @@ export default StyleSheet.create({
     marginRight: 4,
   },
   actionsCardItem: {
+    flex: 1,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "center",
     paddingVertical: 15,
     width: "100%",
-    marginTop: DIMENSION_HEIGHT - 230,
+    height: DIMENSION_HEIGHT,
+    // backgroundColor: "red",
+    paddingBottom: 110,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+    // marginTop: DIMENSION_HEIGHT - 250,
   },
   buttonBorder: {
     width: 85,
@@ -284,11 +293,12 @@ export default StyleSheet.create({
     // paddingVertical: "10%",
     paddingTop: "3%",
     paddingBottom: "0%",
-    height: "30%",
+    // height: "30%",
     marginHorizontal: 10,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    // backgroundColor: "red",
   },
   title: { paddingBottom: 10, fontSize: 22, color: DARK_GRAY },
   icon: {
@@ -428,5 +438,20 @@ export default StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontWeight: "500",
+  },
+  CardItemProfileInfo: {
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    width: " 100%",
+    padding: 20,
+  },
+  CardItemNameStyle: {
+    color: "#363636",
+    fontSize: 23,
+    fontWeight: "500",
+  },
+  CardItemLocationStyle: {
+    fontStyle: "italic",
+    color: "#ccc",
   },
 });

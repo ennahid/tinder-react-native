@@ -14,7 +14,6 @@ const SetupContainer = (props) => {
   }, []);
 
   function switchedComponent(step) {
-    return <ProfileMaker />;
     switch (step) {
       case 1:
         return <ProfileMaker />;

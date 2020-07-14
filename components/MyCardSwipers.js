@@ -11,7 +11,11 @@ import styles from "../assets/styles";
 import { connect } from "react-redux";
 import Icon from "./Icon";
 import VIcon from "react-native-vector-icons/dist/Ionicons";
-import { onSwipe, onSwipeBack } from "../redux/actions/explore";
+import {
+  onSwipe,
+  onSwipeBack,
+  DeleteAllDislikes,
+} from "../redux/actions/explore";
 
 const MyCardSwipers = ({ state, dispatch, swiper }) => {
   useEffect(() => {
@@ -63,7 +67,8 @@ const MyCardSwipers = ({ state, dispatch, swiper }) => {
         <View style={styles.miniButtonBorder}>
           <TouchableOpacity
             style={styles.miniButton}
-            onPress={() => swipeAction("top")}
+            // onPress={() => swipeAction("top")}
+            onPress={() => dispatch(DeleteAllDislikes())}
           >
             <Text style={styles.flash}>
               <VIcon name="flash" style={{ fontSize: 20 }} />
