@@ -1,13 +1,19 @@
 import React, { useEffect, useRef } from "react";
-import { View, ImageBackground, Image, Dimensions, Text } from "react-native";
-
+import {
+  View,
+  ImageBackground,
+  Image,
+  Dimensions,
+  Text,
+  TouchableHighlight,
+  Animated,
+  StyleSheet,
+} from "react-native";
 import { connect } from "react-redux";
 import styles from "../assets/styles";
 import MyCardStack from "../components/MyCardStack";
-import MyCardSwipers from "../components/MyCardSwipers";
 import { onSwipe, onSwipeBack, getUsers } from "../redux/actions/explore";
 import { getToken } from "../token.helper";
-
 import MatchedModal from "../components/MatchedModal";
 
 const fullHeight = Dimensions.get("window").height;
@@ -15,6 +21,11 @@ const CardsPage = (props) => {
   useEffect(() => {
     props.dispatch(getUsers());
   }, [getToken()]);
+  // useEffect(() => {
+  //   if (props.state.loginReducer.token) {
+  //     props.dispatch(getUsers(props.state.loginReducer.token));
+  //   }
+  // }, [props.state.loginReducer.token]);
   // const gSwiper = useRef(null);
   return (
     <ImageBackground
@@ -27,6 +38,7 @@ const CardsPage = (props) => {
           matchs={props.state.exploreReducer.matches}
           image={require("../assets/images/09.jpg")}
         />
+
         {fullHeight > 700 && (
           <View style={styles.top}>
             <Image
@@ -40,7 +52,12 @@ const CardsPage = (props) => {
             />
           </View>
         )}
-        <MyCardStack navigation={props.navigation} />
+        {!props.state.clientsReducer.getLoading &&
+        props.state.exploreReducer.users.length > 0 ? (
+          <MyCardStack navigation={props.navigation} />
+        ) : (
+          <Text>Loadingggg.......</Text>
+        )}
       </View>
     </ImageBackground>
   );

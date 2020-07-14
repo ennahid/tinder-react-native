@@ -35,10 +35,11 @@ const MyCardStack = ({ dispatch, state }) => {
             onSwipedTop={() => swipeAction("top", item._id)}
           >
             <CardItem
-              image={Demo[0].image}
-              name={item.email}
-              description={Demo[0].description}
-              matches={Demo[0].match}
+              index={index}
+              image={item.images[1]}
+              name={item.name}
+              description={item.bio}
+              matches={Demo[index].match}
             />
           </Card>
         ))}

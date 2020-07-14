@@ -8,6 +8,7 @@ import HomeScreen from "./containers/Home";
 import MatchesScreen from "./containers/Matches";
 import MessagesScreen from "./containers/Messages";
 import ProfileScreen from "./containers/Profile";
+import CardsInfoPage from "./Pages/CardsInfoPage";
 
 const AppNavigation = createBottomTabNavigator(
   {
@@ -99,6 +100,7 @@ const AppNavigation = createBottomTabNavigator(
         shadowRadius: 10,
         shadowColor: "#000",
         shadowOffset: { height: 0, width: 0 },
+        // display: "none",
       },
     },
   }

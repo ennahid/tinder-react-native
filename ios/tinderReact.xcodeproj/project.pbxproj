@@ -53,6 +53,8 @@
 		35F03DED778048D09FBE2199 /* libRNScreens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8815774E65A4101ADA0A7CE /* libRNScreens.a */; };
 		AB134B0145C4489489811064 /* libRNScreens-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9E95833A9B4D89BC6CF0A5 /* libRNScreens-tvOS.a */; };
 		8F0A50A96D5A476184AE9D4A /* libRNCSafeAreaContext.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AC5BE3D6F2843939766D9EC /* libRNCSafeAreaContext.a */; };
+		19D8BCBCA37B4ACFA865656C /* libRNSharedElement.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AF37A5DFB5C469495E725F7 /* libRNSharedElement.a */; };
+		7C5E9955003A4B90BF920E6E /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9388AC2710EA450F8E341BCA /* libimageCropPicker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -395,6 +397,10 @@
 		2C9E95833A9B4D89BC6CF0A5 /* libRNScreens-tvOS.a */ = {isa = PBXFileReference; name = "libRNScreens-tvOS.a"; path = "libRNScreens-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		99C4BA827111433BA0ED8C53 /* SafeAreaView.xcodeproj */ = {isa = PBXFileReference; name = "SafeAreaView.xcodeproj"; path = "../node_modules/react-native-safe-area-context/ios/SafeAreaView.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		7AC5BE3D6F2843939766D9EC /* libRNCSafeAreaContext.a */ = {isa = PBXFileReference; name = "libRNCSafeAreaContext.a"; path = "libRNCSafeAreaContext.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		9266F500BBB7435BB53285A6 /* RNSharedElement.xcodeproj */ = {isa = PBXFileReference; name = "RNSharedElement.xcodeproj"; path = "../node_modules/react-native-shared-element/ios/RNSharedElement.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		6AF37A5DFB5C469495E725F7 /* libRNSharedElement.a */ = {isa = PBXFileReference; name = "libRNSharedElement.a"; path = "libRNSharedElement.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7E12C1765FCD446CABD55711 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; name = "imageCropPicker.xcodeproj"; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		9388AC2710EA450F8E341BCA /* libimageCropPicker.a */ = {isa = PBXFileReference; name = "libimageCropPicker.a"; path = "libimageCropPicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,6 +437,8 @@
 				9DC4A5DF16A24763B3D8D0B4 /* libRNReanimated.a in Frameworks */,
 				35F03DED778048D09FBE2199 /* libRNScreens.a in Frameworks */,
 				8F0A50A96D5A476184AE9D4A /* libRNCSafeAreaContext.a in Frameworks */,
+				19D8BCBCA37B4ACFA865656C /* libRNSharedElement.a in Frameworks */,
+				7C5E9955003A4B90BF920E6E /* libimageCropPicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -649,6 +657,8 @@
 				D6E2C5C43A2C42BFA568A8AC /* RNReanimated.xcodeproj */,
 				7BFB22CDC30E41EBAF18E2F2 /* RNScreens.xcodeproj */,
 				99C4BA827111433BA0ED8C53 /* SafeAreaView.xcodeproj */,
+				9266F500BBB7435BB53285A6 /* RNSharedElement.xcodeproj */,
+				7E12C1765FCD446CABD55711 /* imageCropPicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1305,12 +1315,16 @@
 					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
+					"$(SRCROOT)\..\node_modules\react-native-shared-element\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 				);
 				INFOPLIST_FILE = tinderReactTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1342,12 +1356,16 @@
 					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
+					"$(SRCROOT)\..\node_modules\react-native-shared-element\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 				);
 				INFOPLIST_FILE = tinderReactTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1380,6 +1398,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
+					"$(SRCROOT)\..\node_modules\react-native-shared-element\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 				);
 				INFOPLIST_FILE = tinderReact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1409,6 +1429,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
+					"$(SRCROOT)\..\node_modules\react-native-shared-element\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 				);
 				INFOPLIST_FILE = tinderReact/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1445,11 +1467,15 @@
 					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
+					"$(SRCROOT)\..\node_modules\react-native-shared-element\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 				);
 				INFOPLIST_FILE = "tinderReact-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1490,11 +1516,15 @@
 					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
+					"$(SRCROOT)\..\node_modules\react-native-shared-element\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 				);
 				INFOPLIST_FILE = "tinderReact-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1534,11 +1564,15 @@
 					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
+					"$(SRCROOT)\..\node_modules\react-native-shared-element\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 				);
 				INFOPLIST_FILE = "tinderReact-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1578,11 +1612,15 @@
 					"$(SRCROOT)\..\node_modules\react-native-reanimated\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-screens\ios",
 					"$(SRCROOT)\..\node_modules\react-native-safe-area-context\ios\SafeAreaView",
+					"$(SRCROOT)\..\node_modules\react-native-shared-element\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 				);
 				INFOPLIST_FILE = "tinderReact-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

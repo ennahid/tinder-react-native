@@ -3,11 +3,13 @@ import axios from "axios";
 import { getToken, getUserIdFromUserData } from "../../token.helper";
 import { API_URL } from "../../app.json";
 
-export function getUsers(direction, userId) {
+export function getUsers(myToken) {
   return function (dispatch) {
     // alert("ff");
     // dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
     // dispatch({ type: "SWIPE_BACK_SUCCESS", payload: direction });
+    dispatch({ type: "CLIENT_GET_LOADING", payload: true });
+
     axios({
       method: "get",
       url: `${API_URL}/myapi/clients/`,
@@ -16,14 +18,15 @@ export function getUsers(direction, userId) {
       },
     })
       .then(function (response) {
-        dispatch({ type: "CLIENT_POST_LOADING", payload: false });
+        dispatch({ type: "CLIENT_GET_LOADING", payload: false });
+        // alert(JSON.stringify(response));
         if (response?.status === 200 && response.data?.success) {
+          dispatch({
+            type: "EXPLORE_INIT",
+          });
           dispatch({
             type: "GET_USERS_SUCCESS",
             payload: response?.data.data,
-          });
-          dispatch({
-            type: "EXPLORE_INIT",
           });
         } else {
           dispatch({
@@ -39,7 +42,7 @@ export function getUsers(direction, userId) {
         });
       })
       .finally(() => {
-        dispatch({ type: "CLIENT_POST_LOADING", payload: false });
+        dispatch({ type: "CLIENT_GET_LOADING", payload: false });
       });
   };
 }

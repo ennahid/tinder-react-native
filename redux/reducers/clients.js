@@ -2,6 +2,7 @@ import * as types from "../actions/actionTypes";
 
 const initialState = {
   loading: false,
+  getLoading: false,
 };
 
 export default function clientsReducer(state = initialState, action) {
@@ -15,6 +16,11 @@ export default function clientsReducer(state = initialState, action) {
       return {
         ...state,
         loading: action.payload,
+      };
+    case types.CLIENT_GET_LOADING:
+      return {
+        ...state,
+        getLoading: action.payload,
       };
     case types.CLIENT_DATA_SUCSESS:
       return {

@@ -19,6 +19,7 @@ export function addUserData(userData, formData) {
     })
       .then(function (response) {
         dispatch({ type: "CLIENT_POST_LOADING", payload: false });
+
         if (response?.status === 200 && response.data?.success) {
           dispatch({
             type: "CLIENT_DATA_SUCSESS",
@@ -35,7 +36,7 @@ export function addUserData(userData, formData) {
       .catch(function (error) {
         dispatch({
           type: "CLIENT_DATA_ERROR",
-          payload: error,
+          payload: error.message,
         });
       })
       .finally(() => {

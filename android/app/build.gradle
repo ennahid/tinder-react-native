@@ -108,6 +108,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        vectorDrawables.useSupportLibrary = true
     }
     splits {
         abi {
@@ -139,6 +140,9 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-dialogs')
+    implementation project(':react-native-image-crop-picker')
+    implementation project(':react-native-shared-element')
     implementation project(':react-native-safe-area-context')
     implementation project(':react-native-screens')
     implementation project(':react-native-reanimated')

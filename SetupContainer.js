@@ -14,6 +14,7 @@ const SetupContainer = (props) => {
   }, []);
 
   function switchedComponent(step) {
+    return <ProfileMaker />;
     switch (step) {
       case 1:
         return <ProfileMaker />;
@@ -41,6 +42,7 @@ const SetupContainer = (props) => {
       <Text>-------------</Text>*/}
       {/* <Text>hello : {getToken() ? "3Maer" : "khawi"}</Text>*/}
       {/* <Text>hello : {getToken()}</Text> */}
+      {/* <Text>hello : {props.state.loginReducer.token}</Text> */}
       {/* <Text>{JSON.stringify(props.state.clientsReducer)}</Text> */}
       {/* <Text>{JSON.stringify(props?.state?.loginReducer)}</Text> */}
       {/* <AppContainer /> */}

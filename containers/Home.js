@@ -1,64 +1,56 @@
-import React, { useEffect, useRef } from "react";
-import { View, ImageBackground, Image, Dimensions, Text } from "react-native";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-import { connect } from "react-redux";
-import styles from "../assets/styles";
-import MyCardStack from "../components/MyCardStack";
-import MyCardSwipers from "../components/MyCardSwipers";
-import { onSwipe, onSwipeBack, getUsers } from "../redux/actions/explore";
-import { getToken } from "../token.helper";
+import CardsPage from "../Pages/CardsPage";
+import CardsInfoPage from "../Pages/CardsInfoPage";
 
-import MatchedModal from "../components/MatchedModal";
+const MyStack = createSharedElementStackNavigator(
+  {
+    CardsPage: {
+      screen: CardsPage,
+    },
+    CardsInfoPage: {
+      screen: CardsInfoPage,
+      navigationOptions: () => {
+        return {
+          tabBarVisible: false,
+        };
+      },
+    },
+  },
+  {
+    mode: "modal",
+    headerMode: "none",
+    defaultNavigationOptions: {
+      cardStyleInterpolator: ({ current: { progress } }) => {
+        const opacity = progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+          extrapolate: "clamp",
+        });
+        return { cardStyle: { opacity } };
+      },
+      gestureEnabled: false,
+      cardStyle: {
+        backgroundColor: "transparent",
+      },
+    },
+  }
+);
+MyStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible;
+  if (navigation.state.routes.length > 1) {
+    navigation.state.routes.map((route) => {
+      if (route.routeName === "CardsInfoPage") {
+        tabBarVisible = false;
+      } else {
+        tabBarVisible = true;
+      }
+    });
+  }
 
-const fullHeight = Dimensions.get("window").height;
-const Home = (props) => {
-  useEffect(() => {
-    // alert(JSON.stringify(props));
-    props.dispatch(getUsers());
-  }, [getToken()]);
-  // const gSwiper = useRef(null);
-  return (
-    <ImageBackground
-      source={require("../assets/images/bg.png")}
-      style={styles.bg}
-      // style={{ backgroundColor: "red" }}
-    >
-      {/* <View style={styles.containerHome}> */}
-
-      <View style={styles.containerHome}>
-        <MatchedModal
-          isVisible={props.state.exploreReducer.matches.length > 0}
-          matchs={props.state.exploreReducer.matches}
-          image={require("../assets/images/09.jpg")}
-        />
-
-        {fullHeight > 700 && (
-          <View style={styles.top}>
-            <Image
-              style={{
-                width: 150,
-                height: 60,
-                resizeMode: "contain",
-                // backgroundColor: "#cecece",
-              }}
-              source={require("../assets/images/dk.png")}
-            />
-
-            {/* <City />
-          <Filters />  */}
-          </View>
-        )}
-        <MyCardStack />
-      </View>
-    </ImageBackground>
-  );
-};
-
-const mapStateToProps = (state) => {
-  // Redux Store --> Component
   return {
-    state: state,
+    tabBarVisible,
   };
 };
-// export default Home;
-export default connect(mapStateToProps)(Home);
+
+export default MyStack;

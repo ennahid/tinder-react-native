@@ -303,6 +303,10 @@ export default StyleSheet.create({
     position: "relative",
     marginHorizontal: 10,
   },
+  containerCardInfo: {
+    position: "relative",
+    marginHorizontal: 0,
+  },
 
   // CONTAINER - MATCHES
   containerMatches: {

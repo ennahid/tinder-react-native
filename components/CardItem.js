@@ -9,11 +9,15 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "./Icon";
+import { SharedElement } from "react-navigation-shared-element";
 import MatchedModal from "./MatchedModal";
 import { connect } from "react-redux";
-
+import { TouchableHighlight } from "react-native-gesture-handler";
+import { useNavigation } from "react-navigation-hooks";
+import { API_URL } from "../app.json";
 const CardItem = ({
   actions,
+  index,
   description,
   image,
   matches,
@@ -26,9 +30,11 @@ const CardItem = ({
   variant,
   state,
 }) => {
+  const { navigate, isFocused } = useNavigation();
   // Custom styling
   const fullWidth = Dimensions.get("window").width;
   const fullHeight = Dimensions.get("window").height;
+
   const imageStyle = [
     {
       // borderRadius: "8 8 0 0",
@@ -46,21 +52,35 @@ const CardItem = ({
   return (
     <View style={styles.containerCardItem}>
       {/* IMAGE */}
-      <Image source={image} style={imageStyle} />
+      <TouchableHighlight onPress={() => navigate("CardsInfoPage", { index })}>
+        {/* <Text>Navigate</Text> */}
+        <SharedElement id={index}>
+          <Image
+            // source={{ uri: `${API_URL}/${image}` }}
+            source={{
+              uri: `https://img.freepik.com/free-vector/business-people-organization-office-freelance-job-character_40876-1291.jpg?size=338&ext=jpg`,
+            }}
+            style={imageStyle}
+            resizeMode={"cover"}
+          />
+        </SharedElement>
+      </TouchableHighlight>
+
       {/* MATCHES */}
-      {matches && (
+      {/* {matches && (
         <View style={styles.matchesCardItem}>
           <Text style={styles.matchesTextCardItem}>
             <Icon name="heart" /> {matches}% Match!
           </Text>
         </View>
-      )}
+      )} */}
 
       {/* NAME */}
       <View style={Lstyles.profileInfo}>
         <Text style={Lstyles.nameStyle}>
           {name}, {"26"}
         </Text>
+        <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text>
         <Text style={Lstyles.locationStyle}>Casablanca</Text>
       </View>
 

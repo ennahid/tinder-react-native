@@ -3,6 +3,9 @@ package com.tinderreact;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
+import com.ijzerenhein.sharedelement.RNSharedElementPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
@@ -31,6 +34,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeDialogsPackage(),
+            new PickerPackage(),
+            new RNSharedElementPackage(),
             new SafeAreaContextPackage(),
             new RNScreensPackage(),
             new ReanimatedPackage(),

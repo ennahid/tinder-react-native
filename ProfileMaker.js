@@ -10,31 +10,16 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import { Button } from "@ui-kitten/components";
 import DatePicker from "react-native-datepicker";
-import ImagePicker from "react-native-image-picker";
+import DialogAndroid from "react-native-dialogs";
+import ImagePicker from "react-native-image-crop-picker";
 import { addUserData } from "./redux/actions/client";
 import Gstyles from "./assets/styles";
 // var ImagePicker = require("react-native-image-picker");
-
-const options = {
-  title: "Pick Image",
-  storageOptions: {
-    skipBackup: true,
-    path: "images",
-  },
-};
-
-const options1 = {
-  title: "Pick Image",
-  customButtons: [{ name: "rm", title: "Delete" }],
-  storageOptions: {
-    skipBackup: true,
-    path: "images",
-  },
-};
 
 const fullWidth = Dimensions.get("window").width;
 const ImagePickerWidth = fullWidth / 3;
@@ -45,55 +30,65 @@ const ProfileMaker = (props) => {
   useEffect(() => {}, []);
 
   const showImagePicker = (imageNumber) => {
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        // console.log("User cancelled image picker");
-      } else if (response.error) {
-        // console.log("ImagePicker Error: ", response.error);
-      } else if (response.customButton) {
-        // console.log("User tapped custom button: ", response.customButton);
-      } else {
-        // const source = { uri: response.uri };
+    ImagePicker.openPicker({ width: 400, height: 400, cropping: true })
+      .then((response) => {
+        // const source = { uri: response.path };
         let imageNum = imageNumber;
         for (let index = imageNumber; index >= 1; index--) {
           if (index !== 1 && images[index - 1] == null) {
             imageNum = imageNum - 1;
             continue;
           } else {
-            setImages((values) => ({ ...values, [imageNum]: response.uri }));
+            setImages((values) => ({ ...values, [imageNum]: response.path }));
             setImagesData((values) => ({ ...values, [imageNum]: response }));
           }
         }
-      }
-    });
+      })
+      .catch((e) => {
+        // alert(JSON.stringify(e));
+      });
   };
-  const editImagePicker = (imageNumber) => {
-    ImagePicker.showImagePicker(options1, (response) => {
-      if (response.didCancel) {
-        // console.log("User cancelled image picker");
-      } else if (response.error) {
-        // console.log("ImagePicker Error: ", response.error);
-      } else if (response.customButton) {
-        // console.log("User tapped custom button: ", response.customButton);
+  const editImagePicker = async (imageNumber) => {
+    await DialogAndroid.showPicker("Options", null, {
+      positiveText: "",
+      negativeText: "",
+      items: [
+        { label: "Select Image", value: true },
+        { label: "Delete", value: false },
+      ],
+    }).then((DialogResponse) => {
+      if (DialogResponse?.selectedItem && DialogResponse?.selectedItem?.value) {
+        ImagePicker.openPicker({ width: 400, height: 400, cropping: true })
+          .then((response) => {
+            alert(JSON.stringify(DialogResponse));
+            let imageNum = imageNumber;
+            for (let index = imageNumber; index >= 1; index--) {
+              if (index !== 1 && images[index - 1] == null) {
+                imageNum = imageNum - 1;
+                continue;
+              } else {
+                setImages((values) => ({
+                  ...values,
+                  [imageNum]: response.path,
+                }));
+                setImagesData((values) => ({
+                  ...values,
+                  [imageNum]: response,
+                }));
+              }
+            }
+          })
+          .catch((e) => {
+            // alert(JSON.stringify(e));
+          });
+      } else if (
+        DialogResponse?.selectedItem &&
+        !DialogResponse?.selectedItem?.value
+      ) {
         setImages((values) => ({
           ...values,
           [imageNumber]: "",
         }));
-      } else {
-        // const source = { uri: response.uri };
-        let imageNum = imageNumber;
-        for (let index = imageNumber; index >= 1; index--) {
-          if (index !== 1 && images[index - 1] == null) {
-            imageNum = imageNum - 1;
-            continue;
-          } else {
-            setImages((values) => ({ ...values, [imageNum]: response.uri }));
-            setImagesData((values) => ({
-              ...values,
-              [imageNum]: response,
-            }));
-          }
-        }
       }
     });
   };
@@ -109,7 +104,7 @@ const ProfileMaker = (props) => {
     for (const key in images) {
       if (images[key] !== "") {
         formdata.append(`productImage${key}`, {
-          uri: imagesData[key].uri,
+          uri: imagesData[key].path,
           name: imagesData[key].fileName,
           type: imagesData[key].type,
         });
