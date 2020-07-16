@@ -1,24 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CardStack, { Card } from "react-native-card-stack-swiper";
 import CardItem from "./CardItem";
 import Demo from "../assets/data/demo.js";
 import styles from "../assets/styles";
 import { onSwipe, onSwipeBack, getUsers } from "../redux/actions/explore";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Button } from "react-native";
 import MyCardSwipers from "./MyCardSwipers";
 import { connect } from "react-redux";
-import MatchedModal from "./MatchedModal";
 
 const MyCardStack = ({ dispatch, state }) => {
   useEffect(() => {}, []);
 
   const swipeAction = (direction, userId) => {
     dispatch(onSwipe(direction, userId));
-    // alert("ff");
   };
   return (
     <>
       <CardStack
+        secondCardZoom={0.95}
         onSwipedAll={() => console.log("this is all")}
         disableBottomSwipe={true}
         duration={150}
@@ -35,6 +34,7 @@ const MyCardStack = ({ dispatch, state }) => {
             onSwipedTop={() => swipeAction("top", item._id)}
           >
             <CardItem
+              key={index}
               index={index}
               image={item.images[0]}
               name={item.name}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "../assets/styles";
 import {
   Text,
@@ -13,7 +13,7 @@ import { SharedElement } from "react-navigation-shared-element";
 import MatchedModal from "./MatchedModal";
 import { connect } from "react-redux";
 import moment from "moment";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useNavigation } from "react-navigation-hooks";
 import { API_URL } from "../app.json";
 import Gstyles from "../assets/styles";
@@ -37,15 +37,14 @@ const CardItem = ({
   const { navigate, isFocused } = useNavigation();
   // Custom styling
   const fullWidth = Dimensions.get("window").width;
+
+  // const SlideItem = useRef(null);
   // const fullHeight = Dimensions.get("window").height;
 
   const imageStyle = [
     {
-      // borderRadius: "8 8 0 0",
       width: fullWidth - 20,
       height: fullWidth - 20,
-      // height: fullWidth,
-      // height: 200,
       margin: 0,
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,
@@ -53,10 +52,12 @@ const CardItem = ({
       borderTopRightRadius: 10,
     },
   ];
+
   return (
     <View style={styles.containerCardItem}>
       {/* IMAGE */}
-      <TouchableHighlight
+
+      <TouchableWithoutFeedback
         onPress={() =>
           navigate("CardsInfoPage", {
             item: {
@@ -79,7 +80,7 @@ const CardItem = ({
             resizeMode={"cover"}
           />
         </SharedElement>
-      </TouchableHighlight>
+      </TouchableWithoutFeedback>
 
       {/* MATCHES */}
       {/* {matches && (
@@ -95,9 +96,17 @@ const CardItem = ({
         <Text style={Gstyles.CardItemNameStyle}>
           {name || ""}, {moment().diff(birthday, "years")}
         </Text>
+
         {/* <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text> */}
-        {/* <Text style={Lstyles.locationStyle}></Text> */}
-        {/* <Text style={Gstyles.CardItemLocationStyle}>Casablanca</Text> */}
+        {/* <Text style={Lstyles.locationStyle}>
+          {state.exploreReducer.currentInex == index
+            ? state.exploreReducer.card_postion
+            : "fuck"}
+        </Text> */}
+        {/* <Text style={Gstyles.CardItemLocationStyle}>
+          {state.exploreReducer.currentInex}
+        </Text> */}
+        {/* <Text style={Gstyles.CardItemLocationStyle}>{index}</Text> */}
       </View>
 
       {/* DESCRIPTION */}

@@ -14,6 +14,7 @@ export default function exploreReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
+
         matches: [],
       };
     case types.GET_USERS_SUCCESS:
@@ -21,6 +22,7 @@ export default function exploreReducer(state = initialState, action) {
         ...state,
         users: action.payload,
       };
+
     case types.SWIPE_SUCCESS:
       if (
         state.lastSwipes.indexOf({
@@ -30,6 +32,7 @@ export default function exploreReducer(state = initialState, action) {
       ) {
         return {
           ...state,
+
           lastSwipes: [
             ...state.lastSwipes,
             { direction: action.direction, userId: action.userId },
@@ -72,6 +75,7 @@ export default function exploreReducer(state = initialState, action) {
       myLastSwipesArray1 = myLastSwipesArray1.slice(0, -1);
       return {
         ...state,
+
         lastSwipes: state.lastSwipes.slice(0, -1),
         lastSwipe: myLastSwipesArray1[myLastSwipesArray1.length - 1],
       };

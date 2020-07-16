@@ -34,6 +34,7 @@ export default StyleSheet.create({
     shadowColor: BLACK,
     shadowOffset: { height: 0, width: 0 },
     // overflow: "hidden",
+    position: "relative",
   },
   matchesCardItem: {
     marginTop: -35,
@@ -446,6 +447,7 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     width: " 100%",
     padding: 20,
+    position: "relative",
   },
   CardItemNameStyle: {
     color: "#363636",

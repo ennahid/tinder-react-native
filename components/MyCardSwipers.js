@@ -17,7 +17,7 @@ import {
   DeleteAllDislikes,
 } from "../redux/actions/explore";
 
-const MyCardSwipers = ({ state, dispatch, swiper }) => {
+const MyCardSwipers = ({ state, dispatch, swiper, position }) => {
   useEffect(() => {
     // alert(lastSwipeDirection);
   }, [lastSwipeDirection]);
@@ -75,9 +75,9 @@ const MyCardSwipers = ({ state, dispatch, swiper }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.buttonBorder}>
+        <View style={[styles.buttonBorder]}>
           <TouchableOpacity
-            style={styles.button}
+            style={[styles.button]}
             onPress={() => swipeAction("left")}
           >
             <Text style={styles.like}>
@@ -87,7 +87,7 @@ const MyCardSwipers = ({ state, dispatch, swiper }) => {
         </View>
         <View style={styles.buttonBorder}>
           <TouchableOpacity
-            style={styles.button}
+            style={[styles.button]}
             onPress={() => swipeAction("right")}
           >
             <Text style={styles.dislike}>
@@ -108,6 +108,7 @@ const MyCardSwipers = ({ state, dispatch, swiper }) => {
             </Text>
           </TouchableOpacity>
         </View>
+        {/* <Text>{position}</Text> */}
       </View>
     </>
   );
