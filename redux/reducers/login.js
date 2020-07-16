@@ -24,6 +24,12 @@ export default function loginReducer(state = initialState, action) {
       };
     case types.LOGIN_ERROR:
       return { ...state, loggedIn: false, loginError: action.payload };
+    case types.CLIENT_DATA_SUCSESS:
+      return {
+        ...state,
+        step: action.step,
+        userData: action.userData,
+      };
     case types.LOGIN_SUCCESS:
       return {
         ...state,

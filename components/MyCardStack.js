@@ -36,10 +36,10 @@ const MyCardStack = ({ dispatch, state }) => {
           >
             <CardItem
               index={index}
-              image={item.images[1]}
+              image={item.images[0]}
               name={item.name}
               description={item.bio}
-              matches={Demo[index].match}
+              matches={index}
             />
           </Card>
         ))}

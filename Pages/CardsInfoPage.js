@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
 
 CardsInfoPage.sharedElements = (navigation, otherNavigation, showing) => {
   const item = navigation.getParam("item");
-  return [{ item: item, animation: "fade" }];
+  return [{ item: item, animation: "move" }];
 };
 
 const mapStateToProps = (state) => {

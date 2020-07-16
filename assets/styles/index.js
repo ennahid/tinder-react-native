@@ -312,6 +312,7 @@ export default StyleSheet.create({
   containerHome: {
     position: "relative",
     marginHorizontal: 10,
+    // backgroundColor: "blue",
   },
   containerCardInfo: {
     position: "relative",
@@ -400,6 +401,7 @@ export default StyleSheet.create({
     height: 28,
     paddingBottom: 0,
     paddingTop: 5,
+    color: "#ececec",
   },
   //INPUTs
   inputContainer: {

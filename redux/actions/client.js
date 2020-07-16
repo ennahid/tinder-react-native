@@ -1,15 +1,20 @@
 import * as types from "./actionTypes";
 import axios from "axios";
 import { getToken, getUserIdFromUserData } from "../../token.helper";
+import { API_URL } from "../../app.json";
 
-export function addUserData(userData, formData) {
+export function addUserData(formData) {
   return function (dispatch) {
     dispatch({ type: "CLIENT_POST_LOADING", payload: true });
-    // alert(getUserIdFromUserData());
+    // alert("http://127.0.0.1/myapi/clients/signup");
     // return;
     axios({
       method: "post",
       url: `${API_URL}/myapi/clients/${getUserIdFromUserData()}`,
+      // url: `127.0.0.1/myapi/clients/${getUserIdFromUserData()}`,
+      // url: `http://127.0.0.1/myapi/${getUserIdFromUserData()}/`,
+      // url: `${API_URL}/myapi/clients/preferences/${getUserIdFromUserData()}`,
+      // data: { hello: "world" },
       data: formData,
       headers: {
         Accept: "multipart/form-data",
@@ -19,12 +24,12 @@ export function addUserData(userData, formData) {
     })
       .then(function (response) {
         dispatch({ type: "CLIENT_POST_LOADING", payload: false });
-
+        alert(JSON.stringify(response.data.data));
         if (response?.status === 200 && response.data?.success) {
           dispatch({
             type: "CLIENT_DATA_SUCSESS",
-            step: response?.data?.step,
-            userData: response?.data,
+            step: response?.data?.data?.step,
+            userData: response?.data?.data,
           });
         } else {
           dispatch({
@@ -34,6 +39,9 @@ export function addUserData(userData, formData) {
         }
       })
       .catch(function (error) {
+        alert(JSON.stringify(error.message));
+        // alert(JSON.stringify(error));
+
         dispatch({
           type: "CLIENT_DATA_ERROR",
           payload: error.message,
@@ -54,6 +62,7 @@ export function addUserPreferences(formData) {
       method: "post",
       url: `${API_URL}/myapi/clients/preferences/${getUserIdFromUserData()}`,
       data: formData,
+      // data: { hello: "ff" },
       headers: {
         Authorization: "Bearer " + getToken(),
       },
@@ -63,7 +72,8 @@ export function addUserPreferences(formData) {
         if (response?.status === 200 && response.data?.success) {
           dispatch({
             type: "CLIENT_DATA_SUCSESS",
-            step: response?.data?.step,
+            step: response?.data?.data?.step,
+            userData: response?.data?.data,
           });
         } else {
           dispatch({
@@ -73,6 +83,7 @@ export function addUserPreferences(formData) {
         }
       })
       .catch(function (error) {
+        alert(error.message);
         dispatch({
           type: "CLIENT_DATA_ERROR",
           payload: error,

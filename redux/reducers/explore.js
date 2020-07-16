@@ -5,6 +5,7 @@ const initialState = {
   lastSwipes: [],
   lastSwipe: null,
   matches: [],
+  matchesImages: [],
 };
 
 export default function exploreReducer(state = initialState, action) {
@@ -39,18 +40,32 @@ export default function exploreReducer(state = initialState, action) {
       return { ...state };
     case types.GOT_MATCH:
       if (state.matches.indexOf(action.matchId) === -1) {
-        return {
-          ...state,
-          matches: [...state.matches, action.matchId],
-          lastSwipes: [],
-          lastSwipe: null,
-        };
+        //append match to array
+        let matchItem = state.users.find((item) => item._id === action.matchId);
+        if (matchItem) {
+          return {
+            ...state,
+            matches: [...state.matches, action.matchId],
+            matchesImages: [...state.matchesImages, matchItem.images[0]],
+            lastSwipes: [],
+            lastSwipe: null,
+          };
+        } else {
+          return {
+            ...state,
+            matches: [...state.matches, action.matchId],
+            lastSwipes: [],
+            lastSwipe: null,
+          };
+        }
       }
       return { ...state };
     case types.MATCH_VIEWED:
+      //remove firt match from array
       return {
         ...state,
         matches: state.matches.slice(1),
+        matchesImages: state.matchesImages.slice(1),
       };
     case types.SWIPE_BACK_SUCESS:
       let myLastSwipesArray1 = [...state.lastSwipes];

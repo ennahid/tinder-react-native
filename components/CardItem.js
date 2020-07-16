@@ -35,13 +35,14 @@ const CardItem = ({
   const { navigate, isFocused } = useNavigation();
   // Custom styling
   const fullWidth = Dimensions.get("window").width;
-  const fullHeight = Dimensions.get("window").height;
+  // const fullHeight = Dimensions.get("window").height;
 
   const imageStyle = [
     {
       // borderRadius: "8 8 0 0",
       width: fullWidth - 20,
-      height: fullWidth - 80,
+      height: fullWidth - 20,
+      // height: fullWidth,
       // height: 200,
       margin: 0,
       borderBottomLeftRadius: 0,
@@ -93,8 +94,8 @@ const CardItem = ({
         <Text style={Gstyles.CardItemNameStyle}>
           {name || ""}, {"26"}
         </Text>
-        {/* <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text> */}
-        <Text style={Gstyles.CardItemLocationStyle}>Casablanca</Text>
+        <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text>
+        {/* <Text style={Gstyles.CardItemLocationStyle}>Casablanca</Text> */}
       </View>
 
       {/* DESCRIPTION */}

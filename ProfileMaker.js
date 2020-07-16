@@ -17,8 +17,9 @@ import { Button } from "@ui-kitten/components";
 import DatePicker from "react-native-datepicker";
 import DialogAndroid from "react-native-dialogs";
 import ImagePicker from "react-native-image-crop-picker";
-import { addUserData } from "./redux/actions/client";
+import { addUserData, addUserPreferences } from "./redux/actions/client";
 import Gstyles from "./assets/styles";
+import { getUserIdFromUserData } from "./token.helper";
 // var ImagePicker = require("react-native-image-picker");
 
 const fullWidth = Dimensions.get("window").width;
@@ -30,7 +31,7 @@ const ProfileMaker = (props) => {
   useEffect(() => {}, []);
 
   const showImagePicker = (imageNumber) => {
-    ImagePicker.openPicker({ width: 400, height: 400, cropping: true })
+    ImagePicker.openPicker({ width: 500, height: 500, cropping: true })
       .then((response) => {
         // const source = { uri: response.path };
         let imageNum = imageNumber;
@@ -39,13 +40,14 @@ const ProfileMaker = (props) => {
             imageNum = imageNum - 1;
             continue;
           } else {
+            // alert(JSON.stringify(response));
             setImages((values) => ({ ...values, [imageNum]: response.path }));
             setImagesData((values) => ({ ...values, [imageNum]: response }));
           }
         }
       })
       .catch((e) => {
-        // alert(JSON.stringify(e));
+        alert(JSON.stringify(e));
       });
   };
   const editImagePicker = async (imageNumber) => {
@@ -58,7 +60,7 @@ const ProfileMaker = (props) => {
       ],
     }).then((DialogResponse) => {
       if (DialogResponse?.selectedItem && DialogResponse?.selectedItem?.value) {
-        ImagePicker.openPicker({ width: 400, height: 400, cropping: true })
+        ImagePicker.openPicker({ width: 500, height: 500, cropping: true })
           .then((response) => {
             let imageNum = imageNumber;
             for (let index = imageNumber; index >= 1; index--) {
@@ -104,12 +106,13 @@ const ProfileMaker = (props) => {
       if (images[key] !== "") {
         formdata.append(`productImage${key}`, {
           uri: imagesData[key].path,
-          name: imagesData[key].fileName,
-          type: imagesData[key].type,
+          name: getUserIdFromUserData(),
+          type: imagesData[key].mime,
         });
       }
     }
-    props.dispatch(addUserData(props.state.loginReducer.userId, formdata));
+    // alert(JSON.stringify(formdata));
+    props.dispatch(addUserData(formdata));
   };
   return (
     <>
@@ -243,6 +246,9 @@ const ProfileMaker = (props) => {
           </View>
           <View style={styles.TextContainer}>
             <View style={styles.TextBlock}>
+              <Text style={styles.TextBlockTitle}>
+                {JSON.stringify(props.state.loginReducer.userData)}
+              </Text>
               <Text style={styles.TextBlockTitle}>Your Name</Text>
               <TextInput
                 style={styles.TextBlockInput}

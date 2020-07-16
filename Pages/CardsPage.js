@@ -46,7 +46,6 @@ const CardsPage = (props) => {
                 width: 150,
                 height: 60,
                 resizeMode: "contain",
-                // backgroundColor: "#cecece",
               }}
               source={require("../assets/images/dk.png")}
             />

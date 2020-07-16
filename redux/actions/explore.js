@@ -52,7 +52,7 @@ export function getUsers(myToken) {
 export function onSwipe(direction, userId) {
   // alert("swipte");
   return function (dispatch) {
-    let url_value = direction === "left" ? "like" : "dislike";
+    let url_value = direction === "left" ? "like" : "___dislike";
     // alert("ff");
     dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
     axios({
@@ -83,7 +83,7 @@ export function onSwipe(direction, userId) {
 
 export function DeleteAllDislikes() {
   return function (dispatch) {
-    let url_value = direction === "left" ? "like" : "dislike";
+    let url_value = direction === "left" ? "like" : "dislike____";
     // alert("ff");
     dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
     axios({

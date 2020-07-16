@@ -22,7 +22,7 @@ const AppNavigation = createBottomTabNavigator(
               <Icon
                 name="search"
                 size={23}
-                color={focused ? iconFocused : "#525252"}
+                color={focused ? iconFocused : "#bbbbbb"}
               />
             </Text>
           );
@@ -39,7 +39,7 @@ const AppNavigation = createBottomTabNavigator(
               <Icon
                 name="heart"
                 size={23}
-                color={focused ? iconFocused : "#525252"}
+                color={focused ? iconFocused : "#bbbbbb"}
               />
             </Text>
           );
@@ -56,7 +56,7 @@ const AppNavigation = createBottomTabNavigator(
               <Icon
                 name="message-circle"
                 size={23}
-                color={focused ? iconFocused : "#525252"}
+                color={focused ? iconFocused : "#bbbbbb"}
               />
             </Text>
           );
@@ -73,7 +73,7 @@ const AppNavigation = createBottomTabNavigator(
               <Icon
                 name="user"
                 size={23}
-                color={focused ? iconFocused : "#525252"}
+                color={focused ? iconFocused : "#bbbbbb"}
               />
             </Text>
           );
@@ -84,17 +84,18 @@ const AppNavigation = createBottomTabNavigator(
   {
     tabBarOptions: {
       activeTintColor: "#7444C0",
-      inactiveTintColor: "#363636",
+      inactiveTintColor: "#bbbbbb",
       labelStyle: {
-        fontSize: 14,
+        fontSize: 9,
         // textTransform: "uppercase",
         paddingTop: 10,
       },
       style: {
         backgroundColor: "#FFF",
         borderTopWidth: 0,
-        paddingVertical: 1,
-        height: 60,
+        // paddingVertical: 1,
+        paddingTop: 10,
+        height: 50,
         marginBottom: 0,
         shadowOpacity: 0.05,
         shadowRadius: 10,

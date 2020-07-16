@@ -14,6 +14,7 @@ import {
   Animated,
 } from "react-native";
 import Icon from "./Icon";
+import { API_URL } from "../app.json";
 import { connect } from "react-redux";
 import Modal from "react-native-modal";
 import { onMatchViewed } from "../redux/actions/explore";
@@ -28,7 +29,6 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
     .current;
   const slideButtonFromRight = useRef(new Animated.Value(fullWidth / 20))
     .current;
-  const overlayOpacity = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     if (!isVisibleState) {
@@ -36,17 +36,11 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
       slideFromRight.setValue(fullWidth / 20);
       slideButtonFromLeft.setValue(-fullWidth / 20);
       slideButtonFromRight.setValue(fullWidth / 20);
-      overlayOpacity.setValue(0);
       opacityAnim.setValue(0);
     }
     if (state.exploreReducer.matches.length > 0) {
       setIsVisibleState(true);
       Animated.parallel([
-        Animated.timing(overlayOpacity, {
-          toValue: 0.7,
-          duration: 800,
-          easing: Easing.inOut(Easing.ease),
-        }),
         Animated.timing(opacityAnim, {
           toValue: 1,
           duration: 500,
@@ -87,19 +81,17 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
   };
   return (
     <Modal
-      visible={isVisibleState}
-      style={Lstyles.modalPage}
-      animationOut="fadeOut"
-      animationIn="fadeIn"
+      isVisible={isVisibleState}
+      style={Lstyles.modal}
       useNativeDriver={true}
+      backdropColor={"#000"}
+      backdropOpacity={0.6}
+      hasBackdrop={true}
+      animationIn={"fadeIn"}
+      animationOut={"fadeOut"}
     >
       {isVisibleState && (
         <View style={Lstyles.modalPage}>
-          <Animated.View
-            style={[Lstyles.overlayContainer, { opacity: overlayOpacity }]}
-          >
-            <View style={Lstyles.overlay}></View>
-          </Animated.View>
           <View style={Lstyles.imagesContaier}>
             <Animated.View
               style={[
@@ -107,7 +99,16 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
                 { opacity: opacityAnim, translateX: slideFromLeft },
               ]}
             >
-              <Image source={image} style={Lstyles.MatchedImage} />
+              <Image
+                source={
+                  state.loginReducer.userData.images[0]
+                    ? {
+                        uri: `${API_URL}/${state.loginReducer.userData.images[0]}`,
+                      }
+                    : require("../assets/images/image-place-holder.png")
+                }
+                style={Lstyles.MatchedImage}
+              />
             </Animated.View>
             <Animated.View
               style={[
@@ -115,7 +116,17 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
                 { opacity: opacityAnim, translateX: slideFromRight },
               ]}
             >
-              <Image source={image} style={Lstyles.MatchedImage} />
+              <Image
+                source={
+                  state.exploreReducer.matchesImages[0]
+                    ? {
+                        uri: `${API_URL}/${state.exploreReducer.matchesImages[0]}`,
+                      }
+                    : require("../assets/images/image-place-holder.png")
+                }
+                // source={require("../assets/images/image-place-holder.png")}
+                style={Lstyles.MatchedImage}
+              />
             </Animated.View>
           </View>
           <View style={Lstyles.ButtonsContainer}>
@@ -153,14 +164,29 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
 };
 
 const Lstyles = StyleSheet.create({
+  modal: {
+    // backgroundColor: "green",
+    // height: fullHeight,
+    // width: fullWidth,
+    // left: 0,
+    // top: 0,
+    // bottom: 0,
+    // right: 0,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   modalPage: {
-    position: "absolute",
+    // position: "absolute",
     height: fullHeight,
     width: fullWidth,
     zIndex: 9,
-    left: -10,
+    left: 0,
     top: 0,
+    bottom: 0,
+    right: 0,
     alignItems: "center",
+    // borderWidth: 5,
+    // borderColor: "green",
     justifyContent: "center",
     // paddingBottom: 100,
     // backgroundColor: "red",
@@ -169,13 +195,19 @@ const Lstyles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: fullHeight,
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
   },
   overlay: {
-    backgroundColor: "#000",
-    height: "100%",
-    width: "100%",
-    top: 0,
+    // backgroundColor: "#000",
+    // height: fullHeight + 5,
+    // width: fullWidth + 5,
     left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0,
     // opacity: 0.5,
   },
   imagesContaier: {

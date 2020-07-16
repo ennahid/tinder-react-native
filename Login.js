@@ -64,7 +64,7 @@ const Login = (props) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Email"
-                    value={signup["email"] || "abdel@gmail.com"}
+                    value={signup["email"] || ""}
                     size={"large"}
                     onChangeText={(nextValue) =>
                       SignupSetFormValue("email", nextValue)
@@ -75,7 +75,7 @@ const Login = (props) => {
                   <Input
                     secureTextEntry={true}
                     placeholder="Password"
-                    value={signup["password"] || "ffff"}
+                    value={signup["password"] || ""}
                     size={"large"}
                     onChangeText={(nextValue) =>
                       SignupSetFormValue("password", nextValue)
@@ -123,7 +123,7 @@ const Login = (props) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Email"
-                    value={signup["email"] || "abdel@gmail.com"}
+                    value={login["email"] || ""}
                     size={"large"}
                     onChangeText={(nextValue) =>
                       LoginSetFormValue("email", nextValue)
@@ -133,7 +133,7 @@ const Login = (props) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="Password"
-                    value={login["password"] || "ffff"}
+                    value={login["password"] || ""}
                     size={"large"}
                     onChangeText={(nextValue) =>
                       LoginSetFormValue("password", nextValue)
