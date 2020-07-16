@@ -39,6 +39,7 @@ const MyCardStack = ({ dispatch, state }) => {
               image={item.images[0]}
               name={item.name}
               description={item.bio}
+              birthday={item.birthday}
               matches={index}
             />
           </Card>

@@ -83,7 +83,7 @@ export default StyleSheet.create({
     width: "100%",
     height: DIMENSION_HEIGHT,
     // backgroundColor: "red",
-    paddingBottom: 110,
+    paddingBottom: "15%",
     position: "absolute",
     bottom: 0,
     left: 0,

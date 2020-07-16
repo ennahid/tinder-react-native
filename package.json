@@ -20,6 +20,7 @@
     "@ui-kitten/components": "^5.0.0",
     "axios": "^0.19.2",
     "jwt-decode": "^2.2.0",
+    "moment": "^2.27.0",
     "react": "16.8.6",
     "react-native": "0.59.9",
     "react-native-card-stack-swiper": "^1.2.4",

@@ -124,7 +124,6 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
                       }
                     : require("../assets/images/image-place-holder.png")
                 }
-                // source={require("../assets/images/image-place-holder.png")}
                 style={Lstyles.MatchedImage}
               />
             </Animated.View>

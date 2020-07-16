@@ -12,17 +12,19 @@ import Icon from "./Icon";
 import { SharedElement } from "react-navigation-shared-element";
 import MatchedModal from "./MatchedModal";
 import { connect } from "react-redux";
+import moment from "moment";
 import { TouchableHighlight } from "react-native-gesture-handler";
 import { useNavigation } from "react-navigation-hooks";
 import { API_URL } from "../app.json";
 import Gstyles from "../assets/styles";
-
+moment().format();
 const CardItem = ({
   actions,
   index,
   description,
   image,
   name,
+  birthday,
   matches,
   onPressLeft,
   onPressRight,
@@ -51,7 +53,6 @@ const CardItem = ({
       borderTopRightRadius: 10,
     },
   ];
-
   return (
     <View style={styles.containerCardItem}>
       {/* IMAGE */}
@@ -92,9 +93,10 @@ const CardItem = ({
       {/* NAME */}
       <View style={Gstyles.CardItemProfileInfo}>
         <Text style={Gstyles.CardItemNameStyle}>
-          {name || ""}, {"26"}
+          {name || ""}, {moment().diff(birthday, "years")}
         </Text>
-        <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text>
+        {/* <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text> */}
+        {/* <Text style={Lstyles.locationStyle}></Text> */}
         {/* <Text style={Gstyles.CardItemLocationStyle}>Casablanca</Text> */}
       </View>
 
