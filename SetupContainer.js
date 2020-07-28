@@ -6,6 +6,8 @@ import { Text } from "react-native";
 import ProfileMaker from "./ProfileMaker";
 import { getUserIdFromUserData, getToken } from "./token.helper";
 import ProfilePreferences from "./ProfilePreferences";
+import SignUp from "./SignUp";
+import MyLoginNavigation from "./mLoginNavigation";
 
 const SetupContainer = (props) => {
   // const [currentStep, setCurrentStep] = useState(null);
@@ -18,6 +20,8 @@ const SetupContainer = (props) => {
   // }, [props?.state?.loginReducer?.step]);
 
   function switchedComponent(step) {
+    // return <Login />;
+
     switch (step) {
       case 1:
         return <ProfileMaker />;
@@ -28,7 +32,7 @@ const SetupContainer = (props) => {
       // return <Text>hell</Text>;
       default:
         // return <Text>-------------</Text>;
-        return <Login />;
+        return <MyLoginNavigation />;
     }
   }
   return (
@@ -53,7 +57,7 @@ const SetupContainer = (props) => {
       {props?.state?.loginReducer?.loggedIn ? (
         switchedComponent(props?.state?.loginReducer?.step)
       ) : (
-        <Login />
+        <MyLoginNavigation />
       )}
     </>
   );

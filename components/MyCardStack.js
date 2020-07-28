@@ -26,6 +26,25 @@ const MyCardStack = ({ dispatch, state }) => {
         // horizontalSwipe={false}
         ref={(swiper) => (this.gSwiper = swiper)}
       >
+        {/* <Card
+          key={1}
+          // onSwipedRight={() => swipeAction("right", item._id)}
+          // onSwipedLeft={() => swipeAction("left", item._id)}
+          // onSwipedTop={() => swipeAction("top", item._id)}
+        >
+          <CardItem
+            key={1}
+            index={1}
+            person={state.clientsReducer.userData}
+            _id={"fff"}
+            images={[Demo.image]}
+            // images={state.clientsReducer.userData.images}
+            name={"state.clientsReducer.userData.name"}
+            description={"state.clientsReducer.userData.bio"}
+            birthday={"state.clientsReducer.userData.birthday"}
+            matches={1}
+          />
+        </Card> */}
         {state.exploreReducer.users?.map((item, index) => (
           <Card
             key={index}
@@ -36,7 +55,9 @@ const MyCardStack = ({ dispatch, state }) => {
             <CardItem
               key={index}
               index={index}
-              image={item.images[0]}
+              person={item}
+              _id={item._id}
+              images={item.images}
               name={item.name}
               description={item.bio}
               birthday={item.birthday}

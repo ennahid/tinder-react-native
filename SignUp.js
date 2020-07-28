@@ -14,47 +14,78 @@ import styles from "./assets/styles";
 import { connect } from "react-redux";
 import { createUser, loginUser } from "./redux/actions/login";
 import { useNavigation } from "react-navigation-hooks";
-const Login = (props) => {
-  const [login, setLoginValues] = useState({
+import { color } from "react-native-reanimated";
+
+const SignUp = (props) => {
+  const [signup, setSignupValues] = useState({
     email: "",
     password: "",
-    emailValid: true,
+    confirmPassword: "",
     error: false,
+    emailValid: true,
+    passwordValid: true,
   });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const { navigate } = useNavigation();
-  // useEffect(() => {
-  // }, []);
 
-  const onLogin = () => {
-    setLoginValues((values) => ({ ...values, error: false }));
+  const { navigate } = useNavigation();
+  useEffect(() => {
+    if (
+      signup.confirmPassword &&
+      signup.password &&
+      signup.confirmPassword === signup.password
+    ) {
+      setSignupValues((values) => ({
+        ...values,
+        error: false,
+        passwordValid: true,
+      }));
+    } else if (signup.confirmPassword || signup.password || signup.email) {
+      // alert("zz");
+      setSignupValues((values) => ({
+        ...values,
+        error: true,
+        passwordValid: false,
+      }));
+    }
+  }, [signup]);
+
+  const onSignUp = () => {
+    setSignupValues((values) => ({ ...values, error: false }));
     // alert(JSON.stringify(login));
-    if (!login.error && login.email && login.password)
-      props.dispatch(loginUser(login));
+    if (
+      !signup.error &&
+      signup.email &&
+      signup.password &&
+      signup.confirmPassword
+    )
+      props.dispatch(createUser(signup));
     else {
-      setLoginValues((values) => ({ ...values, error: true }));
+      setSignupValues((values) => ({ ...values, error: true }));
     }
   };
 
-  const LoginSetFormValue = (name, value) => {
-    // abdel1@gmail.com
+  const SignupSetFormValue = (name, value) => {
     if (name === "email") {
       let myEmail = value;
       myEmail = myEmail.replace(/\s+/g, "");
-      setLoginValues((values) => ({ ...values, [name]: myEmail }));
+      setSignupValues((values) => ({ ...values, [name]: myEmail }));
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (re.test(String(myEmail).toLowerCase())) {
-        setLoginValues((values) => ({ ...values, emailValid: true }));
+        setSignupValues((values) => ({
+          ...values,
+          emailValid: true,
+        }));
       } else {
-        setLoginValues((values) => ({
+        setSignupValues((values) => ({
           ...values,
           emailValid: false,
         }));
       }
     } else {
-      setLoginValues((values) => ({ ...values, [name]: value }));
+      setSignupValues((values) => ({ ...values, [name]: value }));
+      // abdel1@gmail.com
     }
   };
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={Lstyles.loginPage}>
@@ -67,7 +98,7 @@ const Login = (props) => {
             source={require("./assets/images/app-logo.png")}
           />
           <View style={styles.formContainer}>
-            <Text style={Lstyles.loginTitle}>Welcome back to APPNAME</Text>
+            <Text style={Lstyles.loginTitle}>Welcome to APPNAME</Text>
           </View>
         </View>
         <View style={Lstyles.loginBody}>
@@ -75,25 +106,26 @@ const Login = (props) => {
             <View
               style={[
                 styles.inputContainer,
-                !login.emailValid || (login.error && !login.email)
+                !signup.emailValid || (signup.error && !signup.email)
                   ? { borderColor: "red", borderWidth: 1 }
                   : {},
               ]}
             >
               <TextInput
-                style={[styles.myInput]}
+                autoCompleteType={"email"}
+                style={styles.myInput}
                 placeholder="Email"
                 placeholderTextColor={"#C7C7CD"}
-                value={login["email"] || ""}
+                value={signup["email"] || ""}
                 onChangeText={(nextValue) =>
-                  LoginSetFormValue("email", nextValue)
+                  SignupSetFormValue("email", nextValue)
                 }
               />
             </View>
             <View
               style={[
                 styles.inputContainer,
-                login.error && !login.password
+                !signup.passwordValid || (signup.error && !signup.password)
                   ? { borderColor: "red", borderWidth: 1 }
                   : {},
               ]}
@@ -102,35 +134,52 @@ const Login = (props) => {
                 style={styles.myInput}
                 placeholder="Password"
                 placeholderTextColor={"#C7C7CD"}
-                value={login["password"] || ""}
+                secureTextEntry={true}
+                value={signup["password"] || ""}
                 onChangeText={(nextValue) =>
-                  LoginSetFormValue("password", nextValue)
+                  SignupSetFormValue("password", nextValue)
                 }
               />
             </View>
-            <View style={{ alignItems: "center" }}>
-              <Text style={{ color: "red" }}>
-                {props.state.loginReducer.loginError}
-              </Text>
+            <View
+              style={[
+                styles.inputContainer,
+                !signup.passwordValid ||
+                (signup.error && !signup.confirmPassword)
+                  ? { borderColor: "red", borderWidth: 1 }
+                  : {},
+              ]}
+            >
+              <TextInput
+                style={styles.myInput}
+                secureTextEntry={true}
+                placeholder="Confirm password"
+                placeholderTextColor={"#C7C7CD"}
+                value={signup["confirmPassword"] || ""}
+                onChangeText={(nextValue) =>
+                  SignupSetFormValue("confirmPassword", nextValue)
+                }
+              />
             </View>
           </View>
-          <TouchableNativeFeedback onPress={() => null}>
-            <Text style={Lstyles.forgotPassword}>Forgot Password ?</Text>
-          </TouchableNativeFeedback>
+          <Text style={{ color: "red" }}>
+            {props.state.loginReducer.loginError}
+          </Text>
+          <Text> </Text>
           <TouchableNativeFeedback
-            onPress={() => onLogin()}
+            onPress={() => onSignUp()}
             disabled={props.state.loginReducer.loading}
           >
             <View style={styles.myButtonContainer}>
               <Text style={styles.myButtonText}>
-                {props.state.loginReducer.loading ? "Loading" : "Log in"}
+                {props.state.loginReducer.loading ? "Loading" : "Sign Up"}
               </Text>
             </View>
           </TouchableNativeFeedback>
         </View>
         <View style={Lstyles.loginFooter}>
-          <Text style={styles.myText}>Don't have an account? </Text>
-          <TouchableNativeFeedback onPress={() => navigate("SignUp")}>
+          <Text style={styles.myText}>Already have an account? </Text>
+          <TouchableNativeFeedback onPress={() => navigate("Login")}>
             <Text
               style={{
                 color: "#FF3E56",
@@ -138,7 +187,7 @@ const Login = (props) => {
                 textDecorationLine: "underline",
               }}
             >
-              Signup
+              Login
             </Text>
           </TouchableNativeFeedback>
         </View>
@@ -198,4 +247,4 @@ const mapStateToProps = (state) => {
     state: state,
   };
 };
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(SignUp);

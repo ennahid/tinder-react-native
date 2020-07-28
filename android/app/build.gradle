@@ -140,6 +140,7 @@ android {
 }
 
 dependencies {
+    implementation project(':@react-native-community_checkbox')
     implementation project(':react-native-dialogs')
     implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-shared-element')

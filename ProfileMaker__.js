@@ -6,11 +6,9 @@ import {
   StyleSheet,
   Dimensions,
   TouchableWithoutFeedback,
-  TouchableNativeFeedback,
   TextInput,
   Image,
   SafeAreaView,
-  ToastAndroid,
   ScrollView,
   Alert,
 } from "react-native";
@@ -22,7 +20,6 @@ import ImagePicker from "react-native-image-crop-picker";
 import { addUserData, addUserPreferences } from "./redux/actions/client";
 import Gstyles from "./assets/styles";
 import { getUserIdFromUserData } from "./token.helper";
-import moment from "moment";
 // var ImagePicker = require("react-native-image-picker");
 
 const fullWidth = Dimensions.get("window").width;
@@ -30,12 +27,7 @@ const ImagePickerWidth = fullWidth / 3;
 const ProfileMaker = (props) => {
   const [images, setImages] = useState({});
   const [imagesData, setImagesData] = useState({});
-  const [userData, setUserData] = useState({
-    name: "",
-    birthday: "",
-    nameError: false,
-    birthdayError: false,
-  });
+  const [userData, setUserData] = useState({});
   useEffect(() => {}, []);
 
   const showImagePicker = (imageNumber) => {
@@ -55,7 +47,7 @@ const ProfileMaker = (props) => {
         }
       })
       .catch((e) => {
-        // alert(JSON.stringify(e));
+        alert(JSON.stringify(e));
       });
   };
   const editImagePicker = async (imageNumber) => {
@@ -106,43 +98,26 @@ const ProfileMaker = (props) => {
     setUserData((values) => ({ ...values, [name]: value }));
   };
   const onSubmitUserData = () => {
-    if (userData.name && userData.birthday) {
-      let formdata = new FormData();
-      // for (const key in userData) {
-      // }
-      formdata.append("name", userData.name);
-      formdata.append("birthday", userData.birthday);
-      for (const key in images) {
-        if (images[key] !== "") {
-          formdata.append(`productImage${key}`, {
-            uri: imagesData[key].path,
-            name: getUserIdFromUserData(),
-            type: imagesData[key].mime,
-          });
-        }
-      }
-      // alert(JSON.stringify(formdata));
-      props.dispatch(addUserData(formdata));
-    } else {
-      let myData = {
-        nameError: userData.name ? false : true,
-        birthdayError: userData.birthday ? false : true,
-      };
-      setUserData((values) => ({ ...values, ...myData }));
+    let formdata = new FormData();
+    for (const key in userData) {
+      formdata.append(key, userData[key]);
     }
+    for (const key in images) {
+      if (images[key] !== "") {
+        formdata.append(`productImage${key}`, {
+          uri: imagesData[key].path,
+          name: getUserIdFromUserData(),
+          type: imagesData[key].mime,
+        });
+      }
+    }
+    // alert(JSON.stringify(formdata));
+    props.dispatch(addUserData(formdata));
   };
   return (
     <>
-      <SafeAreaView
-        style={styles.ProfileMakerPage}
-        pointerEvents={props.state.clientsReducer.loading ? "none" : "auto"}
-      >
-        <ScrollView
-          style={[
-            { flex: 1 },
-            props.state.clientsReducer.loading ? { opacity: 0.3 } : {},
-          ]}
-        >
+      <SafeAreaView style={styles.ProfileMakerPage}>
+        <ScrollView>
           <View style={styles.ImagesContainer}>
             <View style={styles.ImagesContainerBig}>
               <TouchableWithoutFeedback
@@ -269,34 +244,30 @@ const ProfileMaker = (props) => {
               </TouchableWithoutFeedback>
             </View>
           </View>
-          <View
-            style={[
-              styles.TextContainer,
-              {
-                paddingHorizontal: 25,
-              },
-            ]}
-          >
-            <View style={[Gstyles.inputContainer]}>
+          <View style={styles.TextContainer}>
+            <View style={styles.TextBlock}>
+              <Text style={styles.TextBlockTitle}>
+                {JSON.stringify(props.state.loginReducer.userData)}
+              </Text>
+              <Text style={styles.TextBlockTitle}>Your Name</Text>
               <TextInput
-                autoCompleteType={"name"}
-                style={Gstyles.myInput}
-                placeholder="Name"
-                placeholderTextColor={"#C7C7CD"}
-                value={userData["name"] || ""}
+                style={styles.TextBlockInput}
+                placeholder={"Jhon Doe"}
+                placeholderTextColor="#C7C7CD"
                 onChangeText={(text) => onValueChange("name", text)}
+                value={userData["name"]}
               />
             </View>
-
-            <View style={[Gstyles.inputContainer]}>
+            <View style={styles.TextBlock}>
+              <Text style={styles.TextBlockTitle}>Your Age</Text>
               <DatePicker
-                style={[Gstyles.myInput, { paddingHorizontal: 0 }]}
+                style={{ borderWidth: 0 }}
                 date={userData["birthday"] || null}
                 mode="date"
-                placeholder="Birthdate"
+                placeholder="Birthday"
                 format="YYYY/MM/DD"
                 minDate="1940-01-01"
-                maxDate={moment().format("YYYY-MM-DD")}
+                maxDate="2019-01-01"
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
                 customStyles={{
@@ -312,11 +283,10 @@ const ProfileMaker = (props) => {
                   },
                   dateTouchBody: {
                     width: fullWidth,
-                    backgroundColor: "#FFF",
-                    height: "100%",
-                    // width: "100%",
-                    // marginVertical: 5,
-                    // marginBottom: 10,
+                    backgroundColor: "#fff",
+                    height: 70,
+                    marginVertical: 5,
+                    marginBottom: 10,
                   },
                   placeholderText: {
                     fontSize: 16,
@@ -328,29 +298,60 @@ const ProfileMaker = (props) => {
                 }}
               />
             </View>
+            <View style={styles.TextBlock}>
+              <Text style={styles.TextBlockTitle}>About You</Text>
+              <TextInput
+                style={styles.TextBlockInput}
+                multiline={true}
+                // numberOfLines={10}
+                blurOnSubmit={false}
+                editable={true}
+                placeholder={"Your bio"}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("bio", text)}
+                value={userData["bio"]}
+              />
+            </View>
+            <View style={styles.TextBlock}>
+              <Text style={styles.TextBlockTitle}>Job Title</Text>
+              <TextInput
+                style={styles.TextBlockInput}
+                placeholder={"Add job title"}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("job", text)}
+                value={userData["job"]}
+              />
+            </View>
+            <View style={styles.TextBlock}>
+              <Text style={styles.TextBlockTitle}>Company</Text>
+              <TextInput
+                style={styles.TextBlockInput}
+                placeholder={"Add company"}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("company", text)}
+                value={userData["company"]}
+              />
+            </View>
+            <View style={styles.TextBlock}>
+              <Text style={styles.TextBlockTitle}>School</Text>
+              <TextInput
+                style={styles.TextBlockInput}
+                placeholder={"Add School"}
+                placeholderTextColor="#C7C7CD"
+                onChangeText={(text) => onValueChange("school", text)}
+                value={userData["school"]}
+              />
+            </View>
           </View>
-          <View style={{ height: 100 }}></View>
-          {/* <Button
+          <Button
             size={"large"}
             style={Gstyles.NextPageButton}
             onPress={() => onSubmitUserData()}
             disabled={props.state.clientsReducer.loading}
           >
             {props.state.clientsReducer.loading ? "Loading" : "Continue"}
-          </Button> */}
+          </Button>
         </ScrollView>
-        <View>
-          <TouchableNativeFeedback
-            onPress={() => onSubmitUserData()}
-            disabled={props.state.clientsReducer.loading}
-          >
-            <View style={[Gstyles.myButtonContainer, { borderRadius: 0 }]}>
-              <Text style={Gstyles.myButtonText}>
-                {props.state.clientsReducer.loading ? "Loading" : "Next"}
-              </Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
       </SafeAreaView>
     </>
   );
@@ -378,7 +379,7 @@ const styles = StyleSheet.create({
   },
   ProfileMakerPage: {
     flex: 1,
-    backgroundColor: "#fafafa",
+    backgroundColor: "#f5f5f5",
   },
   ImagesContainer: {
     flexDirection: "row",
@@ -389,6 +390,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "flex-start",
     justifyContent: "flex-start",
+
     width: ImagePickerWidth * 2,
   },
   ImagesContainerSmal: {

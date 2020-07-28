@@ -17,7 +17,6 @@ export function createUser(formData) {
       },
     })
       .then(function (response) {
-        dispatch({ type: "LOGIN_POST_LOADING", payload: false });
         if (response?.status === 200 && response.data?.success) {
           setToken(response?.data?.token);
           setUserData(response?.data?.data);
@@ -38,7 +37,7 @@ export function createUser(formData) {
       .catch(function (error) {
         dispatch({
           type: "LOGIN_ERROR",
-          payload: error,
+          payload: error.message,
         });
       })
       .finally(() => {

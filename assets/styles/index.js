@@ -16,6 +16,10 @@ const LIKE_ACTIONS = "#B644B2";
 const DISLIKE_ACTIONS = "#737373";
 const FLASH_ACTIONS = "#5028D7";
 
+const MY_ROSE = "#FF3E56";
+const MY_BLUE = "#38537C";
+const MY_GREY = "#C2C2C2";
+
 const ICON_FONT = "tinderclone";
 
 const DIMENSION_WIDTH = Dimensions.get("window").width;
@@ -30,11 +34,13 @@ export default StyleSheet.create({
     margin: 0,
     marginTop: 20,
     shadowOpacity: 0.05,
-    shadowRadius: 10,
+    shadowRadius: 13,
     shadowColor: BLACK,
     shadowOffset: { height: 0, width: 0 },
     // overflow: "hidden",
     position: "relative",
+    borderColor: "#c7c7c7",
+    borderWidth: 1,
   },
   matchesCardItem: {
     marginTop: -35,
@@ -93,18 +99,20 @@ export default StyleSheet.create({
     // marginTop: DIMENSION_HEIGHT - 250,
   },
   buttonBorder: {
-    width: 85,
-    height: 85,
+    width: 70,
+    height: 70,
     borderRadius: 100,
-    borderColor: LIGHTGREY,
+    borderColor: "#e4e4e4",
+    // borderColor: "red",
     borderWidth: 35,
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 5,
+
+    marginHorizontal: 8,
   },
   button: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 40,
     backgroundColor: WHITE,
     marginHorizontal: 3,
@@ -123,18 +131,18 @@ export default StyleSheet.create({
     // shadowOffset: { height: 15, width: 0 },
   },
   miniButtonBorder: {
-    width: 70,
-    height: 70,
+    width: 55,
+    height: 55,
     borderRadius: 90,
-    borderColor: LIGHTGREY,
+    borderColor: "#e4e4e4",
     borderWidth: 25,
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 5,
+    marginHorizontal: 8,
   },
   miniButton: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 90,
     backgroundColor: WHITE,
     marginHorizontal: 3,
@@ -159,7 +167,7 @@ export default StyleSheet.create({
   like: {
     fontSize: 25,
     fontFamily: ICON_FONT,
-    color: LIKE_ACTIONS,
+    color: MY_ROSE,
   },
   dislike: {
     fontSize: 25,
@@ -405,9 +413,56 @@ export default StyleSheet.create({
     color: "#ececec",
   },
   //INPUTs
-  inputContainer: {
+  formContainer: {
     width: "100%",
-    marginBottom: 10,
+  },
+  inputContainer: {
+    shadowColor: "#00000001",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.005,
+    shadowRadius: 15,
+    elevation: 15,
+    borderRadius: 9,
+    marginBottom: 15,
+    height: 60,
+    overflow: "hidden",
+    width: "100%",
+    // backgroundColor: "#f00",
+    // backgroundColor: "#0000",
+  },
+  myButtonContainer: {
+    height: 55,
+    overflow: "hidden",
+    width: "100%",
+    backgroundColor: MY_ROSE,
+    borderRadius: 7,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  myButtonText: {
+    // backgroundColor: "green",
+    // height: "100%",
+    // width: "100%",
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: 16,
+    textTransform: "uppercase",
+  },
+  myInput: {
+    backgroundColor: "#fff",
+    borderWidth: 0,
+    borderColor: "#fff",
+    paddingHorizontal: 16,
+    // paddingVertical: 17,
+    height: "100%",
+    // padding: 16,
+    // backgroundColor: "#f00",
+    // height: 130,
+    // width: "100%",
+    fontSize: 15,
+  },
+  myText: {
+    color: MY_BLUE,
   },
   checkboxContainer: {
     // backgroundColor: "#ccc",
@@ -446,16 +501,18 @@ export default StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "flex-start",
     width: " 100%",
-    padding: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     position: "relative",
   },
   CardItemNameStyle: {
     color: "#363636",
-    fontSize: 23,
+    fontSize: 19,
     fontWeight: "500",
+    marginBottom: 5,
   },
   CardItemLocationStyle: {
-    fontStyle: "italic",
-    color: "#ccc",
+    // fontStyle: "italic",
+    color: "#C4C4C4",
   },
 });

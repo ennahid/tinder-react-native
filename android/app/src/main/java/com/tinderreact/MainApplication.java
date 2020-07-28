@@ -3,6 +3,7 @@ package com.tinderreact;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.ijzerenhein.sharedelement.RNSharedElementPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactCheckBoxPackage(),
             new ReactNativeDialogsPackage(),
             new PickerPackage(),
             new RNSharedElementPackage(),

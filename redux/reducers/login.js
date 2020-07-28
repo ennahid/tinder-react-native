@@ -20,7 +20,7 @@ export default function loginReducer(state = initialState, action) {
       return {
         ...state,
         loading: action.payload,
-        // loginError: action.payload && "",
+        loginError: action.payload ? "" : state.loginError,
       };
     case types.LOGIN_ERROR:
       return { ...state, loggedIn: false, loginError: action.payload };

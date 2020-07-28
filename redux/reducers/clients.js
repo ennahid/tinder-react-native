@@ -1,4 +1,5 @@
 import * as types from "../actions/actionTypes";
+import { ToastAndroid } from "react-native";
 
 const initialState = {
   loading: false,
@@ -16,6 +17,13 @@ export default function clientsReducer(state = initialState, action) {
       return {
         ...state,
         loading: action.payload,
+      };
+    case types.CLIENT_ERROR:
+      ToastAndroid.show(action.payload, ToastAndroid.LONG);
+      return {
+        ...state,
+        loading: false,
+        getLoading: false,
       };
     case types.CLIENT_GET_LOADING:
       return {

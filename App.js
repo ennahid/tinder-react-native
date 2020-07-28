@@ -20,7 +20,9 @@ import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers";
 import Login from "./Login";
 import SetupContainer from "./SetupContainer";
+import moment from "moment";
 
+moment().format();
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,

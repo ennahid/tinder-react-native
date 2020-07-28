@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
 import Icon from "react-native-vector-icons/Feather";
+import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import styles from "./assets/styles";
 import HomeScreen from "./containers/Home";
 import MatchesScreen from "./containers/Matches";
@@ -19,8 +20,8 @@ const AppNavigation = createBottomTabNavigator(
           const iconFocused = focused ? "#7444C0" : "#363636";
           return (
             <Text style={[styles.iconMenu, { color: iconFocused }]}>
-              <Icon
-                name="search"
+              <MIcon
+                name="cards-outline"
                 size={23}
                 color={focused ? iconFocused : "#bbbbbb"}
               />
@@ -82,6 +83,8 @@ const AppNavigation = createBottomTabNavigator(
     },
   },
   {
+    // initialRouteName: "Explore",
+    initialRouteName: "Profile",
     tabBarOptions: {
       activeTintColor: "#7444C0",
       inactiveTintColor: "#bbbbbb",

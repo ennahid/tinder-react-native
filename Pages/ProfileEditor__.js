@@ -10,33 +10,44 @@ import {
   TextInput,
   Image,
   SafeAreaView,
-  ToastAndroid,
   ScrollView,
   Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
+
 import { Button } from "@ui-kitten/components";
 import DatePicker from "react-native-datepicker";
 import DialogAndroid from "react-native-dialogs";
 import ImagePicker from "react-native-image-crop-picker";
-import { addUserData, addUserPreferences } from "./redux/actions/client";
-import Gstyles from "./assets/styles";
-import { getUserIdFromUserData } from "./token.helper";
+import { editUserData, addUserPreferences } from "../redux/actions/client";
+import Gstyles from "../assets/styles";
 import moment from "moment";
+
+import { getUserIdFromUserData } from "../token.helper";
+import { API_URL } from "../app.json";
 // var ImagePicker = require("react-native-image-picker");
 
 const fullWidth = Dimensions.get("window").width;
 const ImagePickerWidth = fullWidth / 3;
-const ProfileMaker = (props) => {
+const ProfileEditor = (props) => {
   const [images, setImages] = useState({});
   const [imagesData, setImagesData] = useState({});
   const [userData, setUserData] = useState({
-    name: "",
-    birthday: "",
-    nameError: false,
-    birthdayError: false,
+    name: props.state.loginReducer.userData.name,
+    bio: props.state.loginReducer.userData.bio,
+    birthday: props.state.loginReducer.userData.birthday,
+    school: props.state.loginReducer.userData.school,
+    company: props.state.loginReducer.userData.company,
+    job: props.state.loginReducer.userData.job,
+    job: props.state.loginReducer.userData.job,
   });
-  useEffect(() => {}, []);
+  useEffect(() => {
+    let images = {};
+    props.state.loginReducer.userData.images.map((item, index) => {
+      images[index + 1] = `${API_URL}/${item}`;
+    });
+    setImages(images);
+  }, []);
 
   const showImagePicker = (imageNumber) => {
     ImagePicker.openPicker({ width: 400, height: 400, cropping: true })
@@ -44,13 +55,20 @@ const ProfileMaker = (props) => {
         // const source = { uri: response.path };
         let imageNum = imageNumber;
         for (let index = imageNumber; index >= 1; index--) {
-          if (index !== 1 && images[index - 1] == null) {
+          // alert(images[index - 1]);
+          if (
+            index !== 1 &&
+            (images[index - 1] === "" ||
+              images[index - 1] === undefined ||
+              images[index - 1] === null)
+          ) {
             imageNum = imageNum - 1;
+            // alert(imageNum);
             continue;
           } else {
-            // alert(JSON.stringify(response));
             setImages((values) => ({ ...values, [imageNum]: response.path }));
             setImagesData((values) => ({ ...values, [imageNum]: response }));
+            break;
           }
         }
       })
@@ -72,8 +90,13 @@ const ProfileMaker = (props) => {
           .then((response) => {
             let imageNum = imageNumber;
             for (let index = imageNumber; index >= 1; index--) {
-              if (index !== 1 && images[index - 1] == null) {
-                imageNum = imageNum - 1;
+              if (
+                index !== 1 &&
+                (images[index - 1] === "" ||
+                  images[index - 1] === undefined ||
+                  images[index - 1] === null)
+              ) {
+                // imageNum = imageNum - 1;
                 continue;
               } else {
                 setImages((values) => ({
@@ -84,6 +107,7 @@ const ProfileMaker = (props) => {
                   ...values,
                   [imageNum]: response,
                 }));
+                break;
               }
             }
           })
@@ -103,46 +127,39 @@ const ProfileMaker = (props) => {
   };
 
   const onValueChange = (name, value) => {
+    // network error : fill fields with text
     setUserData((values) => ({ ...values, [name]: value }));
   };
   const onSubmitUserData = () => {
-    if (userData.name && userData.birthday) {
-      let formdata = new FormData();
-      // for (const key in userData) {
-      // }
-      formdata.append("name", userData.name);
-      formdata.append("birthday", userData.birthday);
-      for (const key in images) {
-        if (images[key] !== "") {
-          formdata.append(`productImage${key}`, {
-            uri: imagesData[key].path,
-            name: getUserIdFromUserData(),
-            type: imagesData[key].mime,
-          });
-        }
-      }
-      // alert(JSON.stringify(formdata));
-      props.dispatch(addUserData(formdata));
-    } else {
-      let myData = {
-        nameError: userData.name ? false : true,
-        birthdayError: userData.birthday ? false : true,
-      };
-      setUserData((values) => ({ ...values, ...myData }));
+    let formdata = new FormData();
+    let OldImages = [];
+    for (const key in userData) {
+      formdata.append(key, userData[key]);
     }
+    for (const key in images) {
+      if (images[key] !== "" && !images[key].includes(API_URL)) {
+        formdata.append(`productImage${key}`, {
+          uri: imagesData[key].path,
+          name: getUserIdFromUserData(),
+          type: imagesData[key].mime,
+        });
+      } else if (images[key].includes(API_URL)) {
+        OldImages.push(images[key]);
+      }
+    }
+    formdata.append("oldImages", JSON.stringify(OldImages));
+    // alert(JSON.stringify(formdata));
+    props.dispatch(editUserData(formdata));
   };
   return (
     <>
       <SafeAreaView
-        style={styles.ProfileMakerPage}
-        pointerEvents={props.state.clientsReducer.loading ? "none" : "auto"}
+        style={[
+          styles.ProfileMakerPage,
+          props.state.clientsReducer.loading ? { opacity: 0.3 } : {},
+        ]}
       >
-        <ScrollView
-          style={[
-            { flex: 1 },
-            props.state.clientsReducer.loading ? { opacity: 0.3 } : {},
-          ]}
-        >
+        <ScrollView>
           <View style={styles.ImagesContainer}>
             <View style={styles.ImagesContainerBig}>
               <TouchableWithoutFeedback
@@ -153,7 +170,11 @@ const ProfileMaker = (props) => {
                 <View style={[styles.ImagePicker, styles.BigImagePicker]}>
                   {images["1"] ? (
                     <Image
-                      source={{ uri: images["1"] }}
+                      source={{
+                        uri: images["1"]
+                          ? images["1"]
+                          : `${API_URL}/${props.state.loginReducer.userData.images[0]}`,
+                      }}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -173,7 +194,11 @@ const ProfileMaker = (props) => {
                 <View style={styles.ImagePicker}>
                   {images["6"] ? (
                     <Image
-                      source={{ uri: images["6"] }}
+                      source={{
+                        uri: images["6"]
+                          ? images["6"]
+                          : `${API_URL}/${props.state.loginReducer.userData.images[5]}`,
+                      }}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -193,7 +218,11 @@ const ProfileMaker = (props) => {
                 <View style={styles.ImagePicker}>
                   {images["5"] ? (
                     <Image
-                      source={{ uri: images["5"] }}
+                      source={{
+                        uri: images["5"]
+                          ? images["5"]
+                          : `${API_URL}/${props.state.loginReducer.userData.images[4]}`,
+                      }}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -215,7 +244,11 @@ const ProfileMaker = (props) => {
                 <View style={styles.ImagePicker}>
                   {images["2"] ? (
                     <Image
-                      source={{ uri: images["2"] }}
+                      source={{
+                        uri: images["2"]
+                          ? images["2"]
+                          : `${API_URL}/${props.state.loginReducer.userData.images[1]}`,
+                      }}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -235,7 +268,11 @@ const ProfileMaker = (props) => {
                 <View style={styles.ImagePicker}>
                   {images["3"] ? (
                     <Image
-                      source={{ uri: images["3"] }}
+                      source={{
+                        uri: images["3"]
+                          ? images["3"]
+                          : `${API_URL}/${props.state.loginReducer.userData.images[2]}`,
+                      }}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -255,7 +292,11 @@ const ProfileMaker = (props) => {
                 <View style={styles.ImagePicker}>
                   {images["4"] ? (
                     <Image
-                      source={{ uri: images["4"] }}
+                      source={{
+                        uri: images["4"]
+                          ? images["4"]
+                          : `${API_URL}/${props.state.loginReducer.userData.images[3]}`,
+                      }}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -269,67 +310,78 @@ const ProfileMaker = (props) => {
               </TouchableWithoutFeedback>
             </View>
           </View>
-          <View
-            style={[
-              styles.TextContainer,
-              {
-                paddingHorizontal: 25,
-              },
-            ]}
-          >
-            <View style={[Gstyles.inputContainer]}>
-              <TextInput
-                autoCompleteType={"name"}
-                style={Gstyles.myInput}
-                placeholder="Name"
-                placeholderTextColor={"#C7C7CD"}
-                value={userData["name"] || ""}
-                onChangeText={(text) => onValueChange("name", text)}
-              />
-            </View>
+          <View style={styles.TextContainer}>
+            <View style={Gstyles.CardItemProfileInfo}>
+              <Text style={styles.sectionTitle}>About Me</Text>
+              <View style={styles.sectionBlock}>
+                <View style={{ paddingRight: 20 }}>
+                  <Icon name={"edit"} color={"#ececec"} size={20} />
+                </View>
 
-            <View style={[Gstyles.inputContainer]}>
-              <DatePicker
-                style={[Gstyles.myInput, { paddingHorizontal: 0 }]}
-                date={userData["birthday"] || null}
-                mode="date"
-                placeholder="Birthdate"
-                format="YYYY/MM/DD"
-                minDate="1940-01-01"
-                maxDate={moment().format("YYYY-MM-DD")}
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  dateIcon: {
-                    display: "none",
-                  },
-                  dateInput: {
-                    borderWidth: 0,
-                    alignItems: "flex-start",
-                    justifyContent: "center",
-                    paddingHorizontal: 15,
-                    height: 0,
-                  },
-                  dateTouchBody: {
-                    width: fullWidth,
-                    backgroundColor: "#FFF",
-                    height: "100%",
-                    // width: "100%",
-                    // marginVertical: 5,
-                    // marginBottom: 10,
-                  },
-                  placeholderText: {
-                    fontSize: 16,
-                    color: "#C7C7CD",
-                  },
-                }}
-                onDateChange={(date) => {
-                  setUserData((values) => ({ ...values, birthday: date }));
-                }}
-              />
+                <TextInput
+                  style={styles.specialInput}
+                  multiline={true}
+                  placeholder={"Describe yourself here"}
+                  placeholderTextColor="#C7C7CD"
+                  onChangeText={(text) => onValueChange("bio", text)}
+                  value={userData["bio"]}
+                />
+              </View>
             </View>
+            <View style={styles.spacerLine}></View>
+
+            {/* ------------------------------------------- */}
+
+            <View style={Gstyles.CardItemProfileInfo}>
+              <Text style={styles.sectionTitle}>Personal Info</Text>
+              <View style={styles.sectionBlock}>
+                <View style={{ paddingRight: 20 }}>
+                  <Icon name={"briefcase"} color={"#ececec"} size={20} />
+                </View>
+                {/* <Text style={styles.sectionInfo}>{userData["job"] || ""}</Text> */}
+
+                <TextInput
+                  style={styles.specialInput}
+                  placeholder={"What is your job title ?"}
+                  placeholderTextColor="#C7C7CD"
+                  onChangeText={(text) => onValueChange("job", text)}
+                  value={userData["job"]}
+                />
+              </View>
+              <View style={styles.sectionBlock}>
+                <View style={{ paddingRight: 20 }}>
+                  <Icon name={"briefcase"} color={"#ececec"} size={20} />
+                </View>
+                {/* <Text style={styles.sectionInfo}>
+                  {userData["company"] || ""}
+                </Text> */}
+                <TextInput
+                  style={styles.specialInput}
+                  placeholder={"What is your campany name ?"}
+                  placeholderTextColor="#C7C7CD"
+                  onChangeText={(text) => onValueChange("company", text)}
+                  value={userData["company"]}
+                />
+              </View>
+              <View style={styles.sectionBlock}>
+                <View style={{ paddingRight: 20 }}>
+                  <Icon name={"book"} color={"#ececec"} size={20} />
+                </View>
+                {/* <Text style={styles.sectionInfo}>
+                  {userData["school"] || ""}
+                </Text> */}
+                <TextInput
+                  style={styles.specialInput}
+                  placeholder={"What School did you go to ?"}
+                  placeholderTextColor="#C7C7CD"
+                  onChangeText={(text) => onValueChange("school", text)}
+                  value={userData["school"]}
+                />
+              </View>
+            </View>
+            {/* ------------------------------------------- */}
+            <View style={styles.spacerLine}></View>
           </View>
-          <View style={{ height: 100 }}></View>
           {/* <Button
             size={"large"}
             style={Gstyles.NextPageButton}
@@ -338,25 +390,101 @@ const ProfileMaker = (props) => {
           >
             {props.state.clientsReducer.loading ? "Loading" : "Continue"}
           </Button> */}
+          <View style={{ padding: 25 }}>
+            <TouchableNativeFeedback
+              onPress={() => onSubmitUserData()}
+              disabled={props.state.clientsReducer.loading}
+            >
+              <View style={Gstyles.myButtonContainer}>
+                <Text style={Gstyles.myButtonText}>
+                  {props.state.clientsReducer.loading ? "Loading" : "Save"}
+                </Text>
+              </View>
+            </TouchableNativeFeedback>
+          </View>
         </ScrollView>
-        <View>
-          <TouchableNativeFeedback
-            onPress={() => onSubmitUserData()}
-            disabled={props.state.clientsReducer.loading}
-          >
-            <View style={[Gstyles.myButtonContainer, { borderRadius: 0 }]}>
-              <Text style={Gstyles.myButtonText}>
-                {props.state.clientsReducer.loading ? "Loading" : "Next"}
-              </Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
       </SafeAreaView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  sectionTitle: {
+    color: "#FF3E56",
+    marginBottom: 20,
+    fontWeight: "600",
+    opacity: 0.9,
+  },
+  specialInput: {
+    fontSize: 16,
+  },
+  sectionInfo: {
+    color: "#363636",
+    fontSize: 15,
+    textTransform: "capitalize",
+  },
+  sectionBlock: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    // marginVertical: 5,
+  },
+  spacerLine: {
+    height: 1,
+    backgroundColor: "#ececec",
+    width: fullWidth,
+    marginVertical: 10,
+  },
+  title: {
+    fontSize: 32,
+    lineHeight: 36,
+    fontFamily: "CerealBook",
+    marginBottom: 16,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 18,
+    fontFamily: "CerealBook",
+    overflow: "hidden",
+  },
+  details: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  detailText: {
+    fontFamily: "CerealBook",
+    fontSize: 14,
+    color: "grey",
+    marginLeft: 4,
+    marginRight: 16,
+  },
+  smallDivider: {
+    height: 1,
+    backgroundColor: "#DCDDDE",
+    marginVertical: 16,
+    width: fullWidth * 0.25,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#DCDDDE",
+    marginVertical: 16,
+  },
+  host: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  avatar: {
+    width: 76,
+    height: 76,
+    borderRadius: 76 / 2,
+  },
+  mediumText: {
+    fontSize: 16,
+    lineHeight: 18,
+    fontFamily: "CerealMedium",
+  },
   TextBlock: {
     paddingVertical: 5,
   },
@@ -378,7 +506,7 @@ const styles = StyleSheet.create({
   },
   ProfileMakerPage: {
     flex: 1,
-    backgroundColor: "#fafafa",
+    backgroundColor: "#f5f5f5",
   },
   ImagesContainer: {
     flexDirection: "row",
@@ -389,6 +517,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "flex-start",
     justifyContent: "flex-start",
+
     width: ImagePickerWidth * 2,
   },
   ImagesContainerSmal: {
@@ -416,4 +545,4 @@ const mapStateToProps = (state) => {
     state: state,
   };
 };
-export default connect(mapStateToProps)(ProfileMaker);
+export default connect(mapStateToProps)(ProfileEditor);

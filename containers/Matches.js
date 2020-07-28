@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from '../assets/styles';
+import React from "react";
+import styles from "../assets/styles";
 
 import {
   ScrollView,
@@ -7,16 +7,16 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  FlatList
-} from 'react-native';
-import CardItem from '../components/CardItem';
-import Icon from '../components/Icon';
-import Demo from '../assets/data/demo.js';
+  FlatList,
+} from "react-native";
+import CardItem from "../components/CardItem";
+import Icon from "../components/Icon";
+import Demo from "../assets/data/demo.js";
 
 const Matches = () => {
   return (
     <ImageBackground
-      source={require('../assets/images/bg.png')}
+      source={require("../assets/images/bg.png")}
       style={styles.bg}
     >
       <View style={styles.containerMatches}>
@@ -36,12 +36,12 @@ const Matches = () => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity>
-                <CardItem
+                {/* <CardItem
                   image={item.image}
                   name={item.name}
                   status={item.status}
                   variant
-                />
+                /> */}
               </TouchableOpacity>
             )}
           />
