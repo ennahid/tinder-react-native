@@ -97,7 +97,7 @@ const MCaroussel = (props) => {
       style={{
         height: props.height ? props.height : "100%",
         width: "100%",
-        backgroundColor: "#cccc",
+        backgroundColor: "#cecece",
         opacity: 1,
       }}
     >
@@ -127,7 +127,7 @@ const MCaroussel = (props) => {
         pagingEnabled
         ref={myScrollView}
         style={{
-          backgroundColor: "#cccc",
+          backgroundColor: "#cecece",
           opacity: 1,
         }}
         // decelerationRate={'normal'}

@@ -20,19 +20,17 @@ import {
 import { set } from "react-native-reanimated";
 
 const MyCardSwipers = ({ state, dispatch, swiper, position }) => {
-  useEffect(() => {
-    // alert(lastSwipeDirection);
-  }, [lastSwipeDirection]);
   const [lastSwipeDirection, setLastSwipeDirection] = useState([]);
   const [isSwiping, setIsSwiping] = useState(true);
+  useEffect(() => {
+    // setTimeout(() => setIsSwiping(true), 300);
+    // return () => {
+    //   setIsSwiping(true);
+    // };
+  }, [isSwiping]);
   const swipeAction = (direction) => {
-    // setLastSwipeDirection((values) => [...values, direction]);
-    // dispatch(onSwipe(direction, "124"));
-    // alert(JSON.stringify(lastSwipeDirection));
     if (isSwiping === true) {
-      setIsSwiping(false);
-      setTimeout(() => setIsSwiping(true), 300);
-
+      // setIsSwiping(false);
       switch (direction) {
         case "top":
           swiper.swipeTop();
@@ -49,10 +47,6 @@ const MyCardSwipers = ({ state, dispatch, swiper, position }) => {
     }
   };
   const swipeBackAction = (direction) => {
-    // let array = direction;
-    // lastItem = array[array.length - 1];
-    // array = array.slice(0, -1);
-    // setLastSwipeDirection(array);
     dispatch(onSwipeBack());
     switch (direction) {
       case "top":
@@ -70,7 +64,12 @@ const MyCardSwipers = ({ state, dispatch, swiper, position }) => {
   };
   return (
     <>
-      <View style={styles.actionsCardItem}>
+      <View
+        style={[
+          styles.actionsCardItem,
+          // state.clientsReducer.getLoading ? { display: "none" } : {},
+        ]}
+      >
         <View style={styles.miniButtonBorder}>
           <TouchableOpacity
             style={styles.miniButton}

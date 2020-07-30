@@ -31,7 +31,7 @@ const ButtonWIthIcon = ({
       <View style={Lstyles.profileNavigationButton}>
         <View
           style={{
-            backgroundColor: bgColor ? bgColor : "#ccc",
+            backgroundColor: bgColor ? bgColor : "#cecece",
             padding: 8,
             borderRadius: 4,
             marginRight: 20,
@@ -74,7 +74,7 @@ const ProfilePage = (props) => {
           <View style={Lstyles.topPageCenterImageHolder}>
             <View
               style={{
-                backgroundColor: "#cccc",
+                backgroundColor: "#cecece",
                 marginBottom: 15,
                 borderRadius: 200,
                 borderColor: "#fff",

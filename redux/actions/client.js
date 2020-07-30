@@ -76,7 +76,7 @@ export function editUserData(formData) {
         dispatch({ type: "CLIENT_POST_LOADING", payload: false });
         // alert(JSON.stringify(response.data.data));
         if (response?.status === 200 && response.data?.success) {
-          alert(JSON.stringify(response?.data?.data));
+          // alert(JSON.stringify(response?.data?.data));
           dispatch({
             type: "CLIENT_DATA_SUCSESS",
             step: response?.data?.data?.step,

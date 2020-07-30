@@ -17,7 +17,7 @@ const AppNavigation = createBottomTabNavigator(
       screen: HomeScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => {
-          const iconFocused = focused ? "#7444C0" : "#363636";
+          const iconFocused = focused ? "#FF3E56" : "#363636";
           return (
             <Text style={[styles.iconMenu, { color: iconFocused }]}>
               <MIcon
@@ -34,7 +34,7 @@ const AppNavigation = createBottomTabNavigator(
       screen: MatchesScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => {
-          const iconFocused = focused ? "#7444C0" : "#363636";
+          const iconFocused = focused ? "#FF3E56" : "#363636";
           return (
             <Text style={[styles.iconMenu, { color: iconFocused }]}>
               <Icon
@@ -51,7 +51,7 @@ const AppNavigation = createBottomTabNavigator(
       screen: MessagesScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => {
-          const iconFocused = focused ? "#7444C0" : "#363636";
+          const iconFocused = focused ? "#FF3E56" : "#363636";
           return (
             <Text style={[styles.iconMenu, { color: iconFocused }]}>
               <Icon
@@ -68,7 +68,7 @@ const AppNavigation = createBottomTabNavigator(
       screen: ProfileScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => {
-          const iconFocused = focused ? "#7444C0" : "#363636";
+          const iconFocused = focused ? "#FF3E56" : "#363636";
           return (
             <Text style={[styles.iconMenu, { color: iconFocused }]}>
               <Icon
@@ -86,7 +86,7 @@ const AppNavigation = createBottomTabNavigator(
     // initialRouteName: "Explore",
     initialRouteName: "Profile",
     tabBarOptions: {
-      activeTintColor: "#7444C0",
+      activeTintColor: "#FF3E56",
       inactiveTintColor: "#bbbbbb",
       labelStyle: {
         fontSize: 9,

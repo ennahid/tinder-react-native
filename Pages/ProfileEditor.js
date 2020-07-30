@@ -93,6 +93,16 @@ const ProfileEditor = (props) => {
     });
     setImages(images);
   }, []);
+  useEffect(() => {
+    // alert(JSON.stringify(props.state.loginReducer.userData.images));
+    for (key in props.state.loginReducer.userData.images) {
+      if (key !== "unique") {
+        Image.prefetch(
+          `${API_URL}/${props.state.loginReducer.userData.images[key]}`
+        );
+      }
+    }
+  }, [props.state.loginReducer.userData.images]);
 
   const showImagePicker = (imageNumber) => {
     ImagePicker.openPicker({ width: 400, height: 400, cropping: true })
@@ -182,10 +192,10 @@ const ProfileEditor = (props) => {
     // alert(JSON.stringify(ModalData.selectedModalData));
     // // return;
     let tagIndex = ModalData.selectedModalData[current]?.indexOf(item);
+
     let allselectedTags = { ...ModalData.selectedModalData };
     if (tagIndex === -1) {
       //does not exist
-
       allselectedTags[current].push(item);
       setModalData((values) => ({
         ...values,
@@ -198,6 +208,13 @@ const ProfileEditor = (props) => {
         selectedModalData: allselectedTags,
       }));
     }
+    // alert(
+    //   JSON.stringify({
+    //     tagIndex: tagIndex,
+    //     current: current,
+    //     item: item,
+    //   })
+    // );
   };
   const addNewtag = () => {
     let tagsList = { ...ModalData };
@@ -1103,8 +1120,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   modalButton: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
     fontWeight: "600",
     color: "#FF3E56",
   },

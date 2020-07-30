@@ -9,16 +9,21 @@ import MyCardSwipers from "./MyCardSwipers";
 import { connect } from "react-redux";
 
 const MyCardStack = ({ dispatch, state }) => {
-  useEffect(() => {}, []);
-
   const swipeAction = (direction, userId) => {
     dispatch(onSwipe(direction, userId));
+  };
+
+  const getMoreCards = () => {
+    setTimeout(() => {
+      dispatch(getUsers(state.loginReducer.token));
+    }, 200);
   };
   return (
     <>
       <CardStack
         secondCardZoom={0.95}
-        onSwipedAll={() => console.log("this is all")}
+        onSwipedAll={() => getMoreCards()}
+        // onSwipedAll={() => alert("ff")}
         disableBottomSwipe={true}
         duration={150}
         renderNoMoreCards={() => null}

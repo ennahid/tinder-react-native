@@ -4,14 +4,10 @@ import { getToken, getUserIdFromUserData } from "../../token.helper";
 import { API_URL } from "../../app.json";
 
 export function getUsers(myToken) {
-  // alert("getttussr");
-
   return function (dispatch) {
-    // alert("ff");
     // dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
     // dispatch({ type: "SWIPE_BACK_SUCCESS", payload: direction });
     dispatch({ type: "CLIENT_GET_LOADING", payload: true });
-
     axios({
       method: "get",
       url: `${API_URL}/myapi/clients/`,
@@ -20,6 +16,10 @@ export function getUsers(myToken) {
       },
     })
       .then(function (response) {
+        dispatch({
+          type: "GET_USERS_SUCCESS",
+          payload: [],
+        });
         dispatch({ type: "CLIENT_GET_LOADING", payload: false });
         // alert(JSON.stringify(response));
         if (response?.status === 200 && response.data?.success) {
@@ -52,7 +52,7 @@ export function getUsers(myToken) {
 export function onSwipe(direction, userId) {
   // alert("swipte");
   return function (dispatch) {
-    let url_value = direction === "left" ? "like" : "___dislike";
+    let url_value = direction === "left" ? "like" : "dislike";
     // alert("ff");
     dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
     axios({
@@ -83,9 +83,9 @@ export function onSwipe(direction, userId) {
 
 export function DeleteAllDislikes() {
   return function (dispatch) {
-    let url_value = direction === "left" ? "like" : "dislike____";
+    // let url_value = direction === "left" ? "like" : "dislike";
     // alert("ff");
-    dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
+    // dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
     axios({
       method: "post",
       url: `${API_URL}/myapi/clients/delete/dislikes`,

@@ -7,6 +7,12 @@ import ProfileEditor from "../Pages/ProfileEditor";
 
 const Profile = createStackNavigator(
   {
+    ProfilePage: {
+      screen: ProfilePage,
+      navigationOptions: () => ({
+        headerShown: false,
+      }),
+    },
     ProfileEditor: {
       screen: ProfileEditor,
       navigationOptions: () => ({
@@ -23,19 +29,15 @@ const Profile = createStackNavigator(
         },
       }),
     },
-    ProfilePage: {
-      screen: ProfilePage,
-      navigationOptions: () => ({
-        headerShown: false,
-      }),
-    },
   },
   {
     mode: "modal",
     // headerMode: "none",
     defaultNavigationOptions: {
+      // animationEnabled: false,
       ...TransitionPresets.SlideFromRightIOS,
     },
+
     // defaultNavigationOptions: {
     //   cardStyleInterpolator: ({ current: { progress } }) => {
     //     const opacity = progress.interpolate({
