@@ -104,6 +104,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
+        multiDexEnabled true
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -140,6 +141,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation project(':react-native-fast-image')
     implementation project(':@react-native-community_checkbox')
     implementation project(':react-native-dialogs')
     implementation project(':react-native-image-crop-picker')

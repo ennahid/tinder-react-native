@@ -17,8 +17,10 @@ import { onSwipe, onSwipeBack, getUsers } from "../redux/actions/explore";
 import { getToken } from "../token.helper";
 import { API_URL } from "../app.json";
 import MatchedModal from "../components/MatchedModal";
+import FastImage from "react-native-fast-image";
 
 const fullHeight = Dimensions.get("window").height;
+const fullWidth = Dimensions.get("window").width;
 const CardsPage = (props) => {
   const rippleOne = useRef(new Animated.Value(0)).current;
   const rippleTwo = useRef(new Animated.Value(0)).current;
@@ -26,6 +28,32 @@ const CardsPage = (props) => {
   useEffect(() => {
     runAnimation();
   }, []);
+  useEffect(() => {
+    if (props.state.exploreReducer.users.length > 0) {
+      let images = [];
+      // alert(JSON.stringify(props.state?.exploreReducer?.users));
+      props.state?.exploreReducer?.users?.map((user) => {
+        user.images?.map((myImage) => {
+          let objUri = {};
+          // objUri["uri"] = `${API_URL}/ff`;
+          objUri["uri"] = `${API_URL}/${myImage}`;
+          images.push(objUri);
+        });
+      });
+      // alert(JSON.stringify(images));
+      try {
+        FastImage.preload([
+          {
+            uri: `${API_URL}/${props.state.loginReducer.userData.images[0]}`,
+          },
+          ...images,
+        ]);
+      } catch (e) {
+        // alert(e);
+      }
+    }
+    // );
+  }, [props.state.exploreReducer.users]);
   useEffect(() => {
     if (props.state.loginReducer.token) {
       props.dispatch(getUsers(props.state.loginReducer.token));
@@ -37,38 +65,37 @@ const CardsPage = (props) => {
       Animated.sequence([
         Animated.timing(rippleOne, {
           toValue: 1,
-          duration: 2000,
+          duration: 1000,
           useNativeDriver: true,
-          // delay: 1000,
         }),
         Animated.timing(rippleOne, {
-          toValue: 0.4,
-          duration: 1000,
+          toValue: 0,
+          duration: 2000,
           useNativeDriver: true,
         }),
       ]),
       Animated.sequence([
         Animated.timing(rippleTwo, {
           toValue: 1,
-          duration: 2000,
-          delay: 1000,
+          duration: 1000,
+          delay: 800,
           useNativeDriver: true,
         }),
         Animated.timing(rippleTwo, {
-          toValue: 0.4,
-          duration: 1000,
+          toValue: 0,
+          duration: 1500,
           useNativeDriver: true,
         }),
       ]),
       Animated.sequence([
         Animated.timing(rippleThree, {
           toValue: 1,
-          duration: 2000,
-          delay: 2500,
+          duration: 1000,
+          delay: 1600,
           useNativeDriver: true,
         }),
         Animated.timing(rippleThree, {
-          toValue: 0.4,
+          toValue: 0,
           duration: 1000,
           useNativeDriver: true,
         }),
@@ -87,7 +114,6 @@ const CardsPage = (props) => {
           matchs={props.state.exploreReducer.matches}
           image={require("../assets/images/09.jpg")}
         />
-
         {fullHeight > 700 && (
           <View style={styles.top}>
             <Image
@@ -119,6 +145,7 @@ const CardsPage = (props) => {
               <Text>Please comeback after a few hours.</Text>
             </View>
           )}
+        {/* {false ? ( */}
         {!props.state.clientsReducer.getLoading ? (
           //LLLOOOAAAADDDIIIINNNGGGGG
           <MyCardStack navigation={props.navigation} />
@@ -142,7 +169,20 @@ const CardsPage = (props) => {
                 zIndex: 9,
               }}
             >
-              <Image
+              <FastImage
+                style={{
+                  height: 130,
+                  width: 130,
+                  borderRadius: 150,
+                  borderColor: "#fff",
+                  borderWidth: 0,
+                }}
+                source={{
+                  uri: `${API_URL}/${props.state.loginReducer.userData.images[0]}`,
+                }}
+                resizeMode={FastImage.resizeMode.cover}
+              />
+              {/* <Image
                 style={{
                   height: 130,
                   width: 130,
@@ -154,45 +194,40 @@ const CardsPage = (props) => {
                 source={{
                   uri: `${API_URL}/${props.state.loginReducer.userData.images[0]}`,
                 }}
-              />
+              /> */}
             </View>
             <Animated.View
               style={{
                 backgroundColor: "#FF3E5675",
-                height: 300,
-                width: 300,
+                height: fullWidth / 1.9,
+                width: fullWidth / 1.9,
                 borderRadius: 300,
-                scaleX: rippleOne,
-                scaleY: rippleOne,
-                position: "absolute",
-                opacity: 0.5,
+                opacity: rippleOne,
               }}
             ></Animated.View>
             <Animated.View
               style={{
-                backgroundColor: "#FF3E5675",
-                height: 300,
-                width: 300,
+                backgroundColor: "#FF3E5665",
+                height: fullWidth / 1.5,
+                width: fullWidth / 1.5,
                 borderRadius: 300,
-                scaleX: rippleTwo,
-                scaleY: rippleTwo,
-                opacity: 0.5,
+                opacity: rippleTwo,
                 position: "absolute",
               }}
             ></Animated.View>
             <Animated.View
               style={{
-                backgroundColor: "#FF3E5675",
-                height: 300,
-                width: 300,
+                backgroundColor: "#FF3E5655",
+                height: fullWidth / 1.2,
+                width: fullWidth / 1.2,
                 borderRadius: 300,
-                scaleX: rippleThree,
-                scaleY: rippleThree,
-                opacity: 0.5,
+                opacity: rippleThree,
                 position: "absolute",
               }}
             ></Animated.View>
-            <Text style={{ position: "absolute", paddingTop: fullHeight / 2 }}>
+            <Text
+              style={{ position: "absolute", paddingTop: fullHeight / 1.7 }}
+            >
               Looking for people around you...
             </Text>
           </View>

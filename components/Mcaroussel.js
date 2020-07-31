@@ -12,6 +12,7 @@ import {
 import { connect } from "react-redux";
 import ImageViewer from "react-native-image-zoom-viewer";
 import Icon from "react-native-vector-icons/AntDesign";
+import FastImage from "react-native-fast-image";
 
 const MCaroussel = (props) => {
   const myScrollView = useRef(null);
@@ -149,10 +150,16 @@ const MCaroussel = (props) => {
             }
           >
             <View key={index}>
-              <Image
+              {/* <Image
                 key={index}
                 style={{ width: props.width, height: "100%" }}
                 source={image}
+              /> */}
+              <FastImage
+                key={index}
+                style={{ width: props.width, height: "100%" }}
+                source={image}
+                resizeMode={FastImage.resizeMode.cover}
               />
             </View>
           </TouchableWithoutFeedback>

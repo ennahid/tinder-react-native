@@ -475,7 +475,7 @@ export default StyleSheet.create({
     marginVertical: 25,
   },
   primaryButton: {
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: MY_ROSE,
     width: "100%",
     paddingVertical: 20,
     alignItems: "center",

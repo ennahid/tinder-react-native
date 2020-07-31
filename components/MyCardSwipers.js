@@ -29,7 +29,7 @@ const MyCardSwipers = ({ state, dispatch, swiper, position }) => {
     // };
   }, [isSwiping]);
   const swipeAction = (direction) => {
-    if (isSwiping === true) {
+    if (isSwiping === true && swiper) {
       // setIsSwiping(false);
       switch (direction) {
         case "top":

@@ -20,6 +20,7 @@ import { API_URL } from "../app.json";
 import Gstyles from "../assets/styles";
 import { color } from "react-native-reanimated";
 import Demo from "../assets/data/demo.js";
+import FastImage from "react-native-fast-image";
 const CardItem = ({
   actions,
   index,
@@ -90,7 +91,7 @@ const CardItem = ({
           //   uri: `https://img.freepik.com/free-vector/business-people-organization-office-freelance-job-character_40876-1291.jpg?size=338&ext=jpg`,
           // }} */}
         <SharedElement id={index}>
-          <Image
+          {/* <Image
             // source={Demo[3].image}
             source={
               state.exploreReducer.mcarousselCurrentImageId[_id]
@@ -107,6 +108,43 @@ const CardItem = ({
             }
             style={imageStyle}
             resizeMode={"cover"}
+          /> */}
+          <FastImage
+            style={imageStyle}
+            source={
+              state.exploreReducer.mcarousselCurrentImageId[_id]
+                ? {
+                    uri: `${API_URL}/${
+                      images[state.exploreReducer.mcarousselCurrentImageId[_id]]
+                        ? images[
+                            state.exploreReducer.mcarousselCurrentImageId[_id]
+                          ]
+                        : ""
+                    }`,
+                    priority: FastImage.priority.high,
+                  }
+                : {
+                    uri: `${API_URL}/${images[0] ? images[0] : ""}`,
+                    priority: FastImage.priority.high,
+                  }
+            }
+            resizeMode={FastImage.resizeMode.cover}
+          />
+          <FastImage
+            style={{ display: "none" }}
+            source={{
+              uri: `${API_URL}/${images[1] ? images[1] : ""}`,
+              priority: FastImage.priority.high,
+            }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+          <FastImage
+            style={{ display: "none" }}
+            source={{
+              uri: `${API_URL}/${images[2] ? images[2] : ""}`,
+              priority: FastImage.priority.high,
+            }}
+            resizeMode={FastImage.resizeMode.cover}
           />
         </SharedElement>
       </TouchableWithoutFeedback>

@@ -18,6 +18,7 @@ import { API_URL } from "../app.json";
 import { connect } from "react-redux";
 import Modal from "react-native-modal";
 import { onMatchViewed } from "../redux/actions/explore";
+import FastImage from "react-native-fast-image";
 
 const fullHeight = Dimensions.get("window").height;
 const fullWidth = Dimensions.get("window").width;
@@ -92,6 +93,12 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
     >
       {isVisibleState && (
         <View style={Lstyles.modalPage}>
+          <FastImage
+            source={require("../assets/images/its-a-match.png")}
+            style={{ position: "absolute", top: 0, height: 200, width: 200 }}
+            // resizeMode={"contain"}
+            resizeMode={FastImage.resizeMode.contain}
+          />
           <View style={Lstyles.imagesContaier}>
             <Animated.View
               style={[
@@ -99,7 +106,7 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
                 { opacity: opacityAnim, translateX: slideFromLeft },
               ]}
             >
-              <Image
+              <FastImage
                 source={
                   state.loginReducer.userData.images[0]
                     ? {
@@ -108,7 +115,18 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
                     : require("../assets/images/image-place-holder.png")
                 }
                 style={Lstyles.MatchedImage}
+                resizeMode={FastImage.resizeMode.cover}
               />
+              {/* <Image
+                source={
+                  state.loginReducer.userData.images[0]
+                    ? {
+                        uri: `${API_URL}/${state.loginReducer.userData.images[0]}`,
+                      }
+                    : require("../assets/images/image-place-holder.png")
+                }
+                style={Lstyles.MatchedImage}
+              /> */}
             </Animated.View>
             <Animated.View
               style={[
@@ -116,7 +134,7 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
                 { opacity: opacityAnim, translateX: slideFromRight },
               ]}
             >
-              <Image
+              <FastImage
                 source={
                   state.exploreReducer.matchesImages[0]
                     ? {
@@ -125,7 +143,18 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
                     : require("../assets/images/image-place-holder.png")
                 }
                 style={Lstyles.MatchedImage}
+                resizeMode={FastImage.resizeMode.cover}
               />
+              {/* <Image
+                source={
+                  state.exploreReducer.matchesImages[0]
+                    ? {
+                        uri: `${API_URL}/${state.exploreReducer.matchesImages[0]}`,
+                      }
+                    : require("../assets/images/image-place-holder.png")
+                }
+                style={Lstyles.MatchedImage}
+              /> */}
             </Animated.View>
           </View>
           <View style={Lstyles.ButtonsContainer}>
@@ -189,6 +218,7 @@ const Lstyles = StyleSheet.create({
     justifyContent: "center",
     // paddingBottom: 100,
     // backgroundColor: "red",
+    position: "relative",
   },
   overlayContainer: {
     position: "absolute",

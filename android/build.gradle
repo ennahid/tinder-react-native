@@ -22,6 +22,7 @@ buildscript {
 }
 
 allprojects {
+    buildDir = "${rootProject.rootDir}/.build/${project.name}"
     repositories {
         google()
         mavenLocal()
@@ -43,6 +44,9 @@ wrapper {
     distributionUrl = distributionUrl.replace("bin", "all")
 }
 
+project.ext {
+    excludeAppGlideModule = true
+}
 // ext {
 //     compileSdkVersion   = 28
 //     targetSdkVersion    = 27

@@ -230,6 +230,7 @@ const ProfileEditor = (props) => {
     setUserData((values) => ({ ...values, newTag: null }));
   };
   const saveSelectedTags = () => {
+    alert("save clicked");
     setUserData((values) => ({
       ...values,
       isOpen: false,
