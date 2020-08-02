@@ -188,11 +188,7 @@ const ProfileEditor = (props) => {
 
   const onSelectTag = (item) => {
     let current = ModalData.currentModalData;
-    // alert(current);
-    // alert(JSON.stringify(ModalData.selectedModalData));
-    // // return;
     let tagIndex = ModalData.selectedModalData[current]?.indexOf(item);
-
     let allselectedTags = { ...ModalData.selectedModalData };
     if (tagIndex === -1) {
       //does not exist
@@ -230,7 +226,6 @@ const ProfileEditor = (props) => {
     setUserData((values) => ({ ...values, newTag: null }));
   };
   const saveSelectedTags = () => {
-    alert("save clicked");
     setUserData((values) => ({
       ...values,
       isOpen: false,
@@ -355,7 +350,7 @@ const ProfileEditor = (props) => {
                             ModalData?.currentModalData
                           ]?.includes(item)}
                           tintColors={{ true: "#FF3E56" }}
-                          // onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                          onValueChange={() => onSelectTag(item)}
                         />
                         <Text style={styles.checkboxText}>{item}</Text>
                       </View>

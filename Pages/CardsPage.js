@@ -207,7 +207,7 @@ const CardsPage = (props) => {
             ></Animated.View>
             <Animated.View
               style={{
-                backgroundColor: "#FF3E5665",
+                backgroundColor: "#FF3E5645",
                 height: fullWidth / 1.5,
                 width: fullWidth / 1.5,
                 borderRadius: 300,
@@ -217,7 +217,7 @@ const CardsPage = (props) => {
             ></Animated.View>
             <Animated.View
               style={{
-                backgroundColor: "#FF3E5655",
+                backgroundColor: "#FF3E5625",
                 height: fullWidth / 1.2,
                 width: fullWidth / 1.2,
                 borderRadius: 300,

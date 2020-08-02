@@ -86,7 +86,7 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
       style={Lstyles.modal}
       useNativeDriver={true}
       backdropColor={"#000"}
-      backdropOpacity={0.6}
+      backdropOpacity={0.9}
       hasBackdrop={true}
       animationIn={"fadeIn"}
       animationOut={"fadeOut"}

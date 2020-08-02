@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createAppContainer } from "react-navigation";
 import Icon from "react-native-vector-icons/Feather";
@@ -84,7 +84,7 @@ const AppNavigation = createBottomTabNavigator(
   },
   {
     // initialRouteName: "Explore",
-    initialRouteName: "Profile",
+    initialRouteName: "Chat",
     tabBarOptions: {
       activeTintColor: "#FF3E56",
       inactiveTintColor: "#bbbbbb",

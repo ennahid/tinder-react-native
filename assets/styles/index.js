@@ -220,19 +220,35 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "row",
     paddingHorizontal: 10,
-    width: DIMENSION_WIDTH - 100,
+    paddingRight: 100,
+    width: DIMENSION_WIDTH,
+    // backgroundColor: "red",
+    // borderColor: "green",
+    // borderWidth: 1,
+  },
+  content: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    // backgroundColor: "blue",
+    height: "100%",
+    width: "100%",
+    paddingVertical: 10,
+    borderBottomColor: "#ececec",
+    borderBottomWidth: 1,
   },
   avatar: {
     borderRadius: 30,
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
     marginRight: 20,
-    marginVertical: 15,
+    marginVertical: 10,
   },
   message: {
-    color: GRAY,
-    fontSize: 12,
-    paddingTop: 5,
+    fontSize: 14,
+    paddingBottom: 5,
+    color: "#000",
+    opacity: 0.4,
+    // borderBottomColor: "#ececec",
   },
 
   // COMPONENT - PROFILE ITEM
@@ -305,11 +321,16 @@ export default StyleSheet.create({
     // height: "30%",
     marginHorizontal: 10,
     flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     // backgroundColor: "red",
   },
-  title: { paddingBottom: 10, fontSize: 22, color: DARK_GRAY },
+  title: {
+    paddingBottom: 10,
+    fontSize: 22,
+    color: DARK_GRAY,
+    fontWeight: "600",
+  },
   icon: {
     fontFamily: ICON_FONT,
     fontSize: 20,
@@ -337,9 +358,9 @@ export default StyleSheet.create({
 
   // CONTAINER - MESSAGES
   containerMessages: {
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     flex: 1,
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
   },
 
   // CONTAINER - PROFILE

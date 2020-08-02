@@ -101,6 +101,7 @@ const Login = (props) => {
               <TextInput
                 style={styles.myInput}
                 placeholder="Password"
+                secureTextEntry={true}
                 placeholderTextColor={"#C7C7CD"}
                 value={login["password"] || ""}
                 onChangeText={(nextValue) =>

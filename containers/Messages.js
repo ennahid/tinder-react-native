@@ -1,52 +1,75 @@
-import React from 'react';
-import styles from '../assets/styles';
-
 import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  View,
-  FlatList
-} from 'react-native';
-import Message from '../components/Message';
-import Icon from '../components/Icon';
-import Demo from '../assets/data/demo.js';
+  createStackNavigator,
+  TransitionPresets,
+} from "react-navigation-stack";
+import Messages from "../Pages/Messages";
+import ChatScreen from "../Pages/ChatScreen";
 
-const Messages = () => {
-  return (
-    <ImageBackground
-      source={require('../assets/images/bg.png')}
-      style={styles.bg}
-    >
-      <View style={styles.containerMessages}>
-        <ScrollView>
-          <View style={styles.top}>
-            <Text style={styles.title}>Messages</Text>
-            <TouchableOpacity>
-              <Text style={styles.icon}>
-                <Icon name="optionsV" />
-              </Text>
-            </TouchableOpacity>
-          </View>
+const MessagesNav = createStackNavigator(
+  {
+    Messages: {
+      screen: Messages,
+      navigationOptions: () => ({
+        headerShown: false,
+      }),
+    },
+    ChatScreen: {
+      screen: ChatScreen,
+      navigationOptions: () => ({
+        headerShown: false,
+      }),
+    },
 
-          <FlatList
-            data={Demo}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity>
-                <Message
-                  image={item.image}
-                  name={item.name}
-                  lastMessage={item.message}
-                />
-              </TouchableOpacity>
-            )}
-          />
-        </ScrollView>
-      </View>
-    </ImageBackground>
-  );
+    // ProfileEditor: {
+    //   screen: ProfileEditor,
+    //   navigationOptions: () => ({
+    //     headerShown: true,
+    //     title: "Profile",
+    //     headerStyle: {
+    //       backgroundColor: "#FF3E56",
+    //       shadowOpacity: 0,
+    //       borderWidth: 0,
+    //     },
+    //     headerTintColor: "#ffff",
+    //     headerTitleStyle: {
+    //       color: "#fff",
+    //     },
+    //   }),
+    // },
+  },
+  {
+    mode: "modal",
+    // headerMode: "none",
+    defaultNavigationOptions: {
+      // animationEnabled: false,
+      ...TransitionPresets.SlideFromRightIOS,
+    },
+    // transitionConfig: () => {
+    //   return {
+    //     transitionSpec: {
+    //       duration: 5000,
+    //     },
+    //   };
+    // },
+  }
+);
+MessagesNav.navigationOptions = ({ navigation }) => {
+  let tabBarVisible;
+  let headerVisible;
+  if (navigation.state.routes.length > 1) {
+    navigation.state.routes.map((route) => {
+      if (route.routeName === "ChatScreen") {
+        tabBarVisible = false;
+        headerVisible = true;
+      } else {
+        tabBarVisible = true;
+      }
+    });
+  }
+  return {
+    tabBarVisible,
+    headerVisible: true,
+  };
 };
 
-export default Messages;
+export default MessagesNav;

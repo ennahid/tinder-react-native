@@ -1,17 +1,27 @@
-import React from 'react';
-import styles from '../assets/styles';
+import React from "react";
+import styles from "../assets/styles";
+import FastImage from "react-native-fast-image";
+import { Text, View, Image, TouchableNativeFeedback } from "react-native";
 
-import { Text, View, Image } from 'react-native';
-
-const Message = ({ image, lastMessage, name }) => {
+const Message = ({ image, lastMessage, name, navigate }) => {
   return (
-    <View style={styles.containerMessage}>
-      <Image source={image} style={styles.avatar} />
-      <View style={styles.content}>
-        <Text>{name}</Text>
-        <Text style={styles.message}>{lastMessage}</Text>
+    <TouchableNativeFeedback onPress={navigate}>
+      <View style={styles.containerMessage}>
+        <FastImage
+          resizeMode={FastImage.resizeMode.cover}
+          source={{ uri: image }}
+          style={styles.avatar}
+        />
+        <View style={styles.content}>
+          <Text style={{ fontWeight: "400", fontSize: 17, color: "#2d2d2d" }}>
+            {name}
+          </Text>
+          <Text numberOfLines={1} style={styles.message}>
+            {lastMessage}
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableNativeFeedback>
   );
 };
 
