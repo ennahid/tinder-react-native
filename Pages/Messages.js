@@ -29,31 +29,36 @@ const Messages = ({ dispatch, state }) => {
         <ScrollView>
           <View style={[styles.top, { marginVertical: 20 }]}>
             <Text style={[styles.title, { margin: 0, paddingBottom: 0 }]}>
-              Messages
+              Messages {JSON.stringify(state.chatReducer.loadingConversations)}
             </Text>
             <Text style={{ fontSize: 11, opacity: 0.7 }}>
               You can find all the people you matched with here.
             </Text>
           </View>
-
-          <FlatList
-            data={state.chatReducer.conversations}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <Message
-                navigate={() =>
-                  navigate("ChatScreen", {
-                    id: item._id,
-                    name: item.name,
-                    image: `${item.images[0]}`,
-                  })
-                }
-                image={API_URL + "/" + item.images[0]}
-                name={item.name}
-                // lastMessage={item.message}
+          {state.chatReducer.conversations &&
+            state.chatReducer.conversations.length > 0 &&
+            state.chatReducer.conversations[0].participants &&
+            state.chatReducer.conversations[0].participants.length > 0 && (
+              <FlatList
+                data={state.chatReducer.conversations}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item, index }) => (
+                  <Message
+                    navigate={() =>
+                      navigate("ChatScreen", {
+                        conversationId: item._id,
+                        id: item.participants[0]._id,
+                        name: item.participants[0].name,
+                        image: `${item.participants[0].images[0]}`,
+                      })
+                    }
+                    image={API_URL + "/" + item.participants[0].images[0]}
+                    name={item.participants[0].name}
+                    // lastMessage={item.message}
+                  />
+                )}
               />
             )}
-          />
         </ScrollView>
       </View>
     </View>

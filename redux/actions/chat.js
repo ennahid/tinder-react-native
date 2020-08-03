@@ -7,7 +7,7 @@ export function getConversations() {
   return function (dispatch) {
     // dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
     // dispatch({ type: "SWIPE_BACK_SUCCESS", payload: direction });
-    // dispatch({ type: "CLIENT_GET_LOADING", payload: true });
+    dispatch({ type: "CHAT_GET_LOADING", payload: true });
     axios({
       method: "get",
       url: `${API_URL}/myapi/chat/conversations`,
@@ -19,15 +19,16 @@ export function getConversations() {
         // alert(JSON.stringify(response));
         if (response?.status === 200 && response.data?.success) {
           // alert(JSON.stringify(response.data.data));
+          dispatch({ type: "CHAT_GET_LOADING", payload: false });
           dispatch({
             type: "CHAT_GET_CONV_SUCCESS",
             payload: response.data?.data,
           });
         } else {
-          dispatch({
-            type: "CHAT_GET_CONV_SUCCESS",
-            payload: response.data?.matches,
-          });
+          // dispatch({
+          //   type: "CHAT_GET_CONV_SUCCESS",
+          //   payload: response.data?.data,
+          // });
         }
       })
       .catch(function (error) {
@@ -42,14 +43,14 @@ export function getConversations() {
   };
 }
 
-export function getMessages(userId) {
+export function getMessages(conversationId, offset) {
   return function (dispatch) {
     // dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
     // dispatch({ type: "SWIPE_BACK_SUCCESS", payload: direction });
     // dispatch({ type: "CLIENT_GET_LOADING", payload: true });
     axios({
       method: "get",
-      url: `${API_URL}/myapi/chat/messages/${userId}`,
+      url: `${API_URL}/myapi/chat/messages/${conversationId}/${offset}`,
       headers: {
         Authorization: "Bearer " + getToken(),
       },
@@ -65,7 +66,7 @@ export function getMessages(userId) {
           // );
           dispatch({
             type: "GET_MESSAGES_SUCCESS",
-            conversationId: response.data?.conversationId,
+            conversationId: conversationId,
             messages: response.data?.data,
           });
         } else {

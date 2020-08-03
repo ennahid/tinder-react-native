@@ -21,6 +21,7 @@ import FastImage from "react-native-fast-image";
 
 const fullHeight = Dimensions.get("window").height;
 const fullWidth = Dimensions.get("window").width;
+
 const CardsPage = (props) => {
   const rippleOne = useRef(new Animated.Value(0)).current;
   const rippleTwo = useRef(new Animated.Value(0)).current;

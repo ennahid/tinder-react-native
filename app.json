@@ -1,6 +1,6 @@
 {
   "name": "tinderReact",
   "displayName": "tinderReact",
-  "API_URL": "https://19cff8af1c72.ngrok.io"
+  "API_URL": "http://bbaece28ae52.ngrok.io"
   // "API_URL": "https://meetside-dating-api.herokuapp.com"
 }

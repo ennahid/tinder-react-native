@@ -27,6 +27,7 @@
     "react-native-card-stack-swiper": "^1.2.4",
     "react-native-datepicker": "^1.7.2",
     "react-native-dialogs": "^1.1.1",
+    "react-native-fast-image": "^ 6.0.3",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-crop-picker": "^0.32.2",
     "react-native-image-picker": "^2.3.2",
@@ -43,12 +44,12 @@
     "react-navigation-shared-element": "^2.3.1",
     "react-navigation-stack": "^2.8.2",
     "react-navigation-tabs": "^2.9.0",
-    "react-native-fast-image": "^ 6.0.3",
     "react-redux": "^6.0.0",
     "redux": "^4.0.5",
     "redux-axios-middleware": "^4.0.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "sync-storage": "^0.4.2"
   },
   "devDependencies": {

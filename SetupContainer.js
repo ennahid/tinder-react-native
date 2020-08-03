@@ -8,16 +8,29 @@ import { getUserIdFromUserData, getToken } from "./token.helper";
 import ProfilePreferences from "./ProfilePreferences";
 import SignUp from "./SignUp";
 import MyLoginNavigation from "./mLoginNavigation";
+import { socket } from "./socket.helper";
 
 const SetupContainer = (props) => {
   // const [currentStep, setCurrentStep] = useState(null);
+
   useEffect(() => {
     props.dispatch({ type: "LOGIN_INIT" });
     props.dispatch({ type: "CLIENT_INIT" });
   }, []);
-  // useEffect(() => {
-  //   setCurrentStep(props?.state?.loginReducer?.step);
-  // }, [props?.state?.loginReducer?.step]);
+  useEffect(() => {
+    if (props.state.loginReducer.loggedIn) {
+      // alert("connect");
+      socket.on("connect", function (data) {});
+      socket.on("disconnect", function (data) {});
+      socket.emit("userInit", {
+        userId: props.state.loginReducer.userData._id,
+      });
+      socket.on("message", function (message) {
+        // alert("got message");
+        props.dispatch({ type: "APPEND_MESSAGE", message: message });
+      });
+    }
+  }, [props.state.loginReducer.loggedIn]);
 
   function switchedComponent(step) {
     // return <Login />;
