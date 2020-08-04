@@ -21,6 +21,7 @@ import {
 import { connect } from "react-redux";
 import { getConversations, getMessages } from "../redux/actions/chat";
 import { socket } from "../socket.helper";
+import moment from "moment";
 
 const fullWidth = Dimensions.get("window").width;
 const ChatScreen = ({ navigation, state, dispatch }) => {
@@ -91,7 +92,7 @@ const ChatScreen = ({ navigation, state, dispatch }) => {
             {navigation.state.params.name}
           </Text>
           <Text style={Lstyles.ChatPageHeaderPersonDesc}>
-            {/* this is my best world here   */}
+            {moment(navigation.state.params.lastSeen).fromNow(true)}
           </Text>
         </View>
       </View>
@@ -118,7 +119,7 @@ const ChatScreen = ({ navigation, state, dispatch }) => {
                 onEndReached={() =>
                   setMyState((values) => ({
                     ...values,
-                    offset: myState.offset + 10,
+                    offset: myState.offset + 15,
                   }))
                 }
                 onEndReachedThreshold={0.1}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../assets/styles";
 
 import {
@@ -18,18 +18,26 @@ import { useNavigation } from "react-navigation-hooks";
 import { connect } from "react-redux";
 import { getConversations } from "../redux/actions/chat";
 import { API_URL } from "../app.json";
+
 const Messages = ({ dispatch, state }) => {
+  const { navigate } = useNavigation();
+  const [myState, setMyState] = useState({ refreshing: false });
   useEffect(() => {
     dispatch(getConversations());
   }, []);
-  const { navigate } = useNavigation();
+  useEffect(() => {
+    if (myState.refreshing && !state.chatReducer.loadingConversations) {
+      setMyState((values) => ({ ...values, refreshing: false }));
+    }
+  }, [state.chatReducer.loadingConversations]);
   return (
     <View style={{ flex: 1, backgroundColor: "#f8f8f8" }}>
       <View style={styles.containerMessages}>
         <ScrollView>
           <View style={[styles.top, { marginVertical: 20 }]}>
             <Text style={[styles.title, { margin: 0, paddingBottom: 0 }]}>
-              Messages {JSON.stringify(state.chatReducer.loadingConversations)}
+              Messages{" "}
+              {state.chatReducer.loadingConversations ? "Loading..." : ""}
             </Text>
             <Text style={{ fontSize: 11, opacity: 0.7 }}>
               You can find all the people you matched with here.
@@ -42,6 +50,11 @@ const Messages = ({ dispatch, state }) => {
               <FlatList
                 data={state.chatReducer.conversations}
                 keyExtractor={(item, index) => index.toString()}
+                onRefresh={() => {
+                  dispatch(getConversations());
+                  setMyState((values) => ({ ...values, refreshing: true }));
+                }}
+                refreshing={myState.refreshing}
                 renderItem={({ item, index }) => (
                   <Message
                     navigate={() =>
@@ -50,11 +63,12 @@ const Messages = ({ dispatch, state }) => {
                         id: item.participants[0]._id,
                         name: item.participants[0].name,
                         image: `${item.participants[0].images[0]}`,
+                        lastSeen: `${item.participants[0].last_seen}`,
                       })
                     }
                     image={API_URL + "/" + item.participants[0].images[0]}
                     name={item.participants[0].name}
-                    // lastMessage={item.message}
+                    lastSeen={item.participants[0].last_seen}
                   />
                 )}
               />
