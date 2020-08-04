@@ -1,22 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import Login from "./Login";
 import { AppContainer } from "./App";
-import { Text } from "react-native";
+import { AppState } from "react-native";
 import ProfileMaker from "./ProfileMaker";
 import { getUserIdFromUserData, getToken } from "./token.helper";
 import ProfilePreferences from "./ProfilePreferences";
 import SignUp from "./SignUp";
 import MyLoginNavigation from "./mLoginNavigation";
 import { socket } from "./socket.helper";
+import { PushNotif } from "./helpers/notification.helper";
 
 const SetupContainer = (props) => {
-  // const [currentStep, setCurrentStep] = useState(null);
+  const appState = useRef(AppState.currentState);
+  const [myState, setMyState] = useState({});
 
   useEffect(() => {
     props.dispatch({ type: "LOGIN_INIT" });
     props.dispatch({ type: "CLIENT_INIT" });
+    AppState.addEventListener("change", _handleAppStateChange);
+    return () => {
+      AppState.removeEventListener("change", _handleAppStateChange);
+    };
   }, []);
+  const _handleAppStateChange = (nextAppState) => {
+    // if (nextAppState) {
+    //   PushNotif(nextAppState, "checkout who it is...😍🤭");
+    // }
+    appState.current = nextAppState;
+    // alert(appState.current);
+    setMyState((values) => ({ ...values, appState: appState.current }));
+    // if (
+    //   appState.current.match(/inactive|background/) &&
+    //   nextAppState === "active"
+    // ) {
+    //   alert("App has come to the foreground!");
+    //   console.log("App has come to the foreground!");
+    // }
+
+    // // setAppStateVisible(appState.current);
+
+    // alert(appState.current);
+    // // console.log("AppState", appState.current);
+  };
   useEffect(() => {
     if (props.state.loginReducer.loggedIn) {
       // alert("connect");
@@ -27,6 +53,9 @@ const SetupContainer = (props) => {
       });
       socket.on("message", function (message) {
         // alert("got message");
+        if (appState.current !== "active") {
+          PushNotif("You have a new message", "checkout who it is...😍🤭");
+        }
         props.dispatch({ type: "APPEND_MESSAGE", message: message });
       });
     }

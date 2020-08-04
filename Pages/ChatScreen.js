@@ -92,7 +92,7 @@ const ChatScreen = ({ navigation, state, dispatch }) => {
             {navigation.state.params.name}
           </Text>
           <Text style={Lstyles.ChatPageHeaderPersonDesc}>
-            {moment(navigation.state.params.lastSeen).fromNow(true)}
+            {moment(navigation.state.params.lastSeen).fromNow(true)} ago
           </Text>
         </View>
       </View>

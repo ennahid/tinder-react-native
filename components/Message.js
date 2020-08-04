@@ -18,7 +18,7 @@ const Message = ({ image, lastSeen, name, navigate }) => {
             {name}
           </Text>
           <Text numberOfLines={1} style={styles.message}>
-            {moment(lastSeen).fromNow(true)}
+            {moment(lastSeen).fromNow(true)} ago
           </Text>
         </View>
       </View>

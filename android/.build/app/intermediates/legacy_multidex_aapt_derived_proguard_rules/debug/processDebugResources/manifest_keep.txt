@@ -1,4 +1,4 @@
-# Referenced at C:\RESKIN\REACT NATIVE\tinder-react-native\android\.build\app\intermediates\merged_manifests\debug\AndroidManifest.xml:23
+# Referenced at C:\RESKIN\REACT NATIVE\tinder-react-native\android\.build\app\intermediates\merged_manifests\debug\AndroidManifest.xml:50
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
-# Referenced at C:\RESKIN\REACT NATIVE\tinder-react-native\android\.build\app\intermediates\merged_manifests\debug\AndroidManifest.xml:23
+# Referenced at C:\RESKIN\REACT NATIVE\tinder-react-native\android\.build\app\intermediates\merged_manifests\debug\AndroidManifest.xml:50
 -keep class com.tinderreact.MainApplication { <init>(); }
