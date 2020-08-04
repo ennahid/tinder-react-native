@@ -57,12 +57,12 @@ const ChatScreen = ({ navigation, state, dispatch }) => {
         reciever: navigation.state.params.id,
         message: myState.messageText.replace(/\s*$|\n*$/, ""),
       };
+      setMyState((values) => ({ ...values, messageText: "" }));
       socket.emit("message", messageObj);
       dispatch({
         type: "APPEND_MESSAGE",
         message: messageObj,
       });
-      setMyState((values) => ({ ...values, messageText: "" }));
     }
   };
   const onMessageTextChange = (text) => {

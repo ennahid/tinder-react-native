@@ -32,7 +32,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     margin: 0,
-    marginTop: 20,
+    marginTop: 10,
     shadowOpacity: 0.05,
     shadowRadius: 13,
     shadowColor: BLACK,
@@ -90,7 +90,7 @@ export default StyleSheet.create({
     width: "100%",
     height: DIMENSION_HEIGHT,
     // backgroundColor: "red",
-    paddingBottom: "15%",
+    paddingBottom: "20%",
     position: "absolute",
     bottom: 0,
     left: 0,
@@ -327,7 +327,7 @@ export default StyleSheet.create({
   },
   title: {
     paddingBottom: 10,
-    fontSize: 22,
+    fontSize: 28,
     color: DARK_GRAY,
     fontWeight: "600",
   },
@@ -535,5 +535,17 @@ export default StyleSheet.create({
   CardItemLocationStyle: {
     // fontStyle: "italic",
     color: "#C4C4C4",
+  },
+  pageHeader: {
+    backgroundColor: "#FF3E56",
+    paddingBottom: 15,
+    paddingTop: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  pageHeaderTitle: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: "600",
   },
 });

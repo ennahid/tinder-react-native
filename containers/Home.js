@@ -1,9 +1,12 @@
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
-
+// import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from "react-navigation-stack";
 import CardsPage from "../Pages/CardsPage";
 import CardsInfoPage from "../Pages/CardsInfoPage";
 
-const MyStack = createSharedElementStackNavigator(
+const MyStack = createStackNavigator(
   {
     CardsPage: {
       screen: CardsPage,
@@ -21,14 +24,15 @@ const MyStack = createSharedElementStackNavigator(
     mode: "modal",
     headerMode: "none",
     defaultNavigationOptions: {
-      cardStyleInterpolator: ({ current: { progress } }) => {
-        const opacity = progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, 1],
-          extrapolate: "clamp",
-        });
-        return { cardStyle: { opacity } };
-      },
+      animationEnabled: false,
+      // cardStyleInterpolator: ({ current: { progress } }) => {
+      //   const opacity = progress.interpolate({
+      //     inputRange: [0, 1],
+      //     outputRange: [0, 1],
+      //     extrapolate: "clamp",
+      //   });
+      //   return { cardStyle: { opacity } };
+      // },
       gestureEnabled: false,
       cardStyle: {
         backgroundColor: "transparent",

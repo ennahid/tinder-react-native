@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, Layout } from "@ui-kitten/components";
-
+import { StatusBar } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-community/async-storage";
 import { createStore, applyMiddleware } from "redux";
@@ -19,7 +19,7 @@ moment().format();
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["loginReducer"],
+  whitelist: ["loginReducer", "chatReducer"],
 };
 
 const client = axios.create({
@@ -44,6 +44,7 @@ export default class App extends Component {
             {/* <Text onPress={() => purgeStoredState(persistConfig)}>
               Clear Cache Now
             </Text> */}
+            <StatusBar backgroundColor="#FF3E56" barStyle={"default"} />
             <SetupContainer />
           </ApplicationProvider>
         </PersistGate>

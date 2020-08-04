@@ -10,6 +10,7 @@ import SignUp from "./SignUp";
 import MyLoginNavigation from "./mLoginNavigation";
 import { socket } from "./socket.helper";
 import { PushNotif } from "./helpers/notification.helper";
+import { getConversations } from "./redux/actions/chat";
 
 const SetupContainer = (props) => {
   const appState = useRef(AppState.currentState);
@@ -57,6 +58,14 @@ const SetupContainer = (props) => {
           PushNotif("You have a new message", "checkout who it is...😍🤭");
         }
         props.dispatch({ type: "APPEND_MESSAGE", message: message });
+      });
+      socket.on("match", function (message) {
+        // alert("got message");
+        PushNotif("You got a new match 🔥", "...😍🤭");
+        props.dispatch(getConversations());
+        if (appState.current !== "active") {
+        }
+        // props.dispatch({ type: "APPEND_MESSAGE", message: message });
       });
     }
   }, [props.state.loginReducer.loggedIn]);

@@ -18,6 +18,7 @@ import { getToken } from "../token.helper";
 import { API_URL } from "../app.json";
 import MatchedModal from "../components/MatchedModal";
 import FastImage from "react-native-fast-image";
+import Header from "../components/Header";
 
 const fullHeight = Dimensions.get("window").height;
 const fullWidth = Dimensions.get("window").width;
@@ -105,30 +106,44 @@ const CardsPage = (props) => {
   };
   // const gSwiper = useRef(null);
   return (
-    <ImageBackground
-      source={require("../assets/images/bg.png")}
-      style={styles.bg}
-    >
-      <View style={styles.containerHome}>
-        <MatchedModal
-          isVisible={props.state.exploreReducer.matches.length > 0}
-          matchs={props.state.exploreReducer.matches}
-          image={require("../assets/images/09.jpg")}
-        />
-        {fullHeight > 700 && (
-          <View style={styles.top}>
-            <Image
-              style={{
-                width: 150,
-                height: 60,
-                resizeMode: "contain",
-              }}
-              source={require("../assets/images/dk.png")}
-            />
-          </View>
-        )}
-        {!props.state.clientsReducer.getLoading &&
-          props.state.exploreReducer.users.length < 1 && (
+    <>
+      <Header title="TANTAN" />
+      <ImageBackground
+        source={require("../assets/images/bg.png")}
+        style={styles.bg}
+      >
+        <View style={styles.containerHome}>
+          <MatchedModal
+            isVisible={props.state.exploreReducer.matches.length > 0}
+            matchs={props.state.exploreReducer.matches}
+            image={require("../assets/images/09.jpg")}
+          />
+          {!props.state.clientsReducer.getLoading &&
+            props.state.exploreReducer.users.length < 1 && (
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: fullHeight - fullHeight / 4,
+                }}
+              >
+                <Image
+                  style={{ opacity: 0.7 }}
+                  source={require("../assets/images/cards.png")}
+                />
+                <Text
+                  style={{ fontSize: 26, fontWeight: "700", marginTop: 20 }}
+                >
+                  Wow, you're a fast swiper 😱
+                </Text>
+                <Text>Please comeback after a few hours to swipe more.</Text>
+              </View>
+            )}
+          {/* {false ? ( */}
+          {!props.state.clientsReducer.getLoading ? (
+            //LLLOOOAAAADDDIIIINNNGGGGG
+            <MyCardStack navigation={props.navigation} />
+          ) : (
             <View
               style={{
                 alignItems: "center",
@@ -136,105 +151,71 @@ const CardsPage = (props) => {
                 height: fullHeight - fullHeight / 4,
               }}
             >
-              <Image
-                style={{ opacity: 0.2 }}
-                source={require("../assets/images/no-cards.png")}
-              />
-              <Text style={{ fontSize: 30, fontWeight: "700", marginTop: 20 }}>
-                No more cards
+              <View
+                style={{
+                  backgroundColor: "#cecece",
+                  marginBottom: 15,
+                  borderRadius: 200,
+                  borderColor: "#fff",
+                  borderWidth: 4,
+                  overflow: "hidden",
+                  position: "absolute",
+                  zIndex: 9,
+                }}
+              >
+                <FastImage
+                  style={{
+                    height: 130,
+                    width: 130,
+                    borderRadius: 150,
+                    borderColor: "#fff",
+                    borderWidth: 0,
+                  }}
+                  source={{
+                    uri: `${API_URL}/${props.state.loginReducer.userData.images[0]}`,
+                  }}
+                  resizeMode={FastImage.resizeMode.cover}
+                />
+              </View>
+              <Animated.View
+                style={{
+                  backgroundColor: "#FF3E5675",
+                  height: fullWidth / 1.9,
+                  width: fullWidth / 1.9,
+                  borderRadius: 300,
+                  opacity: rippleOne,
+                }}
+              ></Animated.View>
+              <Animated.View
+                style={{
+                  backgroundColor: "#FF3E5645",
+                  height: fullWidth / 1.5,
+                  width: fullWidth / 1.5,
+                  borderRadius: 300,
+                  opacity: rippleTwo,
+                  position: "absolute",
+                }}
+              ></Animated.View>
+              <Animated.View
+                style={{
+                  backgroundColor: "#FF3E5625",
+                  height: fullWidth / 1.2,
+                  width: fullWidth / 1.2,
+                  borderRadius: 300,
+                  opacity: rippleThree,
+                  position: "absolute",
+                }}
+              ></Animated.View>
+              <Text
+                style={{ position: "absolute", paddingTop: fullHeight / 1.7 }}
+              >
+                Looking for people around you...
               </Text>
-              <Text>Please comeback after a few hours.</Text>
             </View>
           )}
-        {/* {false ? ( */}
-        {!props.state.clientsReducer.getLoading ? (
-          //LLLOOOAAAADDDIIIINNNGGGGG
-          <MyCardStack navigation={props.navigation} />
-        ) : (
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              height: fullHeight - fullHeight / 4,
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: "#cecece",
-                marginBottom: 15,
-                borderRadius: 200,
-                borderColor: "#fff",
-                borderWidth: 4,
-                overflow: "hidden",
-                position: "absolute",
-                zIndex: 9,
-              }}
-            >
-              <FastImage
-                style={{
-                  height: 130,
-                  width: 130,
-                  borderRadius: 150,
-                  borderColor: "#fff",
-                  borderWidth: 0,
-                }}
-                source={{
-                  uri: `${API_URL}/${props.state.loginReducer.userData.images[0]}`,
-                }}
-                resizeMode={FastImage.resizeMode.cover}
-              />
-              {/* <Image
-                style={{
-                  height: 130,
-                  width: 130,
-                  borderRadius: 150,
-                  borderColor: "#fff",
-                  borderWidth: 0,
-                }}
-                resizeMode="cover"
-                source={{
-                  uri: `${API_URL}/${props.state.loginReducer.userData.images[0]}`,
-                }}
-              /> */}
-            </View>
-            <Animated.View
-              style={{
-                backgroundColor: "#FF3E5675",
-                height: fullWidth / 1.9,
-                width: fullWidth / 1.9,
-                borderRadius: 300,
-                opacity: rippleOne,
-              }}
-            ></Animated.View>
-            <Animated.View
-              style={{
-                backgroundColor: "#FF3E5645",
-                height: fullWidth / 1.5,
-                width: fullWidth / 1.5,
-                borderRadius: 300,
-                opacity: rippleTwo,
-                position: "absolute",
-              }}
-            ></Animated.View>
-            <Animated.View
-              style={{
-                backgroundColor: "#FF3E5625",
-                height: fullWidth / 1.2,
-                width: fullWidth / 1.2,
-                borderRadius: 300,
-                opacity: rippleThree,
-                position: "absolute",
-              }}
-            ></Animated.View>
-            <Text
-              style={{ position: "absolute", paddingTop: fullHeight / 1.7 }}
-            >
-              Looking for people around you...
-            </Text>
-          </View>
-        )}
-      </View>
-    </ImageBackground>
+        </View>
+      </ImageBackground>
+    </>
   );
 };
 

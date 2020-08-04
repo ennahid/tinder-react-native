@@ -404,6 +404,7 @@ const CardsInfoPage = ({ state }) => {
               </View>
             </>
           )}
+          <View style={{ height: 50 }}></View>
         </View>
       </ScrollView>
     </View>
@@ -507,11 +508,6 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
 });
-
-CardsInfoPage.sharedElements = (navigation, otherNavigation, showing) => {
-  const item = navigation.getParam("index");
-  return [{ index: item, animation: "move" }];
-};
 
 const mapStateToProps = (state) => {
   // Redux Store --> Component

@@ -14,7 +14,14 @@ const Message = ({ image, lastSeen, name, navigate }) => {
           style={styles.avatar}
         />
         <View style={styles.content}>
-          <Text style={{ fontWeight: "400", fontSize: 17, color: "#2d2d2d" }}>
+          <Text
+            style={{
+              fontWeight: "500",
+              marginTop: 3,
+              fontSize: 18,
+              color: "#484848",
+            }}
+          >
             {name}
           </Text>
           <Text numberOfLines={1} style={styles.message}>
