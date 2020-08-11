@@ -29,6 +29,7 @@ const CardItem = ({
   name,
   birthday,
   _id,
+  onSaveItem,
   person,
   matches,
   onPressLeft,
@@ -86,29 +87,6 @@ const CardItem = ({
           })
         }
       >
-        {/* <Text>Navigate</Text> */}
-        {/* // source={{
-          //   uri: `https://img.freepik.com/free-vector/business-people-organization-office-freelance-job-character_40876-1291.jpg?size=338&ext=jpg`,
-          // }} */}
-        {/* <SharedElement id={index}> */}
-        {/* <Image
-            // source={Demo[3].image}
-            source={
-              state.exploreReducer.mcarousselCurrentImageId[_id]
-                ? {
-                    uri: `${API_URL}/${
-                      images[state.exploreReducer.mcarousselCurrentImageId[_id]]
-                        ? images[
-                            state.exploreReducer.mcarousselCurrentImageId[_id]
-                          ]
-                        : ""
-                    }`,
-                  }
-                : { uri: `${API_URL}/${images[0] ? images[0] : ""}` }
-            }
-            style={imageStyle}
-            resizeMode={"cover"}
-          /> */}
         <FastImage
           style={imageStyle}
           source={
@@ -130,63 +108,26 @@ const CardItem = ({
           }
           resizeMode={FastImage.resizeMode.cover}
         />
-        <FastImage
-          style={{ display: "none" }}
-          source={{
-            uri: `${API_URL}/${images[1] ? images[1] : ""}`,
-            priority: FastImage.priority.high,
-          }}
-          resizeMode={FastImage.resizeMode.cover}
-        />
-        <FastImage
-          style={{ display: "none" }}
-          source={{
-            uri: `${API_URL}/${images[2] ? images[2] : ""}`,
-            priority: FastImage.priority.high,
-          }}
-          resizeMode={FastImage.resizeMode.cover}
-        />
-        {/* </SharedElement> */}
       </TouchableWithoutFeedback>
-
-      {/* MATCHES */}
-      {/* {matches && (
-        <View style={styles.matchesCardItem}>
-          <Text style={styles.matchesTextCardItem}>
-            <Icon name="heart" /> {matches}% Match!
-          </Text>
-        </View>
-      )} */}
-
       {/* NAME */}
       <View style={Gstyles.CardItemProfileInfo}>
-        <Text style={Gstyles.CardItemNameStyle}>
-          {name || ""}, {moment().diff(birthday, "years")}
-        </Text>
-
-        {/* <Text style={Lstyles.locationStyle}>{API_URL + "/" + image}</Text> */}
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={[Gstyles.CardItemNameStyle, { maxWidth: "85%" }]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {name || ""}
+          </Text>
+          <Text style={Gstyles.CardItemNameStyle}>
+            {", "}
+            {moment().diff(birthday, "years")}
+          </Text>
+        </View>
         <Text style={Gstyles.CardItemLocationStyle}>
           <IIcon name={"location-outline"} /> Casablanca
         </Text>
-        {/* <Text style={Gstyles.CardItemLocationStyle}>
-          {state.exploreReducer.currentInex}
-        </Text> */}
-        {/* <Text style={Gstyles.CardItemLocationStyle}>{index}</Text> */}
       </View>
-
-      {/* DESCRIPTION */}
-      {/* {fullHeight > 700 && description && (
-        <Text style={styles.descriptionCardItem}>v</Text>
-        // <Text style={styles.descriptionCardItem}>{description}</Text>
-      )} */}
-
-      {/* STATUS */}
-      {/* {status && (
-        <View style={styles.status}>
-          <View style={status === "Online" ? styles.online : styles.offline} />
-          <Text style={styles.statusText}>{status}</Text>
-        </View>
-      )} */}
     </View>
   );
 };

@@ -83,8 +83,8 @@ const AppNavigation = createBottomTabNavigator(
     },
   },
   {
-    // initialRouteName: "Explore",
-    initialRouteName: "Chat",
+    initialRouteName: "Explore",
+    // initialRouteName: "Profile",
     tabBarOptions: {
       activeTintColor: "#FF3E56",
       inactiveTintColor: "#bbbbbb",

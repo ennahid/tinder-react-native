@@ -61,10 +61,8 @@ const SetupContainer = (props) => {
       });
       socket.on("match", function (message) {
         // alert("got message");
-        PushNotif("You got a new match 🔥", "...😍🤭");
+        PushNotif("You got a new match 🔥", "Find out who...😍🤭");
         props.dispatch(getConversations());
-        if (appState.current !== "active") {
-        }
         // props.dispatch({ type: "APPEND_MESSAGE", message: message });
       });
     }

@@ -19,6 +19,7 @@ moment().format();
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
+  // whitelist: ["loginReducer"],
   whitelist: ["loginReducer", "chatReducer"],
 };
 

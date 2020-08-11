@@ -6,6 +6,7 @@ const initialState = {
   lastSwipe: null,
   matches: [],
   matchesImages: [],
+  matchesList: [],
   mcarousselCurrentImageId: [], //mcaroussel images index
 };
 
@@ -79,6 +80,16 @@ export default function exploreReducer(state = initialState, action) {
 
         lastSwipes: state.lastSwipes.slice(0, -1),
         lastSwipe: myLastSwipesArray1[myLastSwipesArray1.length - 1],
+      };
+    case types.GET_MATCHES_SUCCESS:
+      // alert(JSON.stringify(action.payload));
+      return {
+        ...state,
+        matchesList: action.payload
+          ? action.payload.matches
+            ? action.payload.matches
+            : []
+          : [],
       };
     case types.CAROUSSEL_SWIPE:
       // alert(JSON.stringify(state.mcarousselCurrentImageId));

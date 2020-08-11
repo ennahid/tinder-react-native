@@ -20,15 +20,10 @@ import {
 import { set } from "react-native-reanimated";
 
 const MyCardSwipers = ({ state, dispatch, swiper, position }) => {
-  const [lastSwipeDirection, setLastSwipeDirection] = useState([]);
+  const [myState, setMyState] = useState({ saved: false });
   const [isSwiping, setIsSwiping] = useState(true);
-  useEffect(() => {
-    // setTimeout(() => setIsSwiping(true), 300);
-    // return () => {
-    //   setIsSwiping(true);
-    // };
-  }, [isSwiping]);
   const swipeAction = (direction) => {
+    setMyState({ saved: false });
     if (isSwiping === true && swiper) {
       // setIsSwiping(false);
       switch (direction) {
@@ -73,12 +68,15 @@ const MyCardSwipers = ({ state, dispatch, swiper, position }) => {
         <View style={styles.miniButtonBorder}>
           <TouchableOpacity
             style={styles.miniButton}
-            // onPress={() => swipeAction("top")}
-            onPress={() => dispatch(DeleteAllDislikes())}
+            // onPress={() => swiper.swipeBottom()}
+            // onPress={() =>}
+            onPress={() => {
+              setMyState({ saved: !myState.saved });
+              dispatch(DeleteAllDislikes());
+            }}
           >
             <Text style={styles.star}>
-              {/* <VIcon name="flash" style={{ fontSize: 20 }} /> */}
-              <AIcon name={"star"} size={20} />
+              <AIcon name={myState.saved ? "star" : "staro"} size={20} />
             </Text>
           </TouchableOpacity>
         </View>

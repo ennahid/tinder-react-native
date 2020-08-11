@@ -4,6 +4,8 @@ import {
 } from "react-navigation-stack";
 import ProfilePage from "../Pages/ProfilePage";
 import ProfileEditor from "../Pages/ProfileEditor";
+import SeetingsPage from "../SeetingsPage";
+import ProfileInfoPage from "../ProfileInfoPage";
 
 const Profile = createStackNavigator(
   {
@@ -11,6 +13,38 @@ const Profile = createStackNavigator(
       screen: ProfilePage,
       navigationOptions: () => ({
         headerShown: false,
+      }),
+    },
+    SeetingsPage: {
+      screen: SeetingsPage,
+      navigationOptions: () => ({
+        headerShown: true,
+        title: "Discovery Settings",
+        headerStyle: {
+          backgroundColor: "#FF3E56",
+          shadowOpacity: 0,
+          borderWidth: 0,
+        },
+        headerTintColor: "#ffff",
+        headerTitleStyle: {
+          color: "#fff",
+        },
+      }),
+    },
+    ProfileInfoPage: {
+      screen: ProfileInfoPage,
+      navigationOptions: () => ({
+        headerShown: true,
+        title: "Personal Info",
+        headerStyle: {
+          backgroundColor: "#FF3E56",
+          shadowOpacity: 0,
+          borderWidth: 0,
+        },
+        headerTintColor: "#ffff",
+        headerTitleStyle: {
+          color: "#fff",
+        },
       }),
     },
     ProfileEditor: {
@@ -37,21 +71,6 @@ const Profile = createStackNavigator(
       // animationEnabled: false,
       ...TransitionPresets.SlideFromRightIOS,
     },
-
-    // defaultNavigationOptions: {
-    //   cardStyleInterpolator: ({ current: { progress } }) => {
-    //     const opacity = progress.interpolate({
-    //       inputRange: [0, 1],
-    //       outputRange: [0, 1],
-    //       extrapolate: "clamp",
-    //     });
-    //     return { cardStyle: { opacity } };
-    //   },
-    //   gestureEnabled: false,
-    //   cardStyle: {
-    //     backgroundColor: "transparent",
-    //   },
-    // },
   }
 );
 Profile.navigationOptions = ({ navigation }) => {
@@ -59,7 +78,11 @@ Profile.navigationOptions = ({ navigation }) => {
   let headerVisible;
   if (navigation.state.routes.length > 1) {
     navigation.state.routes.map((route) => {
-      if (route.routeName === "ProfileEditor") {
+      if (
+        route.routeName === "ProfileEditor" ||
+        route.routeName === "SeetingsPage" ||
+        route.routeName === "ProfileInfoPage"
+      ) {
         tabBarVisible = false;
         headerVisible = true;
       } else {

@@ -123,3 +123,33 @@ export function onMatchViewed() {
     dispatch({ type: "MATCH_VIEWED" });
   };
 }
+
+export function getMatches(myToken) {
+  return function (dispatch) {
+    dispatch({ type: "CLIENT_GET_LOADING", payload: true });
+    axios({
+      method: "get",
+      url: `${API_URL}/myapi/clients/matches`,
+      headers: {
+        Authorization: "Bearer " + getToken(),
+      },
+    })
+      .then(function (response) {
+        if (response?.status === 200 && response.data?.success) {
+          dispatch({
+            type: "GET_MATCHES_SUCCESS",
+            payload: response?.data.data,
+          });
+        }
+      })
+      .catch(function (error) {
+        dispatch({
+          type: "CLIENT_DATA_ERROR",
+          payload: error,
+        });
+      })
+      .finally(() => {
+        dispatch({ type: "CLIENT_GET_LOADING", payload: false });
+      });
+  };
+}

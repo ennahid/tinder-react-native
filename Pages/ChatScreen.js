@@ -19,7 +19,7 @@ import {
   FlatList,
 } from "react-native";
 import { connect } from "react-redux";
-import { getConversations, getMessages } from "../redux/actions/chat";
+import { setMessagesAsSeen, getMessages } from "../redux/actions/chat";
 import { socket } from "../socket.helper";
 import moment from "moment";
 
@@ -33,10 +33,13 @@ const ChatScreen = ({ navigation, state, dispatch }) => {
     changed: false,
   });
   useEffect(() => {
-    console.log("HHEELLO BABY");
-    dispatch(
-      getMessages(navigation.state.params.conversationId, myState.offset)
-    );
+    // console.log("OOFFSET : " + myState.offset);
+    if (!state.chatReducer.messages[navigation.state.params.conversationId]) {
+      dispatch(
+        getMessages(navigation.state.params.conversationId, myState.offset)
+      );
+    }
+    dispatch(setMessagesAsSeen(navigation.state.params.conversationId));
   }, []);
   useEffect(() => {
     setMyState((values) => ({ ...values, changed: !myState.changed }));
@@ -104,7 +107,7 @@ const ChatScreen = ({ navigation, state, dispatch }) => {
       >
         <SafeAreaView>
           <KeyboardAvoidingView enabled>
-            {/* <Text>{JSON.stringify(state.chatReducer.messages, null, 1)}</Text> */}
+            {/* <Text>{JSON.stringify(navigation.state.params, null, 1)}</Text> */}
             {/* {[...Array(3)].map((item, index) => ( */}
             {state.chatReducer.messages[
               navigation.state.params.conversationId
@@ -116,13 +119,22 @@ const ChatScreen = ({ navigation, state, dispatch }) => {
                 ref={(ref) => {
                   myScrollView = ref;
                 }}
-                onEndReached={() =>
+                onMomentumScrollBegin={() => {
                   setMyState((values) => ({
                     ...values,
-                    offset: myState.offset + 15,
-                  }))
-                }
-                onEndReachedThreshold={0.1}
+                    onEndReachedCalledDuringMomentum: false,
+                  }));
+                }}
+                onEndReached={({ distanceFromEnd }) => {
+                  if (!myState.onEndReachedCalledDuringMomentum) {
+                    setMyState((values) => ({
+                      ...values,
+                      offset: myState.offset + 15,
+                      onEndReachedCalledDuringMomentum: true,
+                    }));
+                  }
+                }}
+                onEndReachedThreshold={1}
                 data={
                   state.chatReducer.messages[
                     navigation.state.params.conversationId

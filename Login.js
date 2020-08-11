@@ -156,7 +156,7 @@ const Lstyles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 25,
     // backgroundColor: "red",
-    height: fullHeaight,
+    height: fullHeaight - 20,
     //
   },
   loginHead: {

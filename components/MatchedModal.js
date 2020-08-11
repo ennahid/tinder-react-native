@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Animated,
 } from "react-native";
+import { useNavigation } from "react-navigation-hooks";
 import Icon from "./Icon";
 import { API_URL } from "../app.json";
 import { connect } from "react-redux";
@@ -31,6 +32,7 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
   const slideButtonFromRight = useRef(new Animated.Value(fullWidth / 20))
     .current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
+  const { navigate } = useNavigation();
   useEffect(() => {
     if (!isVisibleState) {
       slideFromLeft.setValue(-fullWidth / 20);
@@ -165,7 +167,10 @@ const MatchedModal = ({ matches, image, dispatch, state }) => {
               ]}
             >
               <TouchableHighlight
-                onPress={() => CloseModal()}
+                onPress={() => {
+                  CloseModal();
+                  navigate("Messages");
+                }}
                 style={styles.primaryButton}
               >
                 <Text style={styles.buttonText}>LET'S CHAT</Text>

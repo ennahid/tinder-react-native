@@ -1,54 +1,75 @@
-import React from "react";
-import styles from "../assets/styles";
-
 import {
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  FlatList,
-} from "react-native";
-import CardItem from "../components/CardItem";
-import Icon from "../components/Icon";
-import Demo from "../assets/data/demo.js";
+  createStackNavigator,
+  TransitionPresets,
+} from "react-navigation-stack";
+import MatchesPage from "../Pages/MatchesPage";
+import MatchInfoPage from "../Pages/MatchInfoPage";
 
-const Matches = () => {
-  return (
-    <ImageBackground
-      source={require("../assets/images/bg.png")}
-      style={styles.bg}
-    >
-      <View style={styles.containerMatches}>
-        <ScrollView>
-          <View style={styles.top}>
-            <Text style={styles.title}>Matches</Text>
-            <TouchableOpacity>
-              <Text style={styles.icon}>
-                <Icon name="optionsV" />
-              </Text>
-            </TouchableOpacity>
-          </View>
+const MatchNav = createStackNavigator(
+  {
+    Matches: {
+      screen: MatchesPage,
+      navigationOptions: () => ({
+        headerShown: false,
+      }),
+    },
+    MatchInfoPage: {
+      screen: MatchInfoPage,
+      navigationOptions: () => ({
+        headerShown: false,
+      }),
+    },
 
-          <FlatList
-            numColumns={2}
-            data={Demo}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity>
-                {/* <CardItem
-                  image={item.image}
-                  name={item.name}
-                  status={item.status}
-                  variant
-                /> */}
-              </TouchableOpacity>
-            )}
-          />
-        </ScrollView>
-      </View>
-    </ImageBackground>
-  );
+    // ProfileEditor: {
+    //   screen: ProfileEditor,
+    //   navigationOptions: () => ({
+    //     headerShown: true,
+    //     title: "Profile",
+    //     headerStyle: {
+    //       backgroundColor: "#FF3E56",
+    //       shadowOpacity: 0,
+    //       borderWidth: 0,
+    //     },
+    //     headerTintColor: "#ffff",
+    //     headerTitleStyle: {
+    //       color: "#fff",
+    //     },
+    //   }),
+    // },
+  },
+  {
+    mode: "modal",
+    // headerMode: "none",
+    defaultNavigationOptions: {
+      // animationEnabled: false,
+      ...TransitionPresets.SlideFromRightIOS,
+    },
+    // transitionConfig: () => {
+    //   return {
+    //     transitionSpec: {
+    //       duration: 5000,
+    //     },
+    //   };
+    // },
+  }
+);
+MatchNav.navigationOptions = ({ navigation }) => {
+  let tabBarVisible;
+  let headerVisible;
+  if (navigation.state.routes.length > 1) {
+    navigation.state.routes.map((route) => {
+      if (route.routeName === "MatchInfoPage") {
+        tabBarVisible = false;
+        headerVisible = true;
+      } else {
+        tabBarVisible = true;
+      }
+    });
+  }
+  return {
+    tabBarVisible,
+    headerVisible: true,
+  };
 };
 
-export default Matches;
+export default MatchNav;

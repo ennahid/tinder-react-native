@@ -17,6 +17,7 @@ import FIcon from "react-native-vector-icons/dist/Feather";
 import IIcon from "react-native-vector-icons/dist/Ionicons";
 import { API_URL } from "../app.json";
 const fullWidth = Dimensions.get("window").width;
+
 const ButtonWIthIcon = ({
   bgColor,
   name,
@@ -24,6 +25,7 @@ const ButtonWIthIcon = ({
   children,
   navigateTo,
 }) => {
+  const { navigate, isFocused } = useNavigation();
   return (
     <TouchableNativeFeedback
       onPress={() => (navigateTo ? navigate(navigateTo) : null)}
@@ -102,10 +104,15 @@ const ProfilePage = (props) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <ButtonWIthIcon name={"Settings"} description="Edit your prefrences">
+      <ButtonWIthIcon
+        navigateTo={"SeetingsPage"}
+        name={"Settings"}
+        description="Edit your prefrences"
+      >
         <FIcon size={15} name={"settings"} color={"#fff"} />
       </ButtonWIthIcon>
       <ButtonWIthIcon
+        navigateTo={"ProfileInfoPage"}
         bgColor={"#259bff"}
         name={"Profile"}
         description="Edit name, birthday"

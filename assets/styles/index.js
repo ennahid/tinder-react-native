@@ -222,6 +222,7 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     paddingRight: 100,
     width: DIMENSION_WIDTH,
+    position: "relative",
     // backgroundColor: "red",
     // borderColor: "green",
     // borderWidth: 1,

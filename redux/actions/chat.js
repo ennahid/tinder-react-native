@@ -25,29 +25,26 @@ export function getConversations() {
             payload: response.data?.data,
           });
         } else {
-          // dispatch({
-          //   type: "CHAT_GET_CONV_SUCCESS",
-          //   payload: response.data?.data,
-          // });
+          dispatch({
+            type: "CLIENT_ERROR",
+            payload: "Oops, something went wrong...",
+          });
         }
       })
       .catch(function (error) {
         dispatch({
-          type: "CLIENT_DATA_ERROR",
-          payload: error,
+          type: "CLIENT_ERROR",
+          payload: "Oops, something went wrong...",
         });
       })
       .finally(() => {
-        dispatch({ type: "CLIENT_GET_LOADING", payload: false });
+        dispatch({ type: "CHAT_GET_LOADING", payload: false });
       });
   };
 }
 
 export function getMessages(conversationId, offset) {
   return function (dispatch) {
-    // dispatch({ type: "SWIPE_SUCCESS", direction: direction, userId: userId });
-    // dispatch({ type: "SWIPE_BACK_SUCCESS", payload: direction });
-    // dispatch({ type: "CLIENT_GET_LOADING", payload: true });
     axios({
       method: "get",
       url: `${API_URL}/myapi/chat/messages/${conversationId}/${offset}`,
@@ -56,14 +53,7 @@ export function getMessages(conversationId, offset) {
       },
     })
       .then(function (response) {
-        // alert(JSON.stringify(response));
         if (response?.status === 200 && response.data?.success) {
-          // alert(
-          //   JSON.stringify({
-          //     conversationId: response.data?.conversationId,
-          //     messages: response.data?.data,
-          //   })
-          // );
           dispatch({
             type: "GET_MESSAGES_SUCCESS",
             conversationId: conversationId,
@@ -71,15 +61,49 @@ export function getMessages(conversationId, offset) {
           });
         } else {
           dispatch({
-            type: "CHAT_GET_CONV_SUCCESS",
-            payload: response.data?.matches,
+            type: "CLIENT_ERROR",
+            payload: "Oops, something went wrong...",
           });
         }
       })
       .catch(function (error) {
         dispatch({
-          type: "CLIENT_DATA_ERROR",
-          payload: error,
+          type: "CLIENT_ERROR",
+          payload: "Oops, something went wrong...",
+        });
+      })
+      .finally(() => {
+        dispatch({ type: "CLIENT_GET_LOADING", payload: false });
+      });
+  };
+}
+
+export function setMessagesAsSeen(conversationId) {
+  return function (dispatch) {
+    dispatch({
+      type: "SET_CONVERSATION_SEEN",
+      conversationId: conversationId,
+    });
+    axios({
+      method: "post",
+      url: `${API_URL}/myapi/chat/messages/seen/${conversationId}`,
+      headers: {
+        Authorization: "Bearer " + getToken(),
+      },
+    })
+      .then(function (response) {
+        if (response?.status === 200 && response.data?.success) {
+        } else {
+          dispatch({
+            type: "CLIENT_ERROR",
+            payload: "Oops, something went wrong...",
+          });
+        }
+      })
+      .catch(function (error) {
+        dispatch({
+          type: "CLIENT_ERROR",
+          payload: "Oops, something went wrong...",
         });
       })
       .finally(() => {

@@ -107,7 +107,7 @@ const CardsPage = (props) => {
   // const gSwiper = useRef(null);
   return (
     <>
-      <Header title="TANTAN" />
+      <Header title="Yamoory" />
       <ImageBackground
         source={require("../assets/images/bg.png")}
         style={styles.bg}
@@ -132,11 +132,13 @@ const CardsPage = (props) => {
                   source={require("../assets/images/cards.png")}
                 />
                 <Text
-                  style={{ fontSize: 26, fontWeight: "700", marginTop: 20 }}
+                  style={{ fontSize: 24, fontWeight: "700", marginTop: 20 }}
                 >
                   Wow, you're a fast swiper 😱
                 </Text>
-                <Text>Please comeback after a few hours to swipe more.</Text>
+                <Text style={{ fontSize: 13, opacity: 0.8, marginTop: 5 }}>
+                  Please comeback in a few hours to swipe some more.
+                </Text>
               </View>
             )}
           {/* {false ? ( */}

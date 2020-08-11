@@ -36,3 +36,7 @@ export const PushNotif = (Title, Message) =>
     title: Title || "People are swiping near you ", // (optional)
     message: Message || "Find out who...😍🤫", // (required)
   });
+
+export const RemoveAllNotif = () => {
+  PushNotification.removeAllDeliveredNotifications();
+};

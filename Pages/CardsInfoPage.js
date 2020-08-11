@@ -82,7 +82,12 @@ const CardsInfoPage = ({ state }) => {
                   <View style={{ paddingRight: 20 }}>
                     <FIcon name={"edit"} color={"#89989b"} size={20} />
                   </View>
-                  <Text style={[styles.sectionInfo, { textTransform: "none" }]}>
+                  <Text
+                    style={[
+                      styles.sectionInfo,
+                      { textTransform: "none", paddingRight: 25 },
+                    ]}
+                  >
                     {state.exploreReducer.users[getParam("index")].bio || ""}
                   </Text>
                 </View>
